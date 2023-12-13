@@ -1,7 +1,6 @@
 ﻿#include <iostream>
 using namespace std;
 
-
 int main()
 {
     //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
@@ -20,5 +19,5 @@ int main()
     n = i ^ (0b01111111111111111111111111111111);
     cout << n << endl;
 
-    return 0;
+    return true;
 }
