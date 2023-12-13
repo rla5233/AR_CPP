@@ -40,17 +40,9 @@ void CountRoom(int n, int m)
     cout << count << "\n";
 }
 
-bool CheckRoom(int n)
-{
-    vector<bool> v(10, false);
-    string temp = to_string(n);
-    for (int j = 0; j < temp.length(); j++)
-    {
-        if (!v[temp[j] - '0'])
-            v[temp[j] - '0'] = true;
-        else
-            return false;
-    }
+    // int 최소값
+    //n = i ^ (0b01111111111111111111111111111111);
+    //cout << n << endl;
 
     return true;
 }
