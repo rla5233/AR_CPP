@@ -4,7 +4,7 @@ using namespace std;
 int main()
 {
     //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    // 커밋 복구 중
+    //다시 커밋 해보기
     int i = ~0;
     cout << i << endl;
 
@@ -19,5 +19,5 @@ int main()
     n = i ^ (0b01111111111111111111111111111111);
     cout << n << endl;
 
-    return 0;
+    return true;
 }
