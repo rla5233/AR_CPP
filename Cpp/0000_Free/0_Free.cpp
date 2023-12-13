@@ -19,5 +19,5 @@ int main()
     n = i ^ (0b01111111111111111111111111111111);
     cout << n << endl;
 
-    return true;
+    return 0;
 }
