@@ -4,6 +4,7 @@ using namespace std;
 int main()
 {
     //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+    //다시 커밋 해보기
     int i = ~0;
     cout << i << endl;
 
