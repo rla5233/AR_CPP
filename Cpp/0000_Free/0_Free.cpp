@@ -1,23 +1,28 @@
 ﻿#include <iostream>
+#include <string>
 using namespace std;
+
+int GM_MaxNumber(int _N);
 
 int main()
 {
     //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-    //다시 커밋 해보기
-    int i = ~0;
-    cout << i << endl;
+    int N;
+    cin >> N;
 
-    // int 최대값
-    int n = i ^ (1 << 31);
-    cout << n << endl;
+    cout << GM_MaxNumber(N);
 
-    n = i & 0b01111111111111111111111111111111;
-    cout << n << endl;
+    return 0;
+}
 
-    // int 최소값
-    n = i ^ (0b01111111111111111111111111111111);
-    cout << n << endl;
+int GM_MaxNumber(int _N)
+{
+    string s;
+    for (int i = _N; i >= 4; i--)
+    {
+        s = to_string(i);
+
+    }
 
     return 0;
 }

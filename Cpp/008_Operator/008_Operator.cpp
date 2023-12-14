@@ -122,6 +122,12 @@ int main()
     // 5. 복합 할당 연산자
     // 6. 멤버, 포인터 연산자
     // 7. 기타 연산자
+    {
+        // 특정 자료형의 바이트 크기를 확인할 수 있는 연산자
+        int intSize = sizeof(int);
+
+        int PtrSize = sizeof(int*);
+    }
     // 
 
 }
