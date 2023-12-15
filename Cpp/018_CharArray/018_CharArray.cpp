@@ -21,5 +21,4 @@ int main()
 
         printf_s(String1);
     }
-
 }
