@@ -9,7 +9,7 @@ int StringCount(char* _Ptr)
     int count = 0;
     while (_Ptr[count])
     {
-        count++;
+        ++count;
     }
 
     return count;
