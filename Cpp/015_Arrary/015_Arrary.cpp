@@ -45,6 +45,7 @@ int main()
         int MonsterHps[5] = { 11, 22, 33, 44 ,55 };
 
         // int*    int[]
+        // int[] -> int* 으로 암시적 형변환
         int* Ptr = MonsterHps;
 
         // 배열이 사용할 수 있는 문법은 포인터도 사용할 수 있다.
