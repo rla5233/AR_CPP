@@ -21,9 +21,9 @@ void StringReverse(char* _Ptr)
     int length = StringCount(_Ptr);
     for (int i = 0; i < length / 2; i++)
     {
-        char tmp = _Ptr[length - 1 - i];
+        char temp = _Ptr[length - 1 - i];
         _Ptr[length - 1 - i] = _Ptr[i];
-        _Ptr[i] = tmp;
+        _Ptr[i] = temp;
     }
 }
 

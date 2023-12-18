@@ -8,7 +8,7 @@
 // 이 함수가 실행된 위치에 이 함수의 내용을 복사하고
 // 함수자체는 지워버린다.
 // inline -> 치환 해줄수 있니?
-inline int Test()
+inline int /*_cdecl*/ Test()
 {
     return 1 + 1;
 }
@@ -19,14 +19,16 @@ int main()
     // 내부 내용이 C스타일로 짜여져 있다.
 
     // extern "C"                   : 이 부분을 컴파일 C스타일로 컴파일 해줘.
-    // inline 
+    // inline                       : 함수를 치환 해줄수 있나?
     // int                          : 리턴값
-    // __cdecl 
+    // __cdecl                      : 함수 호출 규약
     // printf                       : 함수 이름
     // (    
-    // const char* _Format, const
-    // ...                          : 음...?
+    // const char* _Format,         : const - 수정 할 수 없다!
+    // ...                          : 가변인자
     // );
 
-    printf();
+    int a = printf_s("123");
+
+    int b = 0;
 }
