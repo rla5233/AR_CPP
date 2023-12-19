@@ -1,87 +1,43 @@
 ﻿#include <iostream>
 #include <vector>
-#include <algorithm>
+
 using namespace std;
 
-void FinalWinner();
-void CardInput(vector<vector<int>>& _Card, int _N, int _M);
-void FindWinner(vector<int>& _Score);
+void ColorPaper();
+void SetPaper(vector<vector<int>>& _Board, int _Number);
 
-// 12756
+// 10163
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-	FinalWinner();
+	ColorPaper();
 
 	return 0;
 }
 
-void FinalWinner()
+void ColorPaper()
 {
-	int N = 0, M = 0;
-	cin >> N >> M;
+	int N = 0;
+	cin >> N;
 
-	vector<vector<int>> Card;
-	CardInput(Card, N, M);
-
-	vector<int> Score(N);
-	for (int i = 0; i < M; ++i)
+	vector<vector<int>> Board(1001, vector<int>(1001));
+	for (int i = 1; i <= N; ++i)
 	{
-		int max = 0;
-		for (int j = 0; j < Card.size(); j++)
-		{
-			if (max < Card[j][i])
-			{
-				max = Card[j][i];
-			}
-		}
+		SetPaper(Board, i);
+	}
+}
+
+void SetPaper(vector<vector<int>>& _Board, int _Number)
+{
+	int x = 0, y = 0, width = 0, height = 0;
+	cin >> x >> y >> width >> height;
 	
-
-		for (int j = 0; j < Card.size(); j++)
-		{
-			if (max == Card[j][i])
-			{
-				++Score[j];
-			}
-		}
-
-	}
-
-	FindWinner(Score);
-}
-
-void CardInput(vector<vector<int>>& _Card, int _N, int _M)
-{
-	while (_N--)
+	for (int i = y; i < y + height; ++i)
 	{
-		vector<int> card(_M);
-		for (int i = 0; i < _M; ++i)
+		for (int j = x; j < x + width; ++j)
 		{
-			cin >> card[i];
-		}
-		
-		sort(card.rbegin(), card.rend());
-		_Card.push_back(card);
-	}
-}
-
-void FindWinner(vector<int>& _Score)
-{
-	int max = 0;
-	for (int i = 0; i < _Score.size(); ++i)
-	{
-		if (max < _Score[i])
-		{
-			max = _Score[i];
-		}
-	}
-
-	for (int i = 0; i < _Score.size(); ++i)
-	{
-		if (max == _Score[i])
-		{
-			cout << i + 1 << " ";
+			_Board[i][j] = _Number;
 		}
 	}
 }
