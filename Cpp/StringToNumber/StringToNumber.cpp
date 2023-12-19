@@ -75,24 +75,53 @@ void My_NumberToString(int _Number, char* _Ptr)
     int length = StringCount(_Ptr);
     for (int i = 0; i < length / 2; i++)
     {
-        char tmp = _Ptr[length - 1 - i];
+        char temp = _Ptr[length - 1 - i];
         _Ptr[length - 1 - i] = _Ptr[i];
-        _Ptr[i] = tmp;
+        _Ptr[i] = temp;
     }
 }
 
 // 선생님 정답 코드
 void SSam_NumberToString(int _Number, char* _Ptr)
 {
+    // 어떤 함수든 원본값을 보존해 놓는게 좋습니다.
+    int CalNumber = _Number;
+    int NumberCount = 0;
+    const char* CPtr = _Ptr;
 
+    // 정수가 몇 자리인지 알아야 합니다.
+    while (CalNumber)
+    {
+        CalNumber /= 10;
+        ++NumberCount;
+    }
+
+    int Mul = 1;
+    for (int i = 0; i < NumberCount - 1; i++)
+    {
+        Mul *= 10;
+    }
+
+    // 숫자를 분해하기 시작한다.
+    CalNumber = _Number;
+    int Value = 0;
+    for (int i = 0; i < NumberCount; i++)
+    {
+        Value = CalNumber / Mul;
+        _Ptr[i] = Value + '0';
+        CalNumber -= Value * Mul;
+        Mul /= 10;
+    }
 }
 
 int main()
 {
+    //int Number = My_StringToNumber("1234");
     int Number = SSam_StringToNumber("1234");
     
-    char Arr[100] = {};
-    My_NumberToString(120123, Arr);
+    char Arr[10] = {};
+    //My_NumberToString(120123, Arr);
+    SSam_NumberToString(120123, Arr);
 
     int a = 0;
 }

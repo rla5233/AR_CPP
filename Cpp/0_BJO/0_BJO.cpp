@@ -1,36 +1,87 @@
 ﻿#include <iostream>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
-void Eureka();
-bool isEureka(int _Num);
+void FinalWinner();
+void CardInput(vector<vector<int>>& _Card, int _N, int _M);
+void FindWinner(vector<int>& _Score);
 
-// 6588
+// 12756
 int main()
 {
-    //ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-    Eureka();
+	FinalWinner();
 
-    return 0;
+	return 0;
 }
 
-void Eureka()
+void FinalWinner()
 {
-    int T = 0;
-    cin >> T;
+	int N = 0, M = 0;
+	cin >> N >> M;
 
-    int number = 0;
-    while (T--)
-    {
-        cin >> number;
-        if (isEureka(number))
-        {
+	vector<vector<int>> Card;
+	CardInput(Card, N, M);
 
-        }
-    }
+	vector<int> Score(N);
+	for (int i = 0; i < M; ++i)
+	{
+		int max = 0;
+		for (int j = 0; j < Card.size(); j++)
+		{
+			if (max < Card[j][i])
+			{
+				max = Card[j][i];
+			}
+		}
+	
+
+		for (int j = 0; j < Card.size(); j++)
+		{
+			if (max == Card[j][i])
+			{
+				++Score[j];
+			}
+		}
+
+	}
+
+	FindWinner(Score);
 }
 
-bool isEureka(int _Num)
+void CardInput(vector<vector<int>>& _Card, int _N, int _M)
 {
-    return false;
+	while (_N--)
+	{
+		vector<int> card(_M);
+		for (int i = 0; i < _M; ++i)
+		{
+			cin >> card[i];
+		}
+		
+		sort(card.rbegin(), card.rend());
+		_Card.push_back(card);
+	}
+}
+
+void FindWinner(vector<int>& _Score)
+{
+	int max = 0;
+	for (int i = 0; i < _Score.size(); ++i)
+	{
+		if (max < _Score[i])
+		{
+			max = _Score[i];
+		}
+	}
+
+	for (int i = 0; i < _Score.size(); ++i)
+	{
+		if (max == _Score[i])
+		{
+			cout << i + 1 << " ";
+		}
+	}
 }
