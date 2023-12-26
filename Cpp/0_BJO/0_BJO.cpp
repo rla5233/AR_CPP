@@ -6,11 +6,44 @@ class Goldbach
 {
 public:
 	Goldbach() {}
+	
+	void SetPrimeVec()
+	{
+		m_PrimeVec.assign(1000001, true);
+		
+		for (int i = 2; i < m_PrimeVec.size(); i++)
+		{
+			if (m_PrimeVec[i] == true)
+			{
+				for (int j = i * 2; j < m_PrimeVec.size(); j += i)
+				{
+					m_PrimeVec[j] = false;
+				}
+
+				if (i % 2 == 0)
+				{
+					m_PrimeVec[i] = false;
+				}
+			}
+		}
+	}
+
+	void CheckConjecture(int _Number)
+	{
+		int Left = 0, Right = 0;
+
+		Left = 3;
+
+
+
+	}
+
+	
 
 protected:
 
 private:
-	vector<int>
+	vector<bool> m_PrimeVec;
 
 };
 
@@ -31,6 +64,9 @@ void Problem_6588()
 {
 	int N = 0;
 
+	Goldbach NewGoldbach = Goldbach();
+	NewGoldbach.SetPrimeVec();
+
 	while (1)
 	{
 		cin >> N;
@@ -39,6 +75,6 @@ void Problem_6588()
 			break;
 		}
 
-
+		NewGoldbach.CheckConjecture(N);
 	}
 }
