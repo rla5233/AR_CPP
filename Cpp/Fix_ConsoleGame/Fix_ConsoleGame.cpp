@@ -4,7 +4,7 @@
 // 전역변수는 영역과 관계없이 사용가능
 
 // 콘솔 화면 상수 세팅
-const char ScreenBackGround = '#';
+const char ScreenBackGround = 'x';
 
 const int ScreenX = 40;
 const int ScreenY = 28;
@@ -13,15 +13,15 @@ const int ScreenXHalf = ScreenX / 2;
 const int ScreenYHalf = ScreenY / 2;
 
 // 갤러그 세팅
-const char GalagWall = '+';
+const char GalagWall = 'o';
 const char GalagBackGround = '.';
 const char Deafault_Bullet = '^';
 
-const int GameScreenStartX = 3;
+const int GameScreenStartX = 2;
 const int GameScreenStartY = 1;
 
-const int GameScreenX = ScreenX - 5;
-const int GameScreenY = ScreenY - 2;
+const int GameScreenX = ScreenX - GameScreenStartX - 1;
+const int GameScreenY = ScreenY - GameScreenStartY;
 
 
 class int2
@@ -128,12 +128,12 @@ public:
     // 갤러그 맵 그리기 (콘솔화면 객체를 참조한다.)
     void GalagaMapDraw(ConsoleScreen& _Screen)
     {
-        for (int y = GameScreenStartY; y < GameScreenStartY + GameScreenY; y++)
+        for (int y = GameScreenStartY; y < GameScreenY; y++)
         {
-            for (int x = GameScreenStartX; x < GameScreenStartX + GameScreenX; x++)
+            for (int x = GameScreenStartX; x < GameScreenX; x++)
             {
-                if (y == GameScreenStartY || y == GameScreenStartY + GameScreenY - 1 ||
-                    x == GameScreenStartX || x == GameScreenStartX + GameScreenX - 1)
+                if (y == GameScreenStartY || y == GameScreenY - 1 ||
+                    x == GameScreenStartX || x == GameScreenX - 1)
                 {
                     _Screen.SetPixel({ x,  y }, GalagWall);
                 }
@@ -154,8 +154,7 @@ private:
 class Player
 {
 public:
-    Player()
-    {}
+    Player() {}
 
     Player(const int2& _StartPos, char _RenderChar)
         : Pos(_StartPos), RenderChar(_RenderChar)
@@ -172,11 +171,10 @@ public:
         case 'w':
         case 'W':
         {
-            if (Pos.Y > 1)
+            if ((Pos + Up).Y != GameScreenStartY)
             {
-                --Pos.Y;
+                Pos += Up;;
             }
-
             break;
         }
         case 'a':
@@ -191,7 +189,7 @@ public:
         case 's':
         case 'S':
         {
-            if (Pos.Y < ScreenY - 2)
+            if ((Pos + Down).Y != GameScreenY)
             {
                 ++Pos.Y;
             }

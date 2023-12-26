@@ -4,6 +4,12 @@
 #include <iostream>
 #include <conio.h>
 
+// 이 코드에는 보완할점이 있다.
+
+// 1. 반복적 코드가 많다.
+// 2. 코드 정리가 안된다.
+// 3. 메모리 동적이용이 불가능하다. ex) 화면의 크기, 총알 개수
+
 class int2
 {
 	// 보통 이런 수학적 클래스는
@@ -227,6 +233,8 @@ public:
 		int a = 0;
 	}
 
+	// 레퍼런스는 무조건 초기화(값저장)를 해야한다.
+	// 
 	void SetBulletFire(bool* _IsFire)
 	{
 		if (nullptr == _IsFire)
@@ -241,6 +249,9 @@ public:
 private:
 	int2 Pos = { 0, 0 };
 	char RenderChar = '@';
+
+	// 만약 레퍼런스라면 
+	// 총알이 먼저 만들어져야한다.
 	bool* IsFire = nullptr;
 };
 
@@ -251,6 +262,7 @@ public:
 		: Pos(_StartPos), RenderChar(_RenderChar)
 	{}
 
+	// 사실 public으로 선언하는것과 크게 다르지 않다.
 	bool& GetIsFireRef()
 	{
 		return IsFire;
