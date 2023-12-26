@@ -246,7 +246,6 @@ private:
     bool* IsFire = nullptr;
 };
 
-
 class Bullet
 {
 public:

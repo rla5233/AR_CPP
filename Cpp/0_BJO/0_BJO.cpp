@@ -30,12 +30,25 @@ public:
 
 	void CheckConjecture(int _Number)
 	{
-		int Left = 0, Right = 0;
+		int Left = 0, Right = _Number;
 
 		Left = 3;
+		while (!m_PrimeVec[Right])
+		{
+			--Right;
+		}
 
+		while (Left < Right)
+		{
+			if (Left + Right == _Number)
+			{
+				printf("%d = %d + %d\n", _Number, Left, Right);
+				return;
+			}
 
+		}
 
+		cout << "Goldbach's conjecture is wrong.\n";
 	}
 
 	
