@@ -15,7 +15,8 @@ const int ScreenYHalf = ScreenY / 2;
 // 갤러그 세팅
 const char GalagWall = 'o';
 const char GalagBackGround = '.';
-const char Deafault_Bullet = '^';
+const char Default_Bullet = '^';
+const char Default_Player = 'A';
 
 const int GameScreenStartX = 2;
 const int GameScreenStartY = 1;
@@ -168,78 +169,81 @@ public:
 
         switch (input)
         {
-        case 'w':
-        case 'W':
-        {
-            if ((Pos + Up).Y != GameScreenStartY)
+            case 'w':
+            case 'W':
             {
-                Pos += Up;;
-            }
-            break;
-        }
-        case 'a':
-        case 'A':
-        {
-            if ((Pos + Left).X != GameScreenStartX)
-            {
-                Pos += Left;
-            }
-            break;
-        }
-        case 's':
-        case 'S':
-        {
-            if ((Pos + Down).Y != GameScreenY)
-            {
-                ++Pos.Y;
-            }
+                if ((Pos + Up).Y != GameScreenStartY)
+                {
+                    Pos += Up;;
+                }
 
-            break;
-        }
-        case 'd':
-        case 'D':
-        {
-            if (Pos.X < ScreenX - 3)
-            {
-                ++Pos.X;
+                break;
             }
-            break;
-        }
-        case ' ':
-        {
-            if (Pos.Y > 1)
+            case 'a':
+            case 'A':
             {
-                //Shooting();
+                if ((Pos + Left).X != GameScreenStartX)
+                {
+                    Pos += Left;
+                }
+
+                break;
             }
-            break;
-        }
-        default:
-            break;
+            case 's':
+            case 'S':
+            {
+                if ((Pos + Down).Y != GameScreenY - 1)
+                {
+                    Pos += Down;
+                }
+
+                break;
+            }
+            case 'd':
+            case 'D':
+            {
+                if ((Pos + Right).X < GameScreenX - 1)
+                {
+                    Pos += Right;
+                }
+
+                break;
+            }
+            case ' ':
+            {
+                if (IsFire != nullptr)
+                {
+                    *IsFire = true;
+                }
+
+                break;
+            }
         }
 
-        //Bullet.SetPos(Bullet.GetPos().X, Bullet.GetPos().Y - 1);
+       
     }
 
-    //void Shooting()
-    //{
-    //    Bullet.SetPos(Pos.X, Pos.Y - 1);
-    //    isShooting = true;
-    //}
+    void SetBulletFire(bool* _IsFire)
+    {
+        if (_IsFire == nullptr)
+        {
+            return;
+        }
 
-    //inline int2 GetBulletPos() { return Bullet.GetPos(); }
-    //inline char GetBulletChar() { return Bullet.GetChar(); }
+        IsFire = _IsFire;
+    }
+
     inline int2 GetPos() { return Pos; }
-    inline char GetChar() { return RenderChar; }
-    inline bool IsShooting() { return isShooting; }
+    inline char GetRenderChar() { return RenderChar; }
 
 private:
     int2 Pos = { 0, 0 };
+    char RenderChar = ' ';
 
     // 이런거 좋지 않다. (총알과 플레이어가 뗄 수 없는 관계가 됨)
     // Bullet Bullet = Bullet(Bullet_C);
 
-    bool isShooting = false;
-    char RenderChar = ' ';
+    bool* IsFire = nullptr;
 };
 
 
@@ -247,8 +251,8 @@ class Bullet
 {
 public:
     Bullet() {}
-    Bullet(char _RenderChar)
-        : RenderChar(_RenderChar)
+    Bullet(const int2& _StartPos, char _RenderChar)
+        : Pos(_StartPos), RenderChar(_RenderChar)
     {}
 
     inline void SetPos(int _PosX, int _PosY)
@@ -258,13 +262,15 @@ public:
     }
 
     inline int2 GetPos() { return Pos; }
-    inline char GetChar() { return RenderChar; }
+    inline char GetRenderChar() { return RenderChar; }
+    bool& GetIsFireRef() { return IsFire; }
 
 protected:
 
 private:
     int2 Pos = { 0, 0 };
     char RenderChar = ' ';
+    bool IsFire = false;
 };
 
 
@@ -279,13 +285,24 @@ int main()
 
     ConsoleScreen NewScreen = ConsoleScreen(ScreenBackGround);
     Galaga NewGalaga = Galaga();
-    Player NewPlayer = Player({ ScreenXHalf, ScreenYHalf }, '@');
+
+    Player NewPlayer = Player({ ScreenXHalf, ScreenYHalf }, Default_Player);
+    Bullet NewBullet = Bullet(NewPlayer.GetPos(), Default_Bullet);
+
+    bool& Ref = NewBullet.GetIsFireRef();
+    NewPlayer.SetBulletFire(&Ref);
+
     while (1)
     {
         NewScreen.ClearScreen();
         NewGalaga.GalagaMapDraw(NewScreen);
 
-        NewScreen.SetPixel(NewPlayer.GetPos(), NewPlayer.GetChar());
+        NewScreen.SetPixel(NewPlayer.GetPos(), NewPlayer.GetRenderChar());
+
+        if (NewBullet.GetIsFireRef() == true)
+        {
+            NewScreen.SetPixel(NewBullet.GetPos(), NewBullet.GetRenderChar());
+        }
 
         NewScreen.PrintScreen();
         NewPlayer.Update();
