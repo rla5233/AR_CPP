@@ -33,31 +33,92 @@ public:
 class D
 {
 public:
-    bool Test;
-    int Test0;
+    bool Test; // 4
+    int Test0; // 4
 };
 
 // 문제 5: E 클래스의 크기는? -> 12바이트
 class E
 {
 public:
-    bool Test0;  
-    int Test1;   
-    bool Test2;  
+    bool Test0; // 1 
+    // temp;    // 1
+    // temp;    // 1
+    // temp;    // 1
+    int Test1;  // 4 
+    bool Test2; // 1 
+    // temp;    // 1
+    // temp;    // 1
+    // temp;    // 1
 };
 
 
-class F
+class F // -> 8 바이트
 {
 // 함수 인자와 비슷한 바이트패딩이라 불리는
 // 메모리 정렬법이다.
 public:
-    bool Test0;
-    bool Test1;
-    int Test2;
+    bool Test0;  // 1
+    bool Test1;  // 1
+    // temp;     // 1
+    // temp;     // 1
+    int Test2;   // 4
 };
 
 
+class G // -> 16 바이트
+{
+public:
+    bool Test0;     // 1
+    bool Test1;     // 1
+    // Temp;        // 1
+    // Temp;        // 1
+    __int64 Test2;  // 8
+};
+
+class H
+{
+public:
+    G Test0; // G크기
+    F Test1; // F크기
+};
+
+
+class Test0
+{
+    bool Test;
+};
+
+class Test1
+{
+    __int64 Test;
+};
+
+class I
+{
+public:
+    Test0 Value0; // G크기
+    Test1 Value1; // F크기
+};
+
+class J
+{
+public:
+    bool Test0;
+    int Test1;
+    __int64 Test2;
+    // 가장 큰 바이트를 찾는다 => 8
+};
+
+class K
+{
+public:
+    bool Test0;
+    int Test1;
+    bool Test2;
+    __int64 Test3;
+    // 가장 큰 바이트를 찾는다 => 8
+};
 
 int main()
 {
@@ -86,4 +147,33 @@ int main()
 
     // 문제 4
     printf_s("E size = %lld\n", sizeof(E)); // 8바이트
+
+
+    printf_s("F Size = %lld\n", sizeof(F)); // 8바이트
+
+    {
+        F NewF = F();
+        __int64 Address0 = reinterpret_cast<__int64>(&NewF.Test0);
+        __int64 Address1 = reinterpret_cast<__int64>(&NewF.Test1);
+        __int64 Address2 = reinterpret_cast<__int64>(&NewF.Test2);
+    }
+
+    printf_s("G Size = %lld\n", sizeof(G)); // 16바이트
+
+    printf_s("H Size = %lld\n", sizeof(H)); // 24바이트
+
+    printf_s("I Size = %lld\n", sizeof(I)); // 
+
+    {
+        J NewJ = J();
+        __int64 Address0 = reinterpret_cast<__int64>(&NewJ.Test0);
+        __int64 Address1 = reinterpret_cast<__int64>(&NewJ.Test1);
+        __int64 Address2 = reinterpret_cast<__int64>(&NewJ.Test2);
+
+        int a = 0;
+    }
+
+    printf_s("J Size = %lld\n", sizeof(J)); //
+
+    printf_s("K Size = %lld\n", sizeof(K)); // 
 }

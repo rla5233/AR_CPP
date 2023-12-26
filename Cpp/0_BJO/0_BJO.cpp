@@ -11,18 +11,13 @@ public:
 	{
 		m_PrimeVec.assign(1000001, true);
 		
-		for (int i = 2; i < m_PrimeVec.size(); i++)
+		for (int i = 2; i * i < m_PrimeVec.size(); i++)
 		{
 			if (m_PrimeVec[i] == true)
 			{
-				for (int j = i * 2; j < m_PrimeVec.size(); j += i)
+				for (int j = i * i; j < m_PrimeVec.size(); j += i)
 				{
 					m_PrimeVec[j] = false;
-				}
-
-				if (i % 2 == 0)
-				{
-					m_PrimeVec[i] = false;
 				}
 			}
 		}
@@ -30,28 +25,22 @@ public:
 
 	void CheckConjecture(int _Number)
 	{
-		int Left = 0, Right = _Number;
+		int Left = 3, Right = _Number - 3;
 
-		Left = 3;
-		while (!m_PrimeVec[Right])
+		while (Left <= Right)
 		{
-			--Right;
-		}
-
-		while (Left < Right)
-		{
-			if (Left + Right == _Number)
+			if (m_PrimeVec[Left] && m_PrimeVec[Right])
 			{
 				printf("%d = %d + %d\n", _Number, Left, Right);
 				return;
 			}
 
+			Left += 2;
+			Right -= 2;
 		}
 
 		cout << "Goldbach's conjecture is wrong.\n";
-	}
-
-	
+	}	
 
 protected:
 
