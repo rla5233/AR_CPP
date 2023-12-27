@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{42aa64a7-a583-4537-b2c7-f7976c586a22}</ProjectGuid>
-    <RootNamespace>FixConsoleGame</RootNamespace>
+    <ProjectGuid>{d8632d98-2ebe-485b-9e20-35822196146f}</ProjectGuid>
+    <RootNamespace>My055inheritance</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,11 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="ConSoleObject.cpp" />
-    <ClCompile Include="Fix_ConsoleGame.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="ConSoleObject.h" />
+    <ClCompile Include="055_inheritance.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
