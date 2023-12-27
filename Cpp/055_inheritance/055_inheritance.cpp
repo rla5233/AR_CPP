@@ -17,6 +17,13 @@
 
 
 // 싸우는 애들이 공통적으로 가져야할 기능을 가진다.
+
+// 부모클래스 접근 제한 지정자
+//              외부      자식      내부
+// public        o         o         o
+// protected     x         o         o
+// private       x         x         o
+
 class FightUnit
 {
 public:
@@ -61,14 +68,9 @@ class Player : public FightUnit
 
 // 상속에서 접근제한 지정자
 // 내부의 기존 접근제한 지정자와 비교해 좁은 범위로 바꿈
-
-//              부모      자식      외부
-// public
-// protected
-// private
-
 class Monster : public FightUnit
 {
+public:
     void Func()
     {
         

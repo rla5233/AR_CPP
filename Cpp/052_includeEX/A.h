@@ -6,7 +6,7 @@
 class A
 {
 public:
-	B* Ptr;
+	class B* Ptr;
 
 public:
 	A();

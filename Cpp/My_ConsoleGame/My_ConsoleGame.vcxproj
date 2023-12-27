@@ -127,7 +127,22 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="ConSoleObject.cpp" />
+    <ClCompile Include="ConsoleScreen.cpp" />
+    <ClCompile Include="Galaga.cpp" />
     <ClCompile Include="My_ConsoleGame.cpp" />
+    <ClCompile Include="Player.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="ConSoleGameProject.h" />
+    <ClInclude Include="ConSoleObject.h" />
+    <ClInclude Include="ConsoleScreen.h" />
+    <ClInclude Include="Galaga.h" />
+    <ClInclude Include="GlobalHeader.h" />
+    <ClInclude Include="MyMath.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
