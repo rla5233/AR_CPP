@@ -1,82 +1,95 @@
 ﻿#include <iostream>
+#include <algorithm>
+#include <string>
 #include <vector>
 using namespace std;
 
-class Goldbach
+class MyString
 {
 public:
-	Goldbach() {}
-	
-	void SetPrimeVec()
+	MyString() {}
+
+	void SetWord() { cin >> m_OriginalWord; }
+	void DivideWord(int _First, int _Second)
 	{
-		m_PrimeVec.assign(1000001, true);
-		
-		for (int i = 2; i * i < m_PrimeVec.size(); i++)
-		{
-			if (m_PrimeVec[i] == true)
-			{
-				for (int j = i * i; j < m_PrimeVec.size(); j += i)
-				{
-					m_PrimeVec[j] = false;
-				}
-			}
-		}
+		int b = 0;
+
+		m_Word1 = m_OriginalWord.substr(0, _First);
+		m_Word2 = m_OriginalWord.substr(_First, _Second - _First);
+		m_Word3 = m_OriginalWord.substr(_Second);
+
+		int a = 0;
 	}
 
-	void CheckConjecture(int _Number)
+	void ReverseWord()
 	{
-		int Left = 3, Right = _Number - 3;
+		reverse(m_Word1.begin(), m_Word1.end());
+		reverse(m_Word2.begin(), m_Word2.end());
+		reverse(m_Word3.begin(), m_Word3.end());
+	}
 
-		while (Left <= Right)
-		{
-			if (m_PrimeVec[Left] && m_PrimeVec[Right])
-			{
-				printf("%d = %d + %d\n", _Number, Left, Right);
-				return;
-			}
+	void MergeWord()
+	{
+		m_AfterWord = m_Word1 + m_Word2 + m_Word3;
+	}
 
-			Left += 2;
-			Right -= 2;
-		}
+	void AddWordVec()
+	{
+		m_WordVec.push_back(m_AfterWord);
+	}
 
-		cout << "Goldbach's conjecture is wrong.\n";
-	}	
+	void SortWordVec()
+	{
+		sort(m_WordVec.begin(), m_WordVec.end());
+	}
+
+	string GetFirstWord()
+	{
+		return m_WordVec[0];
+	}
+	
+	int GetWordLength()	{ return m_OriginalWord.length(); }
 
 protected:
 
 private:
-	vector<bool> m_PrimeVec;
+	string m_OriginalWord = "";
+	string m_AfterWord = "";
+	string m_Word1 = "";
+	string m_Word2 = "";
+	string m_Word3 = "";
+	vector<string> m_WordVec = vector<string>();
 
 };
 
+void Problem_1251();
 
-void Problem_6588();
-
-// 6588
+// 1251
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-	Problem_6588();
+	Problem_1251();
 
 	return 0;
 }
 
-void Problem_6588()
+void Problem_1251()
 {
-	int N = 0;
+	MyString NewMyString = MyString();
+	NewMyString.SetWord();
 
-	Goldbach NewGoldbach = Goldbach();
-	NewGoldbach.SetPrimeVec();
-
-	while (1)
+	for (int i = 1; i <= NewMyString.GetWordLength() - 2; i++)
 	{
-		cin >> N;
-		if (N == 0)
+		for (int j = i + 1; j <= NewMyString.GetWordLength() - 1; j++)
 		{
-			break;
+			NewMyString.DivideWord(i, j);
+			NewMyString.ReverseWord();
+			NewMyString.MergeWord();
+			NewMyString.AddWordVec();
 		}
-
-		NewGoldbach.CheckConjecture(N);
 	}
+
+	NewMyString.SortWordVec();
+	cout << NewMyString.GetFirstWord();
 }

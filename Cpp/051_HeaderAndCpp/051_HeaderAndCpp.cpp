@@ -7,6 +7,9 @@
 #include "Player.h"
 #include "Bullet.h"
 
+// <> : 비주얼 스튜디오의 포함 디렉토리에 존재하는 파일을 사용하겠다.
+// "" : 파일이 존재하는 폴더의 경로를 사용하겠다.
+
 int main()
 {
     ConsoleScreen NewScreen = ConsoleScreen(ScreenBackGround);
