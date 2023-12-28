@@ -33,7 +33,29 @@ class Sword : public Item
 
 class FightUnit
 {
+public:
+    int MAtt;
+    int Hp;
+    int Def;
+    int Cri;
 
+public:
+    // 인자가 많아지면 너무 복잡해질것이다.
+    //void Damage(int _Att, int _Cri)
+    //{
+
+    //}
+
+    // 포인터, 참조를 통해 접근이 가능하다!
+    void Damage(const FightUnit* _AttUnit)
+    {
+        Hp -= _AttUnit->MAtt;
+    }
+
+    void Damage(const FightUnit& _AttUnit)
+    {
+        Hp -= _AttUnit.MAtt;
+    }
 };
 
 // 멤버변수로 다른 클래스를 가지면
@@ -45,7 +67,30 @@ private:
     Sword m_Sword;
 };
 
+class Monster : public FightUnit
+{
+private:
+    Sword m_Sword;
+};
+
+class NPC : public FightUnit
+{
+
+};
+
 int main()
 {
+    {
+        // 업캐스팅
+        // - 자식 클래스의 객체는 언제든 부모 클래스의 참조형이 될 수 있다.
+        // 굉장히 건강하고 권장되는 암시적 형변환.
+        Player NewPlayer;
+        FightUnit* Unit = &NewPlayer;
+
+        Monster NewMonster;
+
+        NewPlayer.Damage(NewMonster);
+        NewMonster.Damage(NewPlayer);
+    }
     
 }
