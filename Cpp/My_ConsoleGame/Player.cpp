@@ -13,6 +13,7 @@ Player::Player()
 {
 }
 
+// 그냥 넣어 주면 안되나? (질문)
 Player::Player(const int2& _StartPos, char _RenderChar)
 {
     Pos = _StartPos;

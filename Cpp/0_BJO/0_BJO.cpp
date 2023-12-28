@@ -1,95 +1,87 @@
 ﻿#include <iostream>
-#include <algorithm>
-#include <string>
 #include <vector>
 using namespace std;
 
-class MyString
+class MiniFantasyWar
 {
 public:
-	MyString() {}
+	MiniFantasyWar() {}
 
-	void SetWord() { cin >> m_OriginalWord; }
-	void DivideWord(int _First, int _Second)
-	{
-		int b = 0;
-
-		m_Word1 = m_OriginalWord.substr(0, _First);
-		m_Word2 = m_OriginalWord.substr(_First, _Second - _First);
-		m_Word3 = m_OriginalWord.substr(_Second);
-
-		int a = 0;
-	}
-
-	void ReverseWord()
-	{
-		reverse(m_Word1.begin(), m_Word1.end());
-		reverse(m_Word2.begin(), m_Word2.end());
-		reverse(m_Word3.begin(), m_Word3.end());
-	}
-
-	void MergeWord()
-	{
-		m_AfterWord = m_Word1 + m_Word2 + m_Word3;
-	}
-
-	void AddWordVec()
-	{
-		m_WordVec.push_back(m_AfterWord);
-	}
-
-	void SortWordVec()
-	{
-		sort(m_WordVec.begin(), m_WordVec.end());
-	}
-
-	string GetFirstWord()
-	{
-		return m_WordVec[0];
-	}
-	
-	int GetWordLength()	{ return m_OriginalWord.length(); }
-
-protected:
+	void SetCharacterCount() { cin >> m_CharacterCount; }
+	int GetCharacterCount()	{ return m_CharacterCount; }
 
 private:
-	string m_OriginalWord = "";
-	string m_AfterWord = "";
-	string m_Word1 = "";
-	string m_Word2 = "";
-	string m_Word3 = "";
-	vector<string> m_WordVec = vector<string>();
-
+	int m_CharacterCount = 0;
 };
 
-void Problem_1251();
+class Character
+{
+public:
+	Character() {}
+	
+	void SetHp() { cin >> m_Hp; }
+	void SetMp() { cin >> m_Mp; }
+	void SetAtt() { cin >> m_Att; }
+	void SetArm() { cin >> m_Arm; }
+	void WearingEquipment()
+	{
+		int ChangeHp = 0, ChangeMp = 0, ChangeAtt = 0, ChangeArm = 0;
+		cin >> ChangeHp >> ChangeMp >> ChangeAtt >> ChangeArm;
 
-// 1251
+		m_Hp += ChangeHp;
+		if (m_Hp < 1) { m_Hp = 1; }
+
+		m_Mp += ChangeMp;
+		if (m_Mp < 1) { m_Mp = 1; }
+
+		m_Att += ChangeAtt;
+		if (m_Att < 0) { m_Att = 0; }
+
+		m_Arm += ChangeArm;
+	}
+
+	void SetCombatPower() 
+	{
+		m_CombatPower = m_Hp + (5 * m_Mp) + (2 * m_Att) + (2 * m_Arm);
+	}
+
+	int GetCombatPower() { return m_CombatPower; }
+
+private:
+	int m_Hp = 0;
+	int m_Mp = 0;
+	int m_Att = 0;
+	int m_Arm = 0;
+
+	int m_CombatPower = 0;
+};
+
+void Problem_12790();
+
+// 12790
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
-	Problem_1251();
+	Problem_12790();
 
 	return 0;
 }
 
-void Problem_1251()
+void Problem_12790()
 {
-	MyString NewMyString = MyString();
-	NewMyString.SetWord();
+	MiniFantasyWar NewGame = MiniFantasyWar();
+	NewGame.SetCharacterCount();
+	vector<Character> CharacterList(NewGame.GetCharacterCount(), Character());
 
-	for (int i = 1; i <= NewMyString.GetWordLength() - 2; i++)
+	for (int i = 0; i < CharacterList.size(); i++)
 	{
-		for (int j = i + 1; j <= NewMyString.GetWordLength() - 1; j++)
-		{
-			NewMyString.DivideWord(i, j);
-			NewMyString.ReverseWord();
-			NewMyString.MergeWord();
-			NewMyString.AddWordVec();
-		}
+		CharacterList[i].SetHp();
+		CharacterList[i].SetMp();
+		CharacterList[i].SetAtt();
+		CharacterList[i].SetArm();
+		CharacterList[i].WearingEquipment();
+		CharacterList[i].SetCombatPower();
+		cout << CharacterList[i].GetCombatPower() << "\n";
 	}
-
-	NewMyString.SortWordVec();
-	cout << NewMyString.GetFirstWord();
 }

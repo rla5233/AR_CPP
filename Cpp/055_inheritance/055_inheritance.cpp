@@ -80,6 +80,8 @@ public:
 // 상속관계를 처음부터 생각하는 것은 별로 좋지않다.
 // 생각만하다 진행을 못한다.
 
+
+
 int main()
 {
     Player NewPlayer = Player();
