@@ -3,6 +3,7 @@
 
 class Monster : public FightUnit
 {
-
+public:
+	Monster();
 };
 

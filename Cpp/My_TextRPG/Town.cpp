@@ -55,6 +55,12 @@ void Town::WeaponUp(Player& _Player)
 		{
 			case '1':
 			{
+				if (_Player.m_NewWeapon.GetLevel() >= _Player.m_NewWeapon.GetMaxLevel())
+				{
+					printf_s("\n더 이상 강화 할 수 없습니다!");
+					break;
+				}					
+
 				if (_Player.GetGold() < _Player.m_NewWeapon.GetWeaponUpCost())
 				{
 					printf_s("\nGold가 부족합니다!");

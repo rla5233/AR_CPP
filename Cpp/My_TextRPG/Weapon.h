@@ -21,7 +21,7 @@ private:
 	int m_Att = 5;
 	int m_Level = 0;
 	int m_MaxLevel = 30;
-	int m_UpProbability = 70;
+	int m_UpProbability = 75;
 	int m_WeaponUpCost = 1;
 };
 

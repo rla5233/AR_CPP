@@ -12,7 +12,6 @@ public:
 
 	void Hp_Recovery(int _HpValue);
 
-
 	void virtual RandomSetAtt();
 	
 	void SetMinAtt(int _MinAtt);
@@ -24,6 +23,7 @@ public:
 	inline bool IsDeath() const	{ return Hp <= 0; }
 	inline int GetMaxHp() const { return Max_Hp; }
 	inline int GetHp() const { return Hp; }
+	inline int GetGold() const { return Gold; }
 
 protected:
 

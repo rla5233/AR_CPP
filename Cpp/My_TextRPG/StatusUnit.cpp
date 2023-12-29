@@ -14,6 +14,7 @@ void StatusUnit::StatusRender()
 	printf_s("\n");
 	printf_s("공격력 %d\n", Att);
 	printf_s("체력 %d\n", Hp);
+	printf_s("소지금 %d\n", Gold);
 
 	for (int i = 0; i < 50; i++)
 	{

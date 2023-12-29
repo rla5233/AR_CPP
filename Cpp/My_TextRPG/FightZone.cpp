@@ -23,17 +23,13 @@ bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, Player& _Playe
 	_Second.DamageLogic(_First);
 	_Player.StatusRender();
 	_Monster.StatusRender();
-
 	_First.DamageRender();
 	if (_Second.IsDeath())
 	{
-		if (_Monster.IsDeath())
-		{
-			_Player.SetGold(_Player.GetGold() + 20);
-		}
+		if (_Monster.IsDeath())	{ _Player.SetGold(_Player.GetGold() + _Monster.GetGold()); }
 
-		printf_s("\n전투 종료\n");
-
+		printf_s("\n전투 종료");
+		printf_s("\n%d Gold 를 획득하였습니다!", _Monster.GetGold());
 		{ char break_point = _getch(); }
 
 		return true;
@@ -49,13 +45,10 @@ bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, Player& _Playe
 	_Second.DamageRender();
 	if (_First.IsDeath())
 	{
-		if (_Monster.IsDeath())
-		{
-			_Player.SetGold(_Player.GetGold() + 20);
-		}
+		if (_Monster.IsDeath())	{ _Player.SetGold(_Player.GetGold() + _Monster.GetGold()); }
 
-		printf_s("\n전투 종료\n");
-
+		printf_s("\n전투 종료"); 
+		printf_s("\n%d Gold 를 획득하였습니다!", _Monster.GetGold());
 		{ int break_point = _getch(); }
 
 		return true;
@@ -101,9 +94,6 @@ void FightZone::In(Player& _Player)
 			IsEnd = FightLogic(NewMonster, _Player, _Player, NewMonster);
 		}
 
-		if (true == IsEnd)
-		{
-			return;
-		}
+		if (true == IsEnd) { return; }
 	}
 }
