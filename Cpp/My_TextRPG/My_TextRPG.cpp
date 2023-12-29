@@ -2,10 +2,7 @@
 #include "Player.h"
 #include "Monster.h"
 #include "FightZone.h"
-
-// 데미지가 Random Damage가 되게 해라.
-
-// 선공 후공이 랜덤이 되게 만들어라.
+#include "MainMenu.h"
 
 int main()
 {
@@ -19,7 +16,6 @@ int main()
     NewPlayer.SetMinAtt(10);
     NewPlayer.SetSizeAtt(10);
 
-    FightZone NewZone;
-
-    NewZone.Fight(NewPlayer);
+    MainMenu NewMainMenu = MainMenu();
+    NewMainMenu.In(NewPlayer);
 }

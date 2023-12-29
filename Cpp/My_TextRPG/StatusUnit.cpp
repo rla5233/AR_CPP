@@ -1,21 +1,11 @@
 #include "StatusUnit.h"
 #include <iostream>
 
-void StatusUnit::SetName(const char* _Name)
-{
-	int idx = 0;
-	while (_Name[idx])
-	{
-		Name[idx] = _Name[idx];
-		++idx;
-	}
-}
-
 void StatusUnit::StatusRender()
 {
 	// 메모리에 관련된 명확한 설명은 안한 상태지만
 	// 자신의 맴버함수에서 자신의 맴버변수는 자유롭게 사용이 가능합니다.
-	int Size = printf_s("%s ", Name);
+	int Size = printf_s("%s ", this->GetName());
 	for (int i = 0; i < 50 - Size; i++)
 	{
 		printf_s("-");

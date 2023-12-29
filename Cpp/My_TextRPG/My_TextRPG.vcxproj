@@ -129,17 +129,27 @@
   <ItemGroup>
     <ClCompile Include="FightUnit.cpp" />
     <ClCompile Include="FightZone.cpp" />
+    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="Monster.cpp" />
     <ClCompile Include="My_TextRPG.cpp" />
+    <ClCompile Include="NameUnit.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StatusUnit.cpp" />
+    <ClCompile Include="Town.cpp" />
+    <ClCompile Include="Weapon.cpp" />
+    <ClCompile Include="ZoneBase.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="FightUnit.h" />
     <ClInclude Include="FightZone.h" />
+    <ClInclude Include="MainMenu.h" />
     <ClInclude Include="Monster.h" />
+    <ClInclude Include="NameUnit.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StatusUnit.h" />
+    <ClInclude Include="Town.h" />
+    <ClInclude Include="Weapon.h" />
+    <ClInclude Include="ZoneBase.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

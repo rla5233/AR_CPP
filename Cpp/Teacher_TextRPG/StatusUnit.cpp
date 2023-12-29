@@ -1,10 +1,6 @@
 #include "StatusUnit.h"
 #include <iostream>
 
-void StatusUnit::SetName(const char* _Name)
-{
-
-}
 
 void StatusUnit::StatusRender()
 {

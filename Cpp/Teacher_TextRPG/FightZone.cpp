@@ -1,6 +1,12 @@
 #include "FightZone.h"
 #include <conio.h>
 #include <iostream>
+#include "Player.h"
+
+FightZone::FightZone()
+{
+	NewMonster.SetName("Monster");
+}
 
 bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, FightUnit& _Top, FightUnit& _Bot)
 {
@@ -43,7 +49,7 @@ bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, FightUnit& _To
 	return false;
 }
 
-void FightZone::Fight(FightUnit& _Player)
+void FightZone::In(Player& _Player)
 {
 	while (true)
 	{
@@ -55,13 +61,16 @@ void FightZone::Fight(FightUnit& _Player)
 
 		bool IsEnd = false;
 
-		//if (누가 먼저인가?)
-		//{
-		IsEnd = FightLogic(_Player, NewMonster, _Player, NewMonster);
-		//}
-		//else {
-		//	IsEnd = FightLogic(_Bot, _Top, _Top, _Bot);
-		//}
+		if (_Player.GetRandomSpeed() >= NewMonster.GetRandomSpeed())
+		{
+			printf_s("플레이어의 선공\n");
+			IsEnd = FightLogic(_Player, NewMonster, _Player, NewMonster);
+		}
+		else
+		{
+			printf_s("몬스터의 선공\n");
+			IsEnd = FightLogic(NewMonster, _Player, _Player, NewMonster);
+		}
 
 		if (true == IsEnd)
 		{

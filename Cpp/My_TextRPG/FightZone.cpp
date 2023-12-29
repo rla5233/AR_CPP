@@ -2,24 +2,32 @@
 #include <conio.h>
 #include <iostream>
 
+#include "Player.h"
+
 bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, FightUnit& _Top, FightUnit& _Bot)
 {
-	system("cls");
+	{
+		int Input = _getch();
+	}
 
 	_First.RandomSetAtt();
 	_Second.RandomSetAtt();
+
+	system("cls");
 
 	_Top.StatusRender();
 	_Bot.StatusRender();
 
 	{
 		int Input = _getch();
-		system("cls");
 	}
-	
+
+	system("cls");
+
 	_Second.DamageLogic(_First);
 	_Top.StatusRender();
 	_Bot.StatusRender();
+
 	_First.DamageRender();
 	if (true == _Second.IsDeath())
 	{
@@ -52,7 +60,7 @@ bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, FightUnit& _To
 	return false;
 }
 
-void FightZone::Fight(FightUnit& _Player)
+void FightZone::In(Player& _Player)
 {
 	NewMonster.SetName("Monster");
 	NewMonster.SetMinAtt(5);
@@ -60,6 +68,8 @@ void FightZone::Fight(FightUnit& _Player)
 
 	while (true)
 	{
+		system("cls");
+
 		_Player.StatusRender();
 		NewMonster.StatusRender();
 
@@ -72,10 +82,12 @@ void FightZone::Fight(FightUnit& _Player)
 		// 60퍼 확률로 플레이어 선공
 		if (FirstHitPer < 60)
 		{
+			printf_s("%s 의 선공\n", _Player.GetName());
 			IsEnd = FightLogic(_Player, NewMonster, _Player, NewMonster);
 		}
 		else 
 		{
+			printf_s("%s 의 선공\n", NewMonster.GetName());
 			IsEnd = FightLogic(NewMonster, _Player, _Player, NewMonster);
 		}
 

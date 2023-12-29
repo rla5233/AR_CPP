@@ -1,11 +1,11 @@
 #pragma once
+#include "ZoneBase.h"
 #include "Monster.h"
 
-class FightZone
+class FightZone : ZoneBase
 {
 public:
-	// 결과가 나올때까지의 전투
-	void Fight(FightUnit& _Player);
+	void In(class Player& _Player) override;
 
 private:
 	Monster NewMonster = Monster();

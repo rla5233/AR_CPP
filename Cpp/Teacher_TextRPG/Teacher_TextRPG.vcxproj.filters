@@ -2,17 +2,75 @@
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <ClCompile Include="Teacher_TextRPG.cpp" />
-    <ClCompile Include="FightUnit.cpp" />
-    <ClCompile Include="FightZone.cpp" />
-    <ClCompile Include="Monster.cpp" />
-    <ClCompile Include="Player.cpp" />
-    <ClCompile Include="StatusUnit.cpp" />
+    <ClCompile Include="FightZone.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="FightUnit.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="StatusUnit.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="Town.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="ZoneBase.cpp">
+      <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="Weapon.cpp">
+      <Filter>Component</Filter>
+    </ClCompile>
+    <ClCompile Include="NameUnit.cpp">
+      <Filter>Base</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="FightUnit.h" />
-    <ClInclude Include="FightZone.h" />
-    <ClInclude Include="Monster.h" />
-    <ClInclude Include="Player.h" />
-    <ClInclude Include="StatusUnit.h" />
+    <ClInclude Include="FightZone.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="FightUnit.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="StatusUnit.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="Town.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="ZoneBase.h">
+      <Filter>Map</Filter>
+    </ClInclude>
+    <ClInclude Include="Weapon.h">
+      <Filter>Component</Filter>
+    </ClInclude>
+    <ClInclude Include="NameUnit.h">
+      <Filter>Base</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{b019d1cb-c73e-479e-a984-0b63b41fae60}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Base">
+      <UniqueIdentifier>{27ede1de-1cfd-4263-83ef-0f21478a8e39}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Component">
+      <UniqueIdentifier>{7f5d299c-7b71-4ef4-b823-8800017ec866}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Map">
+      <UniqueIdentifier>{9190cd4e-655c-40e5-ae07-7a168fcb65bc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>

@@ -2,5 +2,7 @@
 #include "FightUnit.h"
 
 class Monster : public FightUnit
-{};
+{
+
+};
 
