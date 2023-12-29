@@ -4,9 +4,13 @@
 
 #include "Player.h"
 #include "FightZone.h"
+#include "Town.h"
 
 void MainMenu::In(Player& _Player)
 {
+	Town NewTown = Town();
+	FightZone NewFightZone = FightZone();
+
 	while (true)
 	{
 		system("cls");
@@ -21,20 +25,12 @@ void MainMenu::In(Player& _Player)
 		{
 			case '1':
 			{
-
-
+				NewTown.In(_Player);
 				break;
 			}
 			case '2':
 			{
-				FightZone NewFightZone = FightZone();
-				int a = 0;
 				NewFightZone.In(_Player);
-				break;
-			}
-			default:
-			{
-
 				break;
 			}
 		}

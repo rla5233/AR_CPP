@@ -12,6 +12,7 @@ protected:
 	int Gold = 0;
 
 	int Min_Att = 0;
-	int Size_Att = 10;
+	int Max_Att = 10;
+	int Max_Hp = 100;
 };
 

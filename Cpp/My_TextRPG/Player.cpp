@@ -7,7 +7,9 @@ Player::Player()
 	m_NewWeapon.SetAtt(5);
 }
 
+void Player::SetGold(int _Gold) { Gold = _Gold; }
+
 void Player::RandomSetAtt()
 {
-	Att = (rand() % Size_Att) + Min_Att + m_NewWeapon.GetAtt();
+	Att = (rand() % (Max_Att - Min_Att)) + Min_Att + m_NewWeapon.GetAtt();
 }

@@ -7,6 +7,9 @@ class Player : public FightUnit
 public:
 	Player();
 
+	void SetGold(int _Gold);
+	inline int GetGold() const { return Gold; }
+
 protected:
 	void RandomSetAtt() override;
 

@@ -14,7 +14,9 @@ int main()
     Player NewPlayer = Player();
     NewPlayer.SetName("Player");
     NewPlayer.SetMinAtt(10);
-    NewPlayer.SetSizeAtt(10);
+    NewPlayer.SetMaxAtt(20);
+    NewPlayer.SetMaxHp(100);
+    NewPlayer.SetHp(NewPlayer.GetMaxHp());
 
     MainMenu NewMainMenu = MainMenu();
     NewMainMenu.In(NewPlayer);

@@ -3,58 +3,65 @@
 #include <iostream>
 
 #include "Player.h"
+#include "Monster.h"
 
-bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, FightUnit& _Top, FightUnit& _Bot)
+bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, Player& _Player, Monster& _Monster)
 {
-	{
-		int Input = _getch();
-	}
+	{ char break_point = _getch(); }
 
 	_First.RandomSetAtt();
 	_Second.RandomSetAtt();
 
 	system("cls");
 
-	_Top.StatusRender();
-	_Bot.StatusRender();
+	_Player.StatusRender();
+	_Monster.StatusRender();
 
-	{
-		int Input = _getch();
-	}
-
+	{ char break_point = _getch(); }
 	system("cls");
 
 	_Second.DamageLogic(_First);
-	_Top.StatusRender();
-	_Bot.StatusRender();
+	_Player.StatusRender();
+	_Monster.StatusRender();
 
 	_First.DamageRender();
-	if (true == _Second.IsDeath())
+	if (_Second.IsDeath())
 	{
-		printf_s("게임 종료\n");
+		if (_Monster.IsDeath())
+		{
+			_Player.SetGold(_Player.GetGold() + 20);
+		}
+
+		printf_s("\n전투 종료\n");
+
+		{ char break_point = _getch(); }
+
 		return true;
 	}
 
-
-	{
-		int Input = _getch();
-		system("cls");
-	}
-
+	{ char break_point = _getch(); }
+	system("cls");
 
 	_First.DamageLogic(_Second);
-	_Top.StatusRender();
-	_Bot.StatusRender();
+	_Player.StatusRender();
+	_Monster.StatusRender();
 	_First.DamageRender();
 	_Second.DamageRender();
-	if (true == _First.IsDeath())
+	if (_First.IsDeath())
 	{
-		printf_s("게임 종료\n");
+		if (_Monster.IsDeath())
+		{
+			_Player.SetGold(_Player.GetGold() + 20);
+		}
+
+		printf_s("\n전투 종료\n");
+
+		{ int break_point = _getch(); }
+
 		return true;
 	}
-	{
-		int Input = _getch();
-	}
+
+	{ char break_point = _getch(); }
 	system("cls");
 
 	return false;
@@ -64,10 +71,14 @@ void FightZone::In(Player& _Player)
 {
 	NewMonster.SetName("Monster");
 	NewMonster.SetMinAtt(5);
-	NewMonster.SetSizeAtt(5);
+	NewMonster.SetMaxAtt(10);
+	NewMonster.SetMaxHp(50);
+	NewMonster.SetHp(NewMonster.GetMaxHp());
 
 	while (true)
 	{
+		bool IsEnd = false;
+		
 		system("cls");
 
 		_Player.StatusRender();
@@ -76,7 +87,6 @@ void FightZone::In(Player& _Player)
 		// 선공 후공이 결정 나고
 		// 조건에 따라서
 
-		bool IsEnd = false;
 		int FirstHitPer = rand() % 100;
 
 		// 60퍼 확률로 플레이어 선공
