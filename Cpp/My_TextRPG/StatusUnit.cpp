@@ -1,6 +1,11 @@
 #include "StatusUnit.h"
 #include <iostream>
 
+void StatusUnit::Init(int _MaxHp, int _MinAtt, int _MaxAtt, int _Exp)
+{
+
+}
+
 void StatusUnit::StatusRender()
 {
 	// 메모리에 관련된 명확한 설명은 안한 상태지만
@@ -38,4 +43,11 @@ void StatusUnit::SetHp(int _Hp)
 }
 
 void StatusUnit::RandomGoldSet(int _Min, int _Max)
-{}
+{
+	
+}
+
+int StatusUnit::RandomValue(int _Min, int _Max)
+{
+	return (rand() % (_Max - _Min) + _Min);
+}

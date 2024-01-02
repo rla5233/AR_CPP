@@ -4,9 +4,6 @@
 FightUnit::FightUnit()
 {}
 
-void FightUnit::Init(int _MaxHp, int _MinAtt, int _MaxAtt, int _Exp)
-{}
-
 void FightUnit::DamageLogic(const FightUnit& _Unit)
 {
 	Hp -= _Unit.Att;

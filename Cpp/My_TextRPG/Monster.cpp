@@ -29,5 +29,5 @@ void Monster::FightStart(FightUnit& _Unit)
 
 void Monster::RandomGoldSet(int _Min, int _Max)
 {
-	Gold = (rand() % (_Max - _Min)) + _Min;
+	Gold = RandomValue(_Min, _Max);
 }

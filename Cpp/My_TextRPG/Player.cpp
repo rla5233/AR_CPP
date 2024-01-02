@@ -51,10 +51,15 @@ void Player::FightEnd(FightUnit& _Other)
 
 void Player::LevelUpCheck()
 {
-	if (Exp >= LevelUpExp)
+	while (GetExp() >= LevelUpExp)
 	{
-		Level += Exp / LevelUpExp;
-		Exp %= LevelUpExp;
+		++Level;
+		Max_Hp = Level * 100;
+		Min_Att += 5;
+		Max_Att += 5;
+		HpReset();
+		Exp -= LevelUpExp;
+		LevelUpExp = Level * 100;
 	}
 }
 

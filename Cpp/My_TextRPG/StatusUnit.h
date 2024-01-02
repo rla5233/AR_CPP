@@ -4,6 +4,8 @@
 class StatusUnit : public NameUnit
 {
 public:
+	virtual void Init(int _MaxHp, int _MinAtt, int _MaxAtt, int _Exp);
+
 	void StatusRender();	
 
 	virtual void StatusRenderStart();
@@ -19,6 +21,7 @@ public:
 
 	inline void HpReset() { Hp = Max_Hp; }
 	virtual void RandomGoldSet(int _Min, int _Max);
+	int RandomValue(int _Min, int _Max);
 
 protected:
 	int Hp = 100;

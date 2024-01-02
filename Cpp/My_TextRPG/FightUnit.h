@@ -5,8 +5,6 @@ class FightUnit : public StatusUnit
 {
 public:
 	FightUnit();
-
-	virtual void Init(int _MaxHp, int _MinAtt, int _MaxAtt, int _Exp);
 	
 	// Fight¿ë ÇÔ¼ö
 	void DamageLogic(const FightUnit& _Unit);

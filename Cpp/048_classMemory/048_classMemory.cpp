@@ -13,7 +13,8 @@ class A
 class B
 {
 public:
-    // 멤버함수는 클래스의 크기에 영향을 주지 않는다.
+    // 멤버함수는 클래스의 크기에 영향을 주지 않는다. 
+    // (가상함수(virtual)는 제외)
     void Function()
     {
 
