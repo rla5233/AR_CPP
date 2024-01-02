@@ -1,89 +1,51 @@
 ﻿#include <iostream>
-#include <vector>
+#include <cmath>
 using namespace std;
 
 class Problem
 {
 public:
-	void JBoxProblem();
+	void Problem_11312(class Equilateral& _RecA, class Equilateral& _RecB);
 
 private:
+
 };
 
-class JBox
+class Equilateral
 {
-public:
-	void SetBoxVec();
-	void PrintJBox();
-
-	inline void SetSize() { cin >> m_Size; }
-
 private:
-	int m_Size = 0;
-	vector<string> m_BoxVec = vector<string> ();
+	int m_Side = 0;
+
+public:
+	inline void SetSide() { cin >> m_Side; }
+	inline int GetSide() { return m_Side; }
+
 };
 
 
-// 12790
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	
 	Problem NewProblem = Problem();
-	NewProblem.JBoxProblem();
-	
+	Equilateral NewEquilateral1 = Equilateral();
+	Equilateral NewEquilateral2 = Equilateral();
+
+	NewProblem.Problem_11312(NewEquilateral1, NewEquilateral2);
 
 	return 0;
 }
 
-void Problem::JBoxProblem()
+void Problem::Problem_11312(Equilateral& _RecA, Equilateral& _RecB)
 {
 	int TestCase = 0;
 	cin >> TestCase;
 
-	JBox NewJBox = JBox();
-
 	for (int i = 0; i < TestCase; i++)
 	{
-		NewJBox.SetSize();
-		NewJBox.SetBoxVec();
-		NewJBox.PrintJBox();
+		_RecA.SetSide();
+		_RecB.SetSide();
+
+		cout << static_cast<long long>(pow(_RecA.GetSide() / _RecB.GetSide(), 2)) << "\n";
 	}
-}
-
-void JBox::SetBoxVec()
-{
-	m_BoxVec.clear();
-
-	string temp = "";
-
-	for (int i = 0; i < m_Size; i++)
-	{
-		for (int j = 0; j < m_Size; j++)
-		{
-			if (i == 0 || i == m_Size - 1 ||
-				j == 0 || j == m_Size - 1)
-			{
-				temp += '#';
-			}
-			else
-			{
-				temp += 'J';
-			}
-
-		}
-
-		m_BoxVec.push_back(temp);
-		temp = "";
-	}
-}
-
-void JBox::PrintJBox()
-{
-	for (int i = 0; i < m_BoxVec.size(); i++)
-	{
-		cout << m_BoxVec[i] << "\n";
-	}
-
-	cout << "\n";
 }

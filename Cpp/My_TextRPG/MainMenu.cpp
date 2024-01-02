@@ -30,7 +30,7 @@ void MainMenu::In(Player& _Player)
 			}
 			case '2':
 			{
-				NewFightZone.In(_Player);
+				NewFightZone.FightZoneMenu(_Player);
 				break;
 			}
 		}

@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="My_TextRPG.cpp" />
     <ClCompile Include="Monster.cpp">
       <Filter>Actor</Filter>
     </ClCompile>
@@ -31,6 +30,9 @@
     </ClCompile>
     <ClCompile Include="ZoneBase.cpp">
       <Filter>Map</Filter>
+    </ClCompile>
+    <ClCompile Include="My_TextRPG.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -77,6 +79,9 @@
     </Filter>
     <Filter Include="Map">
       <UniqueIdentifier>{3fa52d72-08eb-42fd-998c-e9d5e43f9c7b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{f9bcc06b-4fef-4910-af1c-bbe6c1de45a8}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

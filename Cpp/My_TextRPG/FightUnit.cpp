@@ -14,6 +14,7 @@ void FightUnit::SetHp(int _Hp)
 	if(Hp < 0) { Hp = 0; }
 	else if (Hp > Max_Hp) {	Hp = Max_Hp; }
 }
+void FightUnit::SetAtt(int _Att) { Att = _Att; }
 void FightUnit::RandomSetAtt(){	Att = (rand() % (Max_Att - Min_Att)) + Min_Att; }
 
 void FightUnit::DamageLogic(const FightUnit& _Unit)

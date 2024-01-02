@@ -18,10 +18,12 @@ public:
 	void SetMaxAtt(int _MaxAtt);
 	void SetMaxHp(int _MaxHp);
 	void SetHp(int _Hp);
+	void SetAtt(int _Att);
 
 	// Get
 	inline bool IsDeath() const	{ return Hp <= 0; }
 	inline int GetMaxHp() const { return Max_Hp; }
+	inline int GetMinAtt() const { return Min_Att; }
 	inline int GetHp() const { return Hp; }
 	inline int GetGold() const { return Gold; }
 
