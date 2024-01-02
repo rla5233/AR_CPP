@@ -7,7 +7,7 @@ class FightZone : ZoneBase
 public:
 	void In(class Player& _Player, int _Type);
 	void FightZoneMenu(class Player& _Player);
-	void MonsterSetting(int _Type);
+	void CreateMonster(int _Type);
 
 private:
 	Monster NewMonster = Monster();

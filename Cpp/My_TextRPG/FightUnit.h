@@ -5,20 +5,19 @@ class FightUnit : public StatusUnit
 {
 public:
 	FightUnit();
+
+	virtual void Init(int _MaxHp, int _MinAtt, int _MaxAtt, int _Exp);
 	
 	// Fight¿ë ÇÔ¼ö
 	void DamageLogic(const FightUnit& _Unit);
 	void DamageRender();
+	virtual void FightStart(FightUnit& _Unit);
+	virtual void FightEnd(FightUnit& _Other);
 
 	void Hp_Recovery(int _HpValue);
-
 	void virtual RandomSetAtt();
 	
-	void SetMinAtt(int _MinAtt);
-	void SetMaxAtt(int _MaxAtt);
-	void SetMaxHp(int _MaxHp);
-	void SetHp(int _Hp);
-	void SetAtt(int _Att);
+
 
 	// Get
 	inline bool IsDeath() const	{ return Hp <= 0; }
@@ -26,6 +25,7 @@ public:
 	inline int GetMinAtt() const { return Min_Att; }
 	inline int GetHp() const { return Hp; }
 	inline int GetGold() const { return Gold; }
+	inline int GetExp() const { return Exp; }
 
 protected:
 

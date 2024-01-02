@@ -30,9 +30,10 @@ bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, Player& _Playe
 
 		if (_Monster.IsDeath())
 		{
-			_Player.SetGold(_Player.GetGold() + _Monster.GetGold());
 			printf_s("\n전투에서 승리하였습니다!");
-			printf_s("\n%d Gold 를 획득하였습니다!", _Monster.GetGold());
+
+			NewMonster.FightEnd(_Player);
+			_Player.FightEnd(NewMonster);
 		}
 		else
 		{
@@ -58,9 +59,10 @@ bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, Player& _Playe
 
 		if (_Monster.IsDeath())	
 		{ 
-			_Player.SetGold(_Player.GetGold() + _Monster.GetGold()); 
 			printf_s("\n전투에서 승리하였습니다!");
-			printf_s("\n%d Gold 를 획득하였습니다!", _Monster.GetGold());
+
+			NewMonster.FightEnd(_Player);
+			_Player.FightEnd(NewMonster);
 		}
 		else
 		{
@@ -80,7 +82,10 @@ bool FightZone::FightLogic(FightUnit& _First, FightUnit& _Second, Player& _Playe
 
 void FightZone::In(Player& _Player, int _Type)
 {
-	MonsterSetting(_Type);
+	CreateMonster(_Type);
+
+	NewMonster.FightStart(_Player);
+	_Player.FightStart(NewMonster);
 
 	while (true)
 	{
@@ -153,37 +158,24 @@ void FightZone::FightZoneMenu(class Player& _Player)
 	}
 }
 
-void FightZone::MonsterSetting(int _Type)
+void FightZone::CreateMonster(int _Type)
 {
 	switch (_Type)
 	{
 		case 1 :
 		{
-			NewMonster.SetMinAtt(5);
-			NewMonster.SetMaxAtt(15);
-			NewMonster.SetMaxHp(100);
-
+			NewMonster.Init(100, 5, 15, 90);
 			break;
 		}
 		case 2:
 		{
-			NewMonster.SetMinAtt(10);
-			NewMonster.SetMaxAtt(20);
-			NewMonster.SetMaxHp(200);
-
+			NewMonster.Init(150, 10, 20, 170);
 			break;
 		}
 		case 3:
 		{
-			NewMonster.SetMinAtt(20);
-			NewMonster.SetMaxAtt(40);
-			NewMonster.SetMaxHp(300);
-
+			NewMonster.Init(200, 20, 40, 250);
 			break;
 		}
 	}
-
-	NewMonster.SetName("Monster");
-	NewMonster.SetHp(NewMonster.GetMaxHp());
-	NewMonster.SetAtt(NewMonster.GetMinAtt());
 }
