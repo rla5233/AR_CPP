@@ -5,17 +5,45 @@
 
 class FightUnit
 {
+public:
+    FightUnit()
+    {
+        this;
+        int a = 0;
+    }
 
+    virtual void Damage()
+    {
+
+    }
+
+    virtual void StatusRender()
+    {
+
+    }
 };
 
+class Player : public FightUnit
+{
+public:
+    Player()
+    {
+        this;
+        int a = 0;
+    }
 
+    void Damage() override
+    {
+
+    }
+};
 
 class A
 {
 
 };
 
-class B
+class B : public A
 {
 
 };
@@ -23,7 +51,17 @@ class B
 int main()
 {
     // C++ 관련 면접 단골질문.
-    int Size = sizeof(FightUnit);
+    {
+        int Size0 = sizeof(FightUnit);
+        int Size1 = sizeof(B);
+        int Size2 = sizeof(Player);
+
+        B NewTest;
+
+        Player NewPlayer;
+
+        int a = 0;
+    }
 
     // virtual 함수가 존재하는 클래스는 vfptr라는 
     // 가상함수 포인터라는 것을 가지고 있다.

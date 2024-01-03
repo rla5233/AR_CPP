@@ -9,12 +9,10 @@
 // 2 궁수
 //
 
-// "Fighter" <=
+// "Fighter"
 // 상대적으로 문자열로 표현하는것은
 // 1. 메모리가 많이 들고
-// 2. 철자 실수가 많이 일어난다.
-
-
+// 2. 철자 실수가 많이 일어난다. "Flghter"
 
 
 // enum
@@ -25,8 +23,8 @@ enum Job
 {
 	// 자동으로 맨위에서부터 0으로 채운다.
 	// 명시하지 않은 부분은 자연스럽게 위쪽 Enum값 + 1
-	Fighter,	// Job::Fighter
-	Mage,
+	Fighter,	// Job::Fighter = 0
+	Mage,       // Job::Mage = 1
 };
 
 // enum class
