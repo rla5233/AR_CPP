@@ -24,9 +24,24 @@ public:
 	void SortVec();
 	void ClearVec();
 	string GetVecFirstWord();
-
-	bool compare(string _str1, string _str2);
 };
+
+bool compare(string _str1, string _str2)
+{
+	string temp1 = "", temp2 = "";
+
+	for (int i = 0; i < _str1.length(); i++)
+	{
+		temp1 += tolower(_str1[i]);
+	}
+
+	for (int i = 0; i < _str2.length(); i++)
+	{
+		temp2 += tolower(_str2[i]);
+	}
+
+	return temp1 < temp2;
+}
 
 int main()
 {
@@ -83,9 +98,4 @@ void Word::ClearVec()
 string Word::GetVecFirstWord()
 {
 	return *(m_StringVec.begin());
-}
-
-bool Word::compare(string _str1, string _str2)
-{
-	return _str1 < _str2;
 }
