@@ -1,15 +1,50 @@
 ﻿#include <iostream>
 using namespace std;
 
+class Parent
+{
+public:
+    Parent()
+    {
+        this;
+
+        int a = 0;
+    }
+
+    virtual void Func1()
+    {
+
+    }
+
+    virtual void Func2()
+    {
+
+    }
+};
+
+class Child : public Parent
+{
+public:
+    Child()
+    {
+        this;
+
+        int a = 0;
+    }
+
+    void Func1() override
+    {
+
+    }
+};
+
 int main()
 {
-    // 그러나 포인터와 배열은 동일하지않다!
-    int MonsterHps[5] = { 11, 22, 33, 44 ,55 };
-    int* Ptr = MonsterHps;
+    Child NewChild;
+    int size1 = sizeof(Child);
+    int size2 = sizeof(Parent);
 
-    // 둘의 크기는 다르다.
-    int ArrSize = sizeof(MonsterHps);
-    int PtrSize = sizeof(Ptr);
+    int a = 0;
 
     return 0;
 }
