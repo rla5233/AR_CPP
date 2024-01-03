@@ -1,51 +1,91 @@
 ﻿#include <iostream>
-#include <cmath>
+#include <vector>
+#include <algorithm>
 using namespace std;
 
 class Problem
 {
-public:
-	void Problem_11312(class Equilateral& _RecA, class Equilateral& _RecB);
-
 private:
+
+public:
+	void Problem_2204(class Word& _Word);
 
 };
 
-class Equilateral
+class Word
 {
+public:
+
 private:
-	int m_Side = 0;
+	vector<string> m_StringVec = vector<string>();
 
 public:
-	inline void SetSide() { cin >> m_Side; }
-	inline int GetSide() { return m_Side; }
+	void InputStringVec();
+	void SortVec();
+	void ClearVec();
+	string GetVecFirstWord();
 
+	bool compare(string _str1, string _str2);
 };
-
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	
 	Problem NewProblem = Problem();
-	Equilateral NewEquilateral1 = Equilateral();
-	Equilateral NewEquilateral2 = Equilateral();
+	Word NewWord = Word();
 
-	NewProblem.Problem_11312(NewEquilateral1, NewEquilateral2);
+	NewProblem.Problem_2204(NewWord);
 
 	return 0;
 }
 
-void Problem::Problem_11312(Equilateral& _RecA, Equilateral& _RecB)
+void Problem::Problem_2204(Word& _Word)
 {
 	int TestCase = 0;
-	cin >> TestCase;
-
-	for (int i = 0; i < TestCase; i++)
+	
+	while (true)
 	{
-		_RecA.SetSide();
-		_RecB.SetSide();
+		cin >> TestCase;
+		if (TestCase == 0)
+		{
+			return;
+		}
 
-		cout << static_cast<long long>(pow(_RecA.GetSide() / _RecB.GetSide(), 2)) << "\n";
+		for (int i = 0; i < TestCase; i++)
+		{
+			_Word.InputStringVec();
+		}
+
+		_Word.SortVec();
+		cout << _Word.GetVecFirstWord() << "\n";
+		_Word.ClearVec();
 	}
+}
+
+void Word::InputStringVec()
+{
+	string str = "";
+	cin >> str;
+	m_StringVec.push_back(str);
+}
+
+void Word::SortVec()
+{
+	sort(m_StringVec.begin(), m_StringVec.end(), compare);
+}
+
+void Word::ClearVec()
+{
+	m_StringVec.clear();
+}
+
+string Word::GetVecFirstWord()
+{
+	return *(m_StringVec.begin());
+}
+
+bool Word::compare(string _str1, string _str2)
+{
+	return _str1 < _str2;
 }
