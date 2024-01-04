@@ -8,6 +8,7 @@ enum class StringReturn
 
 StringReturn StringEqual(const char* const _Left, const char* const _Right)
 {
+    // strcmp()
     int countL = 0, countR = 0;
     while (_Left[countL])
     {
