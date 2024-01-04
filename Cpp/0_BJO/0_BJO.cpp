@@ -1,6 +1,4 @@
 ﻿#include <iostream>
-#include <vector>
-#include <algorithm>
 using namespace std;
 
 class Problem
@@ -8,94 +6,61 @@ class Problem
 private:
 
 public:
-	void Problem_2204(class Word& _Word);
+	void Problem_2721(class TriNum& _TriNum);
 
 };
 
-class Word
+class TriNum
 {
-public:
-
 private:
-	vector<string> m_StringVec = vector<string>();
+	int m_Tn = 0;
+	int m_Wn = 0;
 
 public:
-	void InputStringVec();
-	void SortVec();
-	void ClearVec();
-	string GetVecFirstWord();
+	void SetTn(int _N);
+	void SetWn(int _N);
+
+	inline int GetWn() const { return m_Wn; }
 };
-
-bool compare(string _str1, string _str2)
-{
-	string temp1 = "", temp2 = "";
-
-	for (int i = 0; i < _str1.length(); i++)
-	{
-		temp1 += tolower(_str1[i]);
-	}
-
-	for (int i = 0; i < _str2.length(); i++)
-	{
-		temp2 += tolower(_str2[i]);
-	}
-
-	return temp1 < temp2;
-}
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	
 	Problem NewProblem = Problem();
-	Word NewWord = Word();
-
-	NewProblem.Problem_2204(NewWord);
+	TriNum NewTriNum = TriNum();
+	NewProblem.Problem_2721(NewTriNum);
 
 	return 0;
 }
 
-void Problem::Problem_2204(Word& _Word)
+void Problem::Problem_2721(TriNum& _TriNum)
 {
 	int TestCase = 0;
-	
-	while (true)
+	cin >> TestCase;
+
+	int N = 0;
+	for (int i = 0; i < TestCase; i++)
 	{
-		cin >> TestCase;
-		if (TestCase == 0)
-		{
-			return;
-		}
-
-		for (int i = 0; i < TestCase; i++)
-		{
-			_Word.InputStringVec();
-		}
-
-		_Word.SortVec();
-		cout << _Word.GetVecFirstWord() << "\n";
-		_Word.ClearVec();
+		cin >> N;
+		_TriNum.SetWn(N);
+		cout << _TriNum.GetWn() << "\n";
 	}
 }
 
-void Word::InputStringVec()
+void TriNum::SetTn(int _N)
 {
-	string str = "";
-	cin >> str;
-	m_StringVec.push_back(str);
+	m_Tn = _N * (_N + 1) / 2;
 }
 
-void Word::SortVec()
+void TriNum::SetWn(int _N)
 {
-	sort(m_StringVec.begin(), m_StringVec.end(), compare);
-}
+	int Result = 0;
+	for (int i = 1; i <= _N; i++)
+	{
+		SetTn(i + 1);
+		Result += i * m_Tn;
+	}
 
-void Word::ClearVec()
-{
-	m_StringVec.clear();
-}
-
-string Word::GetVecFirstWord()
-{
-	return *(m_StringVec.begin());
+	m_Wn = Result;
 }

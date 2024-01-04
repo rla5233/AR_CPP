@@ -22,7 +22,7 @@ public:
 
 	// 연산자 겹지정은 클래스의 함수를 만들때
 	// 연산자 형식으로 사용할 수 있게 만들 수 있는 함수입니다.
-	MyInt operator- (MyInt _Other)
+	MyInt operator- (/*&this,*/ MyInt _Other)
 	{
 		return Value - _Other.Value;
 	}

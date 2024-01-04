@@ -60,14 +60,33 @@ void StringAdd(char* _Dest, const char* const _Left, const char* const _Right)
 
 int StringContains(const char* const _Dest, const char* const _Find)
 {
-    char find_char = _Find[0];
+    int find_count = 0;
+    while (_Find[find_count])
+    {
+        ++find_count;
+    }
 
     int count = 0, idx = 0;
     while (_Dest[idx])
     {
-        if (_Dest[idx] == find_char)
+        bool isFind = false;
+
+        if (_Dest[idx] == _Find[0])
         {
-            count++;
+            isFind = true;
+
+            for (int i = 0; i < find_count; i++)
+            {
+                if (_Dest[idx + i] != _Find[i])
+                {
+                    isFind = false;
+                }
+            }
+        }
+
+        if (isFind)
+        {
+            ++count;
         }
 
         ++idx;
@@ -101,7 +120,7 @@ int main()
     }
 
     {
-        int Result = StringContains("abcsafdvacabccccabab", "c");
+        int Result = StringContains("ababacsafdvacabaccccabab", "aba");
         printf_s("%d\n", Result);
     }
 }

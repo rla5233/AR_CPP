@@ -42,6 +42,10 @@ int main()
     // 동적 바인딩 (동적 할당)
     // 동적 할당은 힙영역을 사용한다.
     //
+    // 동적 할당의 필요성
+    // 1. 어떤 메모리를 원할때 원하는 만큼 생성할 수 있다.
+    // 2. 동적할당을 통해 소유의 개념을 표현할 수 있다.
+    //
 
     {
         Zone* CurZone = nullptr;
@@ -57,9 +61,13 @@ int main()
     }
 
     {
-        // 배열로 할당하는 방법
-        Monster* NewMonster = new Monster[10];
+        // 배열로 할당하는 방법 (중요)
+        Monster* NewMonster1 = new Monster[10];
 
-        delete[] NewMonster;
+        int MonsterCount = 20;
+        Monster* NewMonster2 = new Monster[MonsterCount];
+
+        delete[] NewMonster1;
+        delete[] NewMonster2;
     }
 }
