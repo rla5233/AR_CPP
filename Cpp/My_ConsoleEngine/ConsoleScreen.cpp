@@ -3,5 +3,5 @@
 
 void ConsoleScreen::Test()
 {
-	printf_s("성공\n");
+	printf_s("라이브러리 연동 성공\n");
 }
