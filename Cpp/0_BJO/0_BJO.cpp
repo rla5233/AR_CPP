@@ -1,4 +1,5 @@
 ﻿#include <iostream>
+#include <string>
 using namespace std;
 
 class Problem
@@ -6,61 +7,84 @@ class Problem
 private:
 
 public:
-	void Problem_2721(class TriNum& _TriNum);
+	void Problem_1769(class NumString& _NumString);
 
 };
 
-class TriNum
+class NumString
 {
 private:
-	int m_Tn = 0;
-	int m_Wn = 0;
+	string m_Num = "";
+	int m_ChangeCount = 0;
 
 public:
-	void SetTn(int _N);
-	void SetWn(int _N);
+	void ChangeNum();
+	bool CheckNum_3M();
 
-	inline int GetWn() const { return m_Wn; }
+	inline void ChangeCountUP() { ++m_ChangeCount; }
+	inline void SetNum(string _Num) { m_Num = _Num; }
+	inline int GetChangeCount() const { return m_ChangeCount; }
+	inline int GetNumStringLen() const { return static_cast<int>(m_Num.length()); }
 };
+
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	
 	Problem NewProblem = Problem();
-	TriNum NewTriNum = TriNum();
-	NewProblem.Problem_2721(NewTriNum);
+	NumString NewNumString = NumString();
+	NewProblem.Problem_1769(NewNumString);
 
 	return 0;
 }
 
-void Problem::Problem_2721(TriNum& _TriNum)
+void Problem::Problem_1769(NumString& _NumString)
 {
-	int TestCase = 0;
-	cin >> TestCase;
+	string num = "";
+	cin >> num;
 
-	int N = 0;
-	for (int i = 0; i < TestCase; i++)
+	_NumString.SetNum(num);
+
+	while (_NumString.GetNumStringLen() > 1)
 	{
-		cin >> N;
-		_TriNum.SetWn(N);
-		cout << _TriNum.GetWn() << "\n";
+		_NumString.ChangeNum();
+	}
+
+	cout << _NumString.GetChangeCount() << "\n";
+	if (_NumString.CheckNum_3M())
+	{
+		cout << "YES";
+	}
+	else
+	{
+		cout << "NO";
 	}
 }
 
-void TriNum::SetTn(int _N)
+void NumString::ChangeNum()
 {
-	m_Tn = _N * (_N + 1) / 2;
-}
-
-void TriNum::SetWn(int _N)
-{
-	int Result = 0;
-	for (int i = 1; i <= _N; i++)
+	int num = 0;
+	for (int i = 0; i < m_Num.length(); i++)
 	{
-		SetTn(i + 1);
-		Result += i * m_Tn;
+		num += m_Num[i] - '0';
 	}
 
-	m_Wn = Result;
+	int a = 0;
+
+	ChangeCountUP();
+	SetNum(to_string(num));
+}
+
+bool NumString::CheckNum_3M()
+{
+	int num = stoi(m_Num);
+	if (num % 3 == 0)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

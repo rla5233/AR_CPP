@@ -1,7 +1,13 @@
 #include "ConsoleScreen.h"
 #include <iostream>
 
-void ConsoleScreen::Test()
+void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 {
-	printf_s("라이브러리 연동 성공\n");
+	if (_ScreenX <= 0)
+	{
+		
+	}
+
+	ScreenX = _ScreenX;
+	ScreenY = _ScreenY;
 }
