@@ -18,22 +18,25 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 	ScreenX = _ScreenX;
 	ScreenY = _ScreenY;
 
-	int ArrCount = (ScreenX + 1) * ScreenY + 1;
-	ScreenData = new char[ArrCount];
+	ScreenData = new char* [ScreenY];
 
-	int idx = 0;
 	for (int y = 0; y < ScreenY; y++)
 	{
+		ScreenData[y] = new char[ScreenX + 2] { 0, };
+
 		for (int x = 0; x < ScreenX; x++)
 		{
-			ScreenData[idx] = '*';
-			++idx;
+			ScreenData[y][x] = '*';
 		}
 
-		ScreenData[idx] = '\n';
-		++idx;
+		ScreenData[y][ScreenX] = '\n';
 	}
-	
-	ScreenData[ArrCount - 1] = '\0';
-	printf_s(ScreenData);
+
+	// 함수가 실행되면 스택에 그 함수 이름의 메모리를 그리면
+	// 맴버함수는 실행되면 내부에 this가 있다는것을 기억해야 한다.
+
+	for (int y = 0; y < ScreenY; y++)
+	{
+		printf_s(ScreenData[y]);
+	}
 }

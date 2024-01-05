@@ -14,7 +14,7 @@ private:
 	int ScreenX = -1;
 	int ScreenY = -1;
 	
-	char* ScreenData;
+	char** ScreenData = nullptr;
 
 public:
 	void CreateScreen(int _ScreenX, int _ScreenY);

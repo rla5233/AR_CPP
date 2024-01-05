@@ -4,11 +4,14 @@
 #include <iostream>
 #include <Teacher_ConsoleEngine/ConsoleScreen.h>
 
+// 메모리를 이해할때 함수가 실행됐다면
+
+void Test();
+
 int main()
 {
     ConsoleScreen NewScreen = ConsoleScreen();
-
-    NewScreen.CreateScreen(2, 2);
+    NewScreen.CreateScreen(/*&NewScreen => this, */3, 3);
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴

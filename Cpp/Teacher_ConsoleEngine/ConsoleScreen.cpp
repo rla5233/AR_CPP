@@ -4,7 +4,7 @@
 #include <assert.h>
 
 
-void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
+void ConsoleScreen::CreateScreen(/*&NewScreen => this, */int _ScreenX, int _ScreenY)
 {
 	if (0 >= _ScreenX)
 	{
@@ -16,49 +16,31 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 		MsgBoxAssert("스크린 Y크기가 0이기 때문에 콘솔 스크린을 만들수 없습니다");
 	}
 
-	ScreenX = _ScreenX;
-	ScreenY = _ScreenY;
+	/*this->*/ScreenX = _ScreenX;
+	/*this->*/ScreenY = _ScreenY;
 
-	int ArrayCount = (ScreenX + 1) * ScreenY + 1;
-
-	// 10~10하면 10
-	// 11 * 10
-	ScreenData = new char[ArrayCount] {};
-
-	for (int i = 0; i < ArrayCount; i++)
-	{
-		ScreenData[i] = 0;
-	}
-
+	ScreenData = new char* [ScreenY];
 
 	for (int y = 0; y < ScreenY; y++)
 	{
+		ScreenData[y] = new char[ScreenX + 2] { 0, };
+
 		for (int x = 0; x < ScreenX; x++)
 		{
-			// 이게 왜 괜찮은 코드인가?
-			int Index = y * (ScreenX + 1) + x;
-			ScreenData[Index] = '*';
+			ScreenData[y][x] = '*';
 		}
 
-		int ReturnIndex = y * (ScreenX + 1) + ScreenX;
-		ScreenData[ReturnIndex] = '\n';
+		ScreenData[y][ScreenX] = '\n';
 	}
 
-	ScreenData[ArrayCount - 1] = 0;
+	// 함수가 실행되면 스택에 그 함수 이름의 메모리를 그리면
+	// 맴버함수는 실행되면 내부에 this가 있다는것을 기억해야 한다.
 
-	printf_s(ScreenData);
+	for (int y = 0; y < ScreenY; y++)
+	{
+		printf_s(ScreenData[y]);
+	}
 
-	// [*][*][\n][*][*][\n][0]
+	// printf_s(ScreenData);
 
-	// **
-	// **
-
-	// 문자열은 어떻게 출력 됩니까?
-	// "**************\n
-	//  **************\n
-	//  **************\n
-	//  **************\n
-	//  **************\n
-	//  **************\n
-	//  **************"0
 }

@@ -5,5 +5,5 @@ int main()
 {
     ConsoleScreen NewScreen = ConsoleScreen();
 
-    NewScreen.CreateScreen(20, 20);
+    NewScreen.CreateScreen(2, 2);
 }
