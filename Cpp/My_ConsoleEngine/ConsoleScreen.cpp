@@ -1,24 +1,34 @@
 #include "ConsoleScreen.h"
 #include <iostream>
-#include <Windows.h>
-#include <assert.h>
 
 void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 {
+	ReleaseScreen();
+
 	if (_ScreenX <= 0)
 	{
-		MsgBosAssert("Wrong range : ScreenX");
+		MsgBoxAssert("Wrong range : ScreenX");
 	}
 
 	if (_ScreenY <= 0)
 	{
-		MsgBosAssert("Wrong range : ScreenY");
+		MsgBoxAssert("Wrong range : ScreenY");
 	}
 
 	ScreenX = _ScreenX;
 	ScreenY = _ScreenY;
 
+	if (ScreenData != nullptr)
+	{
+		MsgBoxAssert("Alreay Exist Memory");
+	}
+
 	ScreenData = new char* [ScreenY];
+
+	if (ScreenData == nullptr)
+	{
+		MsgBoxAssert("Failed Create Memory");
+	}
 
 	for (int y = 0; y < ScreenY; y++)
 	{
@@ -38,5 +48,22 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 	for (int y = 0; y < ScreenY; y++)
 	{
 		printf_s(ScreenData[y]);
+	}
+}
+
+void ConsoleScreen::ReleaseScreen()
+{
+	// 지울 때는 역순으로 지운다.
+	for (int y = 0; y < ScreenY; y++)
+	{
+		if (ScreenData[y] != nullptr)
+		{
+			delete[] ScreenData[y];
+		}
+	}
+
+	if (ScreenData != nullptr)
+	{
+		delete ScreenData;
 	}
 }

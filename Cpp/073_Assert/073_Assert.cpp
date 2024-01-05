@@ -13,7 +13,7 @@ int main()
 	//
 
 	// 지금은 사용법만 배움
-	MessageBoxA(nullptr, "크기가 0입니다.", "치명적 에러", MB_OK);
+	MessageBoxA(nullptr, "에러발생", "치명적 에러", MB_OK);
 	assert(false);
 
 }

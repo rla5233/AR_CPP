@@ -18,5 +18,7 @@ private:
 
 public:
 	void CreateScreen(int _ScreenX, int _ScreenY);
+	void ReleaseScreen();
+	void PrintScreen();
 };
 

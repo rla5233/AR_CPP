@@ -3,7 +3,14 @@
 
 int main()
 {
+    LeakCheck;
+
     ConsoleScreen NewScreen = ConsoleScreen();
 
     NewScreen.CreateScreen(2, 2);
+
+
+
+
+    NewScreen.ReleaseScreen();
 }
