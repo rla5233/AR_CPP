@@ -1,5 +1,7 @@
 ﻿#include <iostream>
+#include <algorithm>
 #include <vector>
+#include <string>
 using namespace std;
 
 class Problem
@@ -7,90 +9,139 @@ class Problem
 private:
 
 public:
-	void Problem_1145(class Number& _Number) const;
+	void Problem_3568(class iSharp& _iSharp) const;
 
 };
 
-class Number
+class iSharp
 {
 private:
-	vector<int> m_NumVec = vector<int>();
-	int m_LeastMultipleNum = -1;
+	string m_iSharpType = "";
+	string m_BaseType = "";
+	string m_VarName = "";
+	string m_ExtraType = "";
+	vector<string> m_OrgTypeVec = vector<string>();
+
 
 public:
-	void SetNumVec();
-	void FindLeastMultipleNum();
+	void ConvertOrgType();
+	void FindBaseType();
+	void FindVarName(int& _Index);
+	void FindExtraType(int& _Index);
+	void PrintOrgTypeVec();
 
-	int GCD(int _Num1, int _Num2);
-	int LCM(int _Num1, int _Num2);
-	
-	inline void SetLeastMultipleNum(int _Num) {	m_LeastMultipleNum = _Num; }
-	inline int GetLeastMultipleNum() const { return m_LeastMultipleNum; }
+	inline void SetiSharpType(string _String) { m_iSharpType = _String; }
+
 };
+
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	
 	Problem NewProblem = Problem();
-	Number NewNumber = Number();
-	NewProblem.Problem_1145(NewNumber);
+	iSharp NewiSharp = iSharp();
+
+	NewProblem.Problem_3568(NewiSharp);
 
 	return 0;
 }
 
-void Problem::Problem_1145(Number& _Number) const  
+void Problem::Problem_3568(iSharp& _iSharp) const
 {
-	for (int i = 0; i < 5; i++)
+	string Input = "";
+	getline(cin, Input);
+
+	_iSharp.SetiSharpType(Input);
+	_iSharp.ConvertOrgType();
+	_iSharp.PrintOrgTypeVec();
+}
+
+void iSharp::ConvertOrgType()
+{
+	FindBaseType();
+
+	int idx = static_cast<int>(m_BaseType.length());
+	while (m_iSharpType[idx] != ';')
 	{
-		_Number.SetNumVec();
+		FindVarName(idx);
+		FindExtraType(idx);
+		m_OrgTypeVec.push_back(m_BaseType + m_ExtraType + " " + m_VarName + ";");
 	}
 
-	_Number.FindLeastMultipleNum();
-	cout << _Number.GetLeastMultipleNum();
+
 }
 
-void Number::SetNumVec()
+void iSharp::FindBaseType()
 {
-	int Num = 0;
-	cin >> Num;
-	m_NumVec.push_back(Num);
-}
-
-void Number::FindLeastMultipleNum()
-{
-	int temp1 = 0, temp2 = 0;;
-	for (int i = 0; i < m_NumVec.size() - 2; i++)
+	for (int i = 0; i < m_iSharpType.length(); i++)
 	{
-		for (int j = i + 1; j < m_NumVec.size()-1; j++)
+		if (m_iSharpType[i] == ' ')
 		{
-			for (int k = j + 1; k < m_NumVec.size(); k++)
+			return;
+		}
+
+		m_BaseType += m_iSharpType[i];
+	}
+}
+
+void iSharp::FindVarName(int& _Index)
+{
+	m_VarName = "";
+	++_Index;
+	for (_Index; _Index < m_iSharpType.length(); _Index++)
+	{
+		switch (m_iSharpType[_Index])
+		{
+			case '*':	case '[':	case '&':
+			case ',':	case ';':
 			{
-				temp1 = LCM(m_NumVec[i], m_NumVec[j]);
-				temp2 = LCM(m_NumVec[k], temp1);
-				
-				if (temp2 < m_LeastMultipleNum || m_LeastMultipleNum == -1)
+				return;
+			}
+			default:
+			{
+				if (m_iSharpType[_Index] != ' ')
 				{
-					SetLeastMultipleNum(temp2);
-				}				
+					m_VarName += m_iSharpType[_Index];
+				}
+				break;
 			}
 		}
 	}
 }
 
-int Number::GCD(int _Num1, int _Num2)
+void iSharp::FindExtraType(int& _Index)
 {
-	while (_Num2 != 0)
+	m_ExtraType = "";
+	for (_Index; _Index < m_iSharpType.length(); _Index++)
 	{
-		int r = _Num1 % _Num2;
-		_Num1 = _Num2;
-		_Num2 = r;
+		if (m_iSharpType[_Index] == ',' || m_iSharpType[_Index] == ';')
+		{
+			reverse(m_ExtraType.begin(), m_ExtraType.end());
+			return;
+		}
+		else
+		{
+			if (m_iSharpType[_Index] == '[')
+			{
+				m_ExtraType += "]";
+			}
+			else if (m_iSharpType[_Index] == ']')
+			{
+				m_ExtraType += "[";
+			}
+			else
+			{
+				m_ExtraType += m_iSharpType[_Index];
+			}
+		}
 	}
-
-	return _Num1;
 }
 
-int Number::LCM(int _Num1, int _Num2)
+void iSharp::PrintOrgTypeVec()
 {
-	return (_Num1 * _Num2) / GCD(_Num1, _Num2);
+	for (int i = 0; i < m_OrgTypeVec.size(); i++)
+	{
+		cout << m_OrgTypeVec[i] << "\n";
+	}
 }
