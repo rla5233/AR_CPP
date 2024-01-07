@@ -1,5 +1,8 @@
 #include "ConsoleScreen.h"
+
 #include <iostream>
+
+#include "ConsoleObject.h"
 
 void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 {
@@ -15,55 +18,55 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 		MsgBoxAssert("Wrong range : ScreenY");
 	}
 
-	ScreenX = _ScreenX;
-	ScreenY = _ScreenY;
+	m_ScreenX = _ScreenX;
+	m_ScreenY = _ScreenY;
 
-	if (ScreenData != nullptr)
+	if (m_ScreenData != nullptr)
 	{
 		MsgBoxAssert("Alreay Exist Memory");
 	}
 
-	ScreenData = new char* [ScreenY];
+	m_ScreenData = new char* [m_ScreenY];
 
-	if (ScreenData == nullptr)
+	if (m_ScreenData == nullptr)
 	{
 		MsgBoxAssert("Failed Create Memory");
 	}
 
-	for (int y = 0; y < ScreenY; y++)
+	for (int y = 0; y < m_ScreenY; y++)
 	{
-		ScreenData[y] = new char[ScreenX + 2] { 0, };
+		m_ScreenData[y] = new char[m_ScreenX + 2] { 0, };
 
-		for (int x = 0; x < ScreenX; x++)
+		for (int x = 0; x < m_ScreenX; x++)
 		{
-			ScreenData[y][x] = '*';
+			m_ScreenData[y][x] = '*';
 		}
 
-		ScreenData[y][ScreenX] = '\n';
+		m_ScreenData[y][m_ScreenX] = '\n';
 	}
 
 	// 함수가 실행되면 스택에 그 함수 이름의 메모리를 그리면
 	// 맴버함수는 실행되면 내부에 this가 있다는것을 기억해야 한다.
 
-	for (int y = 0; y < ScreenY; y++)
+	for (int y = 0; y < m_ScreenY; y++)
 	{
-		printf_s(ScreenData[y]);
+		printf_s(m_ScreenData[y]);
 	}
 }
 
 void ConsoleScreen::ReleaseScreen()
 {
 	// 지울 때는 역순으로 지운다.
-	for (int y = 0; y < ScreenY; y++)
+	for (int y = 0; y < m_ScreenY; y++)
 	{
-		if (ScreenData[y] != nullptr)
+		if (m_ScreenData[y] != nullptr)
 		{
-			delete[] ScreenData[y];
+			delete[] m_ScreenData[y];
 		}
 	}
 
-	if (ScreenData != nullptr)
+	if (m_ScreenData != nullptr)
 	{
-		delete ScreenData;
+		delete m_ScreenData;
 	}
 }
