@@ -139,12 +139,18 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bullet.cpp" />
+    <ClCompile Include="Player.cpp" />
     <ClCompile Include="Teacher_Galaga.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Teacher_ConsoleEngine\Teacher_ConsoleEngine.vcxproj">
       <Project>{88922356-e737-4ab2-9c71-a820a0eab50d}</Project>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Bullet.h" />
+    <ClInclude Include="Player.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

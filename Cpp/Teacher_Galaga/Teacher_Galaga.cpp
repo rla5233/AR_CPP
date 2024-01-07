@@ -3,15 +3,61 @@
 
 #include <iostream>
 #include <Teacher_ConsoleEngine/ConsoleScreen.h>
+#include <Teacher_ConsoleEngine/EngineDebug.h>
+#include "Player.h"
+#include "Bullet.h"
 
-// 메모리를 이해할때 함수가 실행됐다면
-
-void Test();
 
 int main()
 {
+    LeckCheck;
+
     ConsoleScreen NewScreen = ConsoleScreen();
-    NewScreen.CreateScreen(/*&NewScreen => this, */3, 3);
+    NewScreen.CreateScreen(/*&NewScreen => this, */30, 10);
+
+    Player NewPlayer;
+
+    const int BulletCount = 1000;
+    Bullet* NewBullet = new Bullet[BulletCount];
+
+    int CurBullet = 0;
+
+    while (true)
+    {
+        // 밀리세컨드 단위
+        Sleep(100);
+
+        NewPlayer.KeyInput();
+
+        if (true == NewPlayer.GetIsFire())
+        {
+            NewBullet[CurBullet].SetPos(NewPlayer.GetPos());
+            NewBullet[CurBullet].Fire();
+            ++CurBullet;
+        }
+
+        for (int i = 0; i < BulletCount; i++)
+        {
+            if (false == NewBullet[i].GetIsFire())
+            {
+                continue;
+            }
+
+            NewBullet[i].Move();
+            NewScreen.SetChar(NewBullet[i]);
+        }
+
+        NewScreen.SetChar(NewPlayer);
+        NewScreen.PrintScreen();
+    }
+
+    if (NewBullet)
+    {
+        delete[] NewBullet;
+        NewBullet = nullptr;
+    }
+
+    NewScreen.ReleaseScreen();
 }
 
 // 프로그램 실행: <Ctrl+F5> 또는 [디버그] > [디버깅하지 않고 시작] 메뉴

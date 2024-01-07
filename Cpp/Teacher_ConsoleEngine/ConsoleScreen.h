@@ -1,5 +1,6 @@
 #pragma once
 #include "EngineDebug.h"
+#include "ConsoleMath.h"
 
 // 화면의 크기를 미리 정의하고
 // 게임이 실행되면 변경이 불가능했죠.
@@ -27,6 +28,14 @@ class ConsoleScreen
 {
 public:
 	void CreateScreen(int _ScreenX, int _ScreenY);
+	void ReleaseScreen();
+	void PrintScreen();
+	void ClearScreen();
+
+	// 전방선언
+	void SetChar(const class ConsoleObject& _Object);
+	void SetChar(const class ConsoleObject* _Object);
+	void SetChar(const int2& _Pos, char _Char);
 
 protected:
 
