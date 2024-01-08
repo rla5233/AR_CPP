@@ -6,7 +6,7 @@
 #include <assert.h>
 
 #define MsgBoxAssert(TEXT) MessageBoxA(nullptr, TEXT, "Error", MB_OK); assert(false)
-#define SHALLOW
+//#define SHALLOW
 
 class IntArray
 {
@@ -25,15 +25,21 @@ public:
     //IntArray(const IntArray& _Other)
     //{}
 
+#ifdef SHALLOW
     IntArray(const IntArray& _Other)
     {
-        NumValue = _Other.NumValue;
-        ReSize(NumValue);
+        ReSize(_Other.NumValue);
         for (int i = 0; i < NumValue; i++)
         {
             ArrPtr[i] = _Other.ArrPtr[i];
         }
     }
+#else
+    IntArray(const IntArray& _Other)
+    {
+        Copy(_Other);
+    }
+#endif
 
     // 디폴트 소멸자
     //~IntArray()
@@ -60,14 +66,11 @@ public:
     }
 #else
     // 깊은 복사 (Deep Copy)
-
+    // 1. 참조의 내부에 존재하는 값을 복사하는 복사
+    // 2. 내부에 있는 값을 메모리를 동일하게 할당해 복사하는 복사
     void operator= (const IntArray& _Other)
     {
-        NumValue = _Other.NumValue;
-        for (int i = 0; i < NumValue; i++)
-        {
-            ArrPtr[i] = _Other.ArrPtr[i];
-        }
+        Copy(_Other);
     }
 #endif
 
@@ -93,6 +96,15 @@ public:
         NumValue = _Size;
     }
 
+    void Copy(const IntArray& _Other)
+    {
+        ReSize(_Other.NumValue);
+        for (int i = 0; i < NumValue; i++)
+        {
+            ArrPtr[i] = _Other.ArrPtr[i];
+        }
+    }
+
     void Release()
     {
         if (ArrPtr != nullptr)
@@ -113,6 +125,15 @@ private:
 
 };
 
+// 전역 사용
+// 절차 지향
+
+// 클래스와 객체 
+// 객체 지향
+
+// 템플릿을 사용하는 패러다임을 
+// 템플릿 메타 프로그래밍, 제네릭 프로그래밍 이라고 한다.
+
 int main()
 {
     _CrtSetDbgFlag(_CRTDBG_LEAK_CHECK_DF | _CRTDBG_ALLOC_MEM_DF);
@@ -132,7 +153,6 @@ int main()
         //ArrValue0 = ArrValue1;
     }
 
-    
     // 객체지향에서 내가 만든 객체로 표현하지 못할건 없다.
     // 나의 배열을 만들어서 기본 배열의 불편한점을 해결하고 편리하게 사용할 수 있다.
     // (사실 이미 그런것들을 제공하고 있다.)
@@ -173,7 +193,7 @@ int main()
             std::cout << NewArray0[i] << " ";
         }
 
-        IntArray NewArray1 = IntArray(5);
+        IntArray NewArray1 = IntArray(10);
         // NewArray1 [?] [?] [?] [?] [?]
 
         NewArray1 = NewArray0;
