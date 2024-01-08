@@ -8,6 +8,9 @@
 class ConsoleScreen
 {
 public:
+	ConsoleScreen();
+	virtual ~ConsoleScreen();
+
 	void CreateScreen(int _ScreenX, int _ScreenY);
 	void ReleaseScreen();
 	void PrintScreen();
@@ -16,6 +19,16 @@ public:
 	void SetChar(const class ConsoleObject& _Object);
 	void SetChar(const class ConsoleObject* _Object);
 	void SetChar(const int2& _Pos, char _Char);
+
+	inline int GetScreenX() const 
+	{ 
+		return m_ScreenX; 
+	}
+
+	inline int GetScreenY() const 
+	{ 
+		return m_ScreenY; 
+	}
 	
 private:
 	// 클래스가 생성되면

@@ -4,6 +4,14 @@
 
 #include "ConsoleObject.h"
 
+ConsoleScreen::ConsoleScreen()
+{}
+
+ConsoleScreen::~ConsoleScreen()
+{
+	ReleaseScreen();
+}
+
 void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 {
 	ReleaseScreen();

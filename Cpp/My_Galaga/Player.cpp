@@ -33,6 +33,9 @@ void Player::KeyInput()
 	case ' ':
 		m_IsFire = true;
 		break;
+	case '0':
+		m_IsEnd = true;
+		break;
 	default:
 		break;
 	}
