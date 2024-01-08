@@ -26,7 +26,7 @@ class Potion : public Item
 
 };
 
-class Sword : public Item
+class Weapon : public Item
 {
 
 };
@@ -64,13 +64,13 @@ public:
 class Player : public FightUnit
 {
 private:
-    Sword m_Sword;
+    Weapon m_Sword;
 };
 
 class Monster : public FightUnit
 {
 private:
-    Sword m_Sword;
+    Weapon m_Sword;
 };
 
 class NPC : public FightUnit

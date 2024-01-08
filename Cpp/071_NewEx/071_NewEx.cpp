@@ -8,7 +8,7 @@ class Player
 
 };
 
-class Sword
+class Weapon
 {
 
 };
@@ -16,12 +16,12 @@ class Sword
 class Player1
 {
 public:
-    Sword* Weapon = nullptr;
+    Weapon* Weapon = nullptr;
 
 public:
     void CreateSword()
     {
-        Weapon = new Sword();
+        Weapon = new Weapon();
     }
 
     void DeleteSword()

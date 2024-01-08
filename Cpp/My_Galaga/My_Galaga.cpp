@@ -27,7 +27,6 @@ int main()
             NewBullet[CurBullet].SetPos(NewPlayer.GetPos());
             NewBullet[CurBullet].Fire();
 
-            // 범위 넘어가도 오류 발견이 안된다!?
             ++CurBullet;
             CurBullet %= BulletCount;
         }
