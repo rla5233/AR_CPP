@@ -8,7 +8,7 @@
 #define MsgBoxAssert(TEXT) MessageBoxA(nullptr, TEXT, "Error", MB_OK); assert(false)
 //#define SHALLOW
 
-class IntArray
+class CArray
 {
 // private: // 디폴트 접근제한 지정자
 public:
@@ -16,7 +16,7 @@ public:
     //IntArray()
     //{}
 
-    IntArray(int _Size)
+    CArray(int _Size)
     {
         ReSize(_Size);
     }
@@ -35,7 +35,7 @@ public:
         }
     }
 #else
-    IntArray(const IntArray& _Other)
+    CArray(const CArray& _Other)
     {
         Copy(_Other);
     }
@@ -45,7 +45,7 @@ public:
     //~IntArray()
     //{}
 
-    ~IntArray()
+    ~CArray()
     {
         Release();
     }
@@ -68,7 +68,7 @@ public:
     // 깊은 복사 (Deep Copy)
     // 1. 참조의 내부에 존재하는 값을 복사하는 복사
     // 2. 내부에 있는 값을 메모리를 동일하게 할당해 복사하는 복사
-    void operator= (const IntArray& _Other)
+    void operator= (const CArray& _Other)
     {
         Copy(_Other);
     }
@@ -96,7 +96,7 @@ public:
         NumValue = _Size;
     }
 
-    void Copy(const IntArray& _Other)
+    void Copy(const CArray& _Other)
     {
         ReSize(_Other.NumValue);
         for (int i = 0; i < NumValue; i++)
@@ -164,7 +164,7 @@ int main()
     // 3. 거기서 내가 원하는 자료를 어떻게 찾을것인가? (옵션)
     // 
     {
-        IntArray NewArray = IntArray(5);
+        CArray NewArray = CArray(5);
         NewArray[0] = 20;
 
         for (int i = 0; i < NewArray.Num(); i++)
@@ -181,7 +181,7 @@ int main()
     // 과제
     {
         std::cout << std::endl;
-        IntArray NewArray0 = IntArray(5);
+        CArray NewArray0 = CArray(5);
         // NewArray0 [0] [1] [2] [3] [4]
         for (int i = 0; i < NewArray0.Num(); i++)
         {
@@ -193,7 +193,7 @@ int main()
             std::cout << NewArray0[i] << " ";
         }
 
-        IntArray NewArray1 = IntArray(10);
+        CArray NewArray1 = CArray(10);
         // NewArray1 [?] [?] [?] [?] [?]
 
         NewArray1 = NewArray0;
@@ -210,13 +210,13 @@ int main()
     //NewArray1.~IntArray();
 
     {
-        IntArray NewArray0 = IntArray(5);
+        CArray NewArray0 = CArray(5);
         for (int i = 0; i < NewArray0.Num(); i++)
         {
             NewArray0[i] = i;
         }
 
-        IntArray NewArray1 = IntArray(NewArray0);
+        CArray NewArray1 = CArray(NewArray0);
 
         std::cout << std::endl;
         for (int i = 0; i < NewArray0.Num(); i++)

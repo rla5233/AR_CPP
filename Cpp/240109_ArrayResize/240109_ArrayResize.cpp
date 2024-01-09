@@ -1,27 +1,27 @@
 ﻿#include <iostream>
 #include <My_ConsoleEngine/EngineDebug.h>
 
-class IntArray
+class CArray
 {
 
 public:
 
-    IntArray(int _Size)
+    CArray(int _Size)
     {
         ReSize(_Size);
     }
 
-    IntArray(const IntArray& _Other)
+    CArray(const CArray& _Other)
     {
         Copy(_Other);
     }
 
-    ~IntArray()
+    ~CArray()
     {
         Release();
     }
 
-    void operator= (const IntArray& _Other)
+    void operator= (const CArray& _Other)
     {
         Copy(_Other);
     }
@@ -67,7 +67,7 @@ public:
         Temp = nullptr;
     }
 
-    void Copy(const IntArray& _Other)
+    void Copy(const CArray& _Other)
     {
         ReSize(_Other.NumValue);
         for (int i = 0; i < NumValue; i++)
@@ -100,7 +100,7 @@ private:
 int main()
 {
     LeakCheck;
-    IntArray NewArray = IntArray(5);
+    CArray NewArray = CArray(5);
 
     for (int i = 0; i < NewArray.Num(); i++)
     {

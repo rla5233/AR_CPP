@@ -1,104 +1,94 @@
 ﻿#include <iostream>
-#include <vector>
+#include <string>
 #include <algorithm>
 using namespace std;
 
 class Problem
 {
-private:
-
 public:
-	void Problem_6603(class Lotto& _Lotto) const;
+	void Problem_10610(class NumberString& _NumString) const;
+
+private:
 
 };
 
-class Lotto
+class NumberString
 {
 public:
-	Lotto() {}
-	~Lotto() {}
+	void SetNumString(string _String);
+	void SortNumString();
+	bool IsCanDivide();
+	inline string GetNumString() { return m_NumString; }
 
-	void AddNum_S(int _Num);
-	void Clear();
-	void PrintAllCase();
 
 private:
-	const int m_Count = 6;
-	vector<int> m_SVec = vector<int>();
+	string m_NumString = "";
 };
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-	
-	Problem NewProblem = Problem();
-	Lotto NewLotto = Lotto();
 
-	NewProblem.Problem_6603(NewLotto);
+	Problem NewProblem = Problem();
+	NumberString NewNumString = NumberString();
+
+	NewProblem.Problem_10610(NewNumString);
 
 	return 0;
 }
 
-void Problem::Problem_6603(Lotto& _Lotto) const
+void Problem::Problem_10610(NumberString& _NumString) const
 {
-	while (true)
+	string Input = "";
+	cin >> Input;
+
+	_NumString.SetNumString(Input);
+
+	int a = 0;
+
+	_NumString.SortNumString();
+
+	if (_NumString.IsCanDivide())
 	{
-		int K = 0;
-		cin >> K;
-		if (K == 0)
-		{
-			break;
-		}
-
-		for (int i = 0; i < K; i++)
-		{
-			int num = 0;
-			cin >> num;
-			_Lotto.AddNum_S(num);
-		}
-
-		_Lotto.PrintAllCase();
-		_Lotto.Clear();
+		cout << _NumString.GetNumString();
+	}
+	else
+	{
+		cout << -1;
 	}
 }
 
-void Lotto::AddNum_S(int _Num)
+void NumberString::SetNumString(string _String)
 {
-	m_SVec.push_back(_Num);
+	m_NumString = _String;
 }
 
-
-void Lotto::Clear()
+void NumberString::SortNumString()
 {
-	m_SVec.clear();
+	sort(m_NumString.rbegin(), m_NumString.rend());
 }
 
-void Lotto::PrintAllCase()
+bool NumberString::IsCanDivide()
 {
-	for (int a = 0; a < (m_SVec.size() - m_Count) + 1; a++)
+	int temp = 0;
+	if (m_NumString[m_NumString.length() - 1] != '0')
 	{
-		for (int b = a + 1; b < (m_SVec.size() - m_Count) + 2; b++)
+		return false;
+	}
+	else
+	{
+		for (int i = m_NumString.length() - 1; i >= 0; i--)
 		{
-			for (int c = b + 1; c < (m_SVec.size() - m_Count) + 3; c++)
-			{
-				for (int d = c + 1; d < (m_SVec.size() - m_Count) + 4; d++)
-				{
-					for (int e = d + 1; e < (m_SVec.size() - m_Count) + 5; e++)
-					{
-						for (int f = e + 1; f < (m_SVec.size() - m_Count) + 6; f++)
-						{
-							cout << m_SVec[a] << " ";
-							cout << m_SVec[b] << " ";
-							cout << m_SVec[c] << " ";
-							cout << m_SVec[d] << " ";
-							cout << m_SVec[e] << " ";
-							cout << m_SVec[f] << "\n";
-						}
-					}
-				}
-			}
+			temp += m_NumString[i] - '0';
+		}
+
+		if (temp % 3 == 0)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
-
-	cout << "\n";
 }

@@ -30,4 +30,7 @@ int main()
     TemplateClass<int> New;
     // 위처럼 호출하면 TemplateClass를 지우고 TemplateClassint 클래스를 만들어
     // TemplateClassint New; 를 한것과 같다.
+
+
+
 }
