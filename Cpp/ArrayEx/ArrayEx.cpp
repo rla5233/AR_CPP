@@ -170,7 +170,7 @@ int main()
         {
             for (int j = 0; j < 10; j++)
             {
-                TestArray[i][j] = j;
+                //TestArray[i][j] = j;
             }
         }
 
@@ -179,7 +179,7 @@ int main()
         {
             for (int j = 0; j < 10; j++)
             {
-                std::cout << TestArray[i][j] << " ";
+                //std::cout << TestArray[i][j] << " ";
             }
             std::cout << std::endl;
         }
