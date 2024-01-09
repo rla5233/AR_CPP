@@ -128,6 +128,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="077_ClassTemplate.cpp" />
+    <ClCompile Include="MyCpp.cpp" />
+    <ClCompile Include="MyTemplateClass.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="MyCpp.h" />
+    <ClInclude Include="MyTemplateClass.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
