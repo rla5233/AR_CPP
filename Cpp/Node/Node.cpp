@@ -2,6 +2,7 @@
 //
 
 #include <iostream>
+#include <vector>
 
 // 노드 구조
 // - 자료구조 메모리의 2가지 형태중 하나
@@ -13,6 +14,13 @@ class Node
 public:
     DataType Value;
     Node* Next = nullptr;
+    Node* Prev = nullptr;
+};
+
+class Zone
+{
+public:
+    std::vector<Zone*> LinkZone;
 };
 
 int main()
@@ -37,6 +45,11 @@ int main()
     Node3.Next = &Node4;
     Node4.Next = &Node5;
 
+    Node1.Prev = &Node0;
+    Node2.Prev = &Node1;
+    Node3.Prev = &Node2;
+    Node4.Prev = &Node3;
+    Node5.Prev = &Node4;
 
     /////////////////////////////////////////
     // CurNode 만 가지고 나머지값 모두 출력
@@ -46,5 +59,13 @@ int main()
     {
         std::cout << CurNode->Value << std::endl;
         CurNode = CurNode->Next;
+    }
+
+    std::cout << std::endl;
+    CurNode = &Node5;
+    while (CurNode != nullptr)
+    {
+        std::cout << CurNode->Value << std::endl;
+        CurNode = CurNode->Prev;
     }
 }
