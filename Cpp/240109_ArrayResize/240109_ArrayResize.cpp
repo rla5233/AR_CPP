@@ -3,7 +3,6 @@
 
 class CArray
 {
-
 public:
 
     CArray(int _Size)

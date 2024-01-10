@@ -6,23 +6,34 @@ using namespace std;
 class Problem
 {
 public:
-	void Problem_10610(class NumberString& _NumString) const;
+	void Problem_11008(class Typing& _Typing) const;
 
 private:
 
 };
 
-class NumberString
+class Typing
 {
 public:
-	void SetNumString(string _String);
-	void SortNumString();
-	bool IsCanDivide();
-	inline string GetNumString() { return m_NumString; }
+	void FindMinTime();
 
+	inline void SetCopy(string _Copy)
+	{
+		m_Copy = _Copy;
+	}
+	inline void SetGoal(string _Goal)
+	{
+		m_Goal = _Goal;
+	}
+	inline int GetTime() const 
+	{
+		return m_Time;
+	};
 
 private:
-	string m_NumString = "";
+	string m_Copy = "";
+	string m_Goal = "";
+	int m_Time = 0;
 };
 
 int main()
@@ -30,65 +41,49 @@ int main()
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 
 	Problem NewProblem = Problem();
-	NumberString NewNumString = NumberString();
+	Typing NewCopy = Typing();
 
-	NewProblem.Problem_10610(NewNumString);
+	NewProblem.Problem_11008(NewCopy);
 
 	return 0;
 }
 
-void Problem::Problem_10610(NumberString& _NumString) const
+void Problem::Problem_11008(Typing& _Typing) const
 {
-	string Input = "";
-	cin >> Input;
+	int TestCase = 0;
+	cin >> TestCase;
 
-	_NumString.SetNumString(Input);
-
-	int a = 0;
-
-	_NumString.SortNumString();
-
-	if (_NumString.IsCanDivide())
+	string str = "";
+	for (int i = 0; i < TestCase; i++)
 	{
-		cout << _NumString.GetNumString();
-	}
-	else
-	{
-		cout << -1;
+		cin >> str;
+		_Typing.SetGoal(str);
+
+		cin >> str;
+		_Typing.SetCopy(str);
+
+		_Typing.FindMinTime();
+		cout << _Typing.GetTime() << "\n";
 	}
 }
 
-void NumberString::SetNumString(string _String)
+void Typing::FindMinTime()
 {
-	m_NumString = _String;
-}
-
-void NumberString::SortNumString()
-{
-	sort(m_NumString.rbegin(), m_NumString.rend());
-}
-
-bool NumberString::IsCanDivide()
-{
-	int temp = 0;
-	if (m_NumString[m_NumString.length() - 1] != '0')
+	m_Time = 0;
+	int i = 0;
+	while(i < m_Goal.length())
 	{
-		return false;
-	}
-	else
-	{
-		for (int i = m_NumString.length() - 1; i >= 0; i--)
+		if (m_Goal[i] == m_Copy[0])
 		{
-			temp += m_NumString[i] - '0';
-		}
-
-		if (temp % 3 == 0)
-		{
-			return true;
-		}
-		else
-		{
-			return false;
-		}
+			if (m_Goal.substr(i, m_Copy.length()) == m_Copy)
+			{
+				++m_Time;
+				i += m_Copy.length();
+				continue;
+			}
+		}		
+		
+		++m_Time;
+		++i;		
 	}
 }

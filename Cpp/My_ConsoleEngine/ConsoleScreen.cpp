@@ -29,21 +29,20 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 	m_ScreenX = _ScreenX;
 	m_ScreenY = _ScreenY;
 
-	if (m_ScreenData != nullptr)
+	if (m_ScreenData.size() != 0)
 	{
 		MsgBoxAssert("Alreay Exist Memory");
 	}
 
-	m_ScreenData = new char* [m_ScreenY];
-
-	if (m_ScreenData == nullptr)
+	m_ScreenData.resize(m_ScreenY);
+	if (m_ScreenData.size() == 0)
 	{
 		MsgBoxAssert("Failed Create Memory");
 	}
 
 	for (int y = 0; y < m_ScreenY; y++)
 	{
-		m_ScreenData[y] = new char[m_ScreenX + 2] { 0, };
+		m_ScreenData[y].reserve(m_ScreenX + 2);
 
 		for (int x = 0; x < m_ScreenX; x++)
 		{

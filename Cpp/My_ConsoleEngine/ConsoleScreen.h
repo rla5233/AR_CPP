@@ -1,6 +1,7 @@
 #pragma once
 #include "EngineDebug.h"
 #include "ConsoleMath.h"
+#include <vector>
 
 // 기존에는 화면의 크기를 정적바인딩으로 설정하였다.
 // 
@@ -38,6 +39,6 @@ private:
 	int m_ScreenX = -1;
 	int m_ScreenY = -1;
 	
-	char** m_ScreenData = nullptr;
+	std::vector<std::vector<char>> m_ScreenData;
 };
 
