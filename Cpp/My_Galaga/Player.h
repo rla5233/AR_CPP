@@ -4,12 +4,7 @@
 
 class Player : public ConsoleObject
 {
-public:	
-	inline bool GetIsFire() const 
-	{	
-		return m_IsFire; 
-	}
-
+public:
 	inline bool GetIsEnd() const 
 	{	
 		return m_IsEnd; 

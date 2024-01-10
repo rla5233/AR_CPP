@@ -40,18 +40,18 @@ public:
 
 	void Destroy()
 	{
-		m_DeathValue = true;
+		m_DestroyValue = true;
 	}
 
-	bool IsDestroy()
+	bool IsPendingKill()
 	{
-		return m_DeathValue;
+		return m_DestroyValue;
 	}
 
 private:
 	int2 m_Pos = { 0,0 };
 	char m_RenderChar = 'A';
 
-	bool m_DeathValue = false;
+	bool m_DestroyValue = false;
 };
 

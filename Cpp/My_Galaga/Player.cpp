@@ -30,11 +30,12 @@ void Player::Update()
 		AddPos(Right);
 		break;
 	case ' ':
+	{
 		Bullet * NewBullet = new Bullet();
-		NewBullet->SetPos({ GetPos().X, GetPos().Y - 1 });
-
-
+		NewBullet->SetPos({ GetPos().X, GetPos().Y });
+		m_AllObjectPtr->push_back(NewBullet);
 		break;
+	}
 	case '0':
 		m_IsEnd = true;
 		break;

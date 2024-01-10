@@ -31,23 +31,36 @@ int main()
         AllObject.push_back(NewMonster);
     }
 
-    //const int BulletCount = NewScreen.GetScreenY() * 2;
-    //Bullet* NewBullet = new Bullet[BulletCount];
-
-    //int CurBullet = 0;
-
     while (true)
     {
         Sleep(100);
 
+        // 업데이트 구조
         for (int i = 0; i < AllObject.size(); i++)
         {
-            AllObject[i]->Update();
+            if (AllObject[i] != nullptr)
+            {
+                AllObject[i]->Update();
+            }
         }
         
+        // 렌더링 구조
         for (int i = 0; i < AllObject.size(); i++)
         {
-            NewScreen.SetChar(AllObject[i]);
+            if (AllObject[i] != nullptr)
+            {
+                NewScreen.SetChar(AllObject[i]);             
+            }
+        }
+
+        // 릴리즈 구조
+        for (int i = 0; i < AllObject.size(); i++)
+        {
+            if (AllObject[i] != nullptr && AllObject[i]->IsPendingKill())
+            {
+                delete AllObject[i];
+                AllObject[i] = nullptr;
+            }
         }
 
         if (NewPlayer->GetIsEnd())

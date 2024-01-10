@@ -186,6 +186,10 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "075_Destructor", "075_Destructor\075_Destructor.vcxproj", "{23B8DDD7-6DCA-4FF4-911D-7CBAF95FAD2E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "004_DataStructure", "004_DataStructure", "{0B298AA3-1DF6-458F-ADAC-B843FFEE3F3C}"
+	ProjectSection(SolutionItems) = preProject
+		자료구조 사용개념.txt = 자료구조 사용개념.txt
+		자료구조 개론.txt = 자료구조 개론.txt
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Array", "Array\Array.vcxproj", "{20F30ECE-4A73-4B92-8341-ECDAAD6CDC28}"
 EndProject
@@ -200,6 +204,8 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "ArrayEx", "ArrayEx\ArrayEx.vcxproj", "{D2CD85E8-B155-40A3-B9C3-53DCA121DF1D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "CVector", "CVector\CVector.vcxproj", "{E377C656-9E86-45EE-8118-78EA832BCDB4}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Node", "Node\Node.vcxproj", "{71EBC467-1DDF-4642-AC74-FA304A0A4B52}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -921,6 +927,14 @@ Global
 		{E377C656-9E86-45EE-8118-78EA832BCDB4}.Release|x64.Build.0 = Release|x64
 		{E377C656-9E86-45EE-8118-78EA832BCDB4}.Release|x86.ActiveCfg = Release|Win32
 		{E377C656-9E86-45EE-8118-78EA832BCDB4}.Release|x86.Build.0 = Release|Win32
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Debug|x64.ActiveCfg = Debug|x64
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Debug|x64.Build.0 = Debug|x64
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Debug|x86.ActiveCfg = Debug|Win32
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Debug|x86.Build.0 = Debug|Win32
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Release|x64.ActiveCfg = Release|x64
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Release|x64.Build.0 = Release|x64
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Release|x86.ActiveCfg = Release|Win32
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1015,6 +1029,7 @@ Global
 		{9F18E301-17AB-460A-833C-D72FF5BB3910} = {AC6BB69D-4B31-4129-802D-38E7624D1684}
 		{D2CD85E8-B155-40A3-B9C3-53DCA121DF1D} = {0B298AA3-1DF6-458F-ADAC-B843FFEE3F3C}
 		{E377C656-9E86-45EE-8118-78EA832BCDB4} = {0B298AA3-1DF6-458F-ADAC-B843FFEE3F3C}
+		{71EBC467-1DDF-4642-AC74-FA304A0A4B52} = {0B298AA3-1DF6-458F-ADAC-B843FFEE3F3C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {363FF8B0-F0BA-49C2-9185-6B26B67E97FE}
