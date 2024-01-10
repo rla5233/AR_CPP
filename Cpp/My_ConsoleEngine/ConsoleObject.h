@@ -33,8 +33,25 @@ public:
 		m_Pos += _Dir; 
 	}
 
+	virtual void Update()
+	{
+
+	}
+
+	void Destroy()
+	{
+		m_DeathValue = true;
+	}
+
+	bool IsDestroy()
+	{
+		return m_DeathValue;
+	}
+
 private:
 	int2 m_Pos = { 0,0 };
 	char m_RenderChar = 'A';
+
+	bool m_DeathValue = false;
 };
 

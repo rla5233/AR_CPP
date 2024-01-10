@@ -5,13 +5,10 @@ class Bullet : public ConsoleObject
 {
 public:
 	Bullet();
-	void Move();
 
-	inline void Fire() { m_IsFire = true; }
-
-	inline bool GetIsFire() { return m_IsFire; }
-
+protected:
+	void Update() override;
+	
 private:
-	bool m_IsFire = false;
 };
 

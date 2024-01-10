@@ -1,11 +1,10 @@
 #pragma once
 #include <My_ConsoleEngine/ConsoleObject.h>
+#include <vector>
 
 class Player : public ConsoleObject
 {
 public:	
-	void KeyInput();
-
 	inline bool GetIsFire() const 
 	{	
 		return m_IsFire; 
@@ -16,8 +15,17 @@ public:
 		return m_IsEnd; 
 	}
 
+	void SetAllObject(std::vector<ConsoleObject*>* _AllObjectPtr)
+	{
+		m_AllObjectPtr = _AllObjectPtr;
+	}
+
+protected:
+	void Update() override;
+
 private:
-	bool m_IsFire = false;
 	bool m_IsEnd = false;
+
+	std::vector<ConsoleObject*>* m_AllObjectPtr = nullptr;
 };
 

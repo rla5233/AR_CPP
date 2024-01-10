@@ -1,11 +1,10 @@
 #include "Player.h"
+#include "Bullet.h"
 
 #include <conio.h>
 
-void Player::KeyInput()
+void Player::Update()
 {
-	m_IsFire = false;
-
 	if (!_kbhit())
 	{
 		return;
@@ -31,7 +30,10 @@ void Player::KeyInput()
 		AddPos(Right);
 		break;
 	case ' ':
-		m_IsFire = true;
+		Bullet * NewBullet = new Bullet();
+		NewBullet->SetPos({ GetPos().X, GetPos().Y - 1 });
+
+
 		break;
 	case '0':
 		m_IsEnd = true;

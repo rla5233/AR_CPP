@@ -31,25 +31,23 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 
 	if (m_ScreenData.size() != 0)
 	{
-		MsgBoxAssert("Alreay Exist Memory");
+		MsgBoxAssert("Alreay Exist Memory.");
 	}
 
 	m_ScreenData.resize(m_ScreenY);
 	if (m_ScreenData.size() == 0)
 	{
-		MsgBoxAssert("Failed Create Memory");
+		MsgBoxAssert("Failed Create Memory.");
 	}
 
 	for (int y = 0; y < m_ScreenY; y++)
 	{
-		m_ScreenData[y].reserve(m_ScreenX + 2);
+		m_ScreenData[y].resize(m_ScreenX + 2);
 
-		for (int x = 0; x < m_ScreenX; x++)
+		if (m_ScreenData[y].size() == 0)
 		{
-			m_ScreenData[y][x] = '*';
+			MsgBoxAssert("Filed Create Screen.");
 		}
-
-		m_ScreenData[y][m_ScreenX] = '\n';
 	}
 
 	ClearScreen();
@@ -61,20 +59,22 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 void ConsoleScreen::ReleaseScreen()
 {
 	// 지울 때는 역순으로 지운다.
-	for (int y = 0; y < m_ScreenY; y++)
-	{
-		if (m_ScreenData[y] != nullptr)
-		{
-			delete[] m_ScreenData[y];
-			m_ScreenData[y] = nullptr;
-		}
-	}
+	m_ScreenData.clear();
 
-	if (m_ScreenData != nullptr)
-	{
-		delete m_ScreenData;
-		m_ScreenData = nullptr;
-	}
+	//for (int y = 0; y < m_ScreenY; y++)
+	//{
+	//	if (m_ScreenData[y] != nullptr)
+	//	{
+	//		delete[] m_ScreenData[y];
+	//		m_ScreenData[y] = nullptr;
+	//	}
+	//}
+	//
+	//if (m_ScreenData != nullptr)
+	//{
+	//	delete m_ScreenData;
+	//	m_ScreenData = nullptr;
+	//}
 }
 
 void ConsoleScreen::SetChar(const ConsoleObject& _Object)
@@ -130,12 +130,12 @@ void ConsoleScreen::PrintScreen()
 
 	for (int y = 0; y < m_ScreenY; y++)
 	{
-		if (nullptr == m_ScreenData[y])
+		if (m_ScreenData[y].size() == 0)
 		{
 			MsgBoxAssert("Print Range Error.");
 		}
-
-		printf_s(m_ScreenData[y]);
+		
+		printf_s(&m_ScreenData[y][0]);
 	}
 
 	ClearScreen();
