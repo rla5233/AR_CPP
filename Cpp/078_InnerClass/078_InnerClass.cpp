@@ -10,7 +10,8 @@ class Image
 };
 
 // 
-// 어떤 개념안에 있는 멤버변수들을 여러개 두고 또 다른 개념안에 묶는다.
+// 어떤 개념안에 있는 멤버변수들을 여러개 두고 
+// 또 다른 개념안에 묶는다.
 // 어떤 개념의 하위 개념을 표현한다.
 class Inventory
 {
@@ -22,7 +23,7 @@ private:
     public:
         Image Image;
         int Count;
-
+        
         void Test()
         {
             // class 안에 포함되어 있어도

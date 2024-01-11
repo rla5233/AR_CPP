@@ -22,7 +22,9 @@ private:
 public:
     class iterator
     {
+        friend MyList;
     public:
+        iterator() {}
         iterator(Node* _CurNode)
             : CurNode(_CurNode)
         {}
@@ -50,6 +52,18 @@ public:
     {
         Start->Next = End;
         End->Prev = Start;
+    }
+
+    ~MyList()
+    {
+        Node* DeleteNode = Start;
+        Node* Temp = nullptr;
+        while (DeleteNode != nullptr)
+        {
+            Temp = DeleteNode->Next;
+            delete DeleteNode;
+            DeleteNode = Temp;
+        }
     }
 
     iterator begin()
@@ -94,13 +108,36 @@ public:
         NextNode->Prev = NewNode;
     }
 
-protected:
+    iterator erase(iterator& _Iter)
+    {
+        if (_Iter.CurNode == Start || _Iter.CurNode == End)
+        {
+            MsgBoxAssert("Delete Range Error.");
+        }
 
+        iterator ReturnIter = iterator();
+        if(_Iter.CurNode != nullptr)
+        {
+            ReturnIter = iterator(_Iter.CurNode->Next);
+
+            Node* PrevNode = _Iter.CurNode->Prev;
+            Node* NextNode = _Iter.CurNode->Next;
+
+            PrevNode->Next = NextNode;
+            NextNode->Prev = PrevNode;
+        
+            delete _Iter.CurNode;
+            _Iter.CurNode = nullptr;
+        }
+
+        return ReturnIter;
+    }
+
+protected:
 
 private:
     Node* Start = new Node();
     Node* End = new Node();
-
 };
 
 int main()
@@ -110,10 +147,10 @@ int main()
     {
         std::cout << "std::list" << std::endl;
         std::list<int> NewList = std::list<int>();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
-            //NewList.push_back(i);
-            NewList.push_front(i);
+            NewList.push_back(i);
+            //NewList.push_front(i);
         }
 
         std::list<int>::iterator iter = NewList.begin();
@@ -121,21 +158,35 @@ int main()
         {
             std::cout << *iter << std::endl;
         }
+
+        std::list<int>::iterator Erase_iter = NewList.begin();
+        
+        // 지워진 노드의 다음 노드를 리턴함
+        Erase_iter = NewList.erase(Erase_iter);
     }
 
     {
         std::cout << "\nMyList" << std::endl;
         MyList NewList = MyList();
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 5; i++)
         {
-            //NewList.push_back(i);
-            NewList.push_front(i);
+            NewList.push_back(i);
+            //NewList.push_front(i);
         }
 
         MyList::iterator iter = NewList.begin();
         for (iter; iter != NewList.end(); ++iter)
         {
             std::cout << *iter << std::endl;
-        } 
+        }
+
+        MyList::iterator Erase_iter = NewList.begin();
+        Erase_iter = NewList.erase(Erase_iter);
+
+        std::cout << std::endl;
+        for (iter = NewList.begin(); iter != NewList.end(); ++iter)
+        {
+            std::cout << *iter << std::endl;
+        }  
     }   
 }
