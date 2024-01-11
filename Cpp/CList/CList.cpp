@@ -19,6 +19,8 @@ private:
         Node* Prev;
     };
 
+    // iterator 부모 클래스 추가
+
 public:
     class iterator
     {
@@ -48,6 +50,34 @@ public:
         Node* CurNode = nullptr;
     };
 
+    class reverse_iterator
+    {
+        friend MyList;
+    public:
+        reverse_iterator() {}
+        reverse_iterator(Node* _CurNode)
+            : CurNode(_CurNode)
+        {}
+
+        bool operator != (const reverse_iterator& _Other)
+        {
+            return CurNode != _Other.CurNode;
+        }
+
+        DataType& operator*()
+        {
+            return CurNode->Data;
+        }
+
+        void operator++()
+        {
+            CurNode = CurNode->Prev;
+        }
+
+    private:
+        Node* CurNode = nullptr;
+    };
+
     MyList()
     {
         Start->Next = End;
@@ -57,12 +87,11 @@ public:
     ~MyList()
     {
         Node* DeleteNode = Start;
-        Node* Temp = nullptr;
         while (DeleteNode != nullptr)
         {
-            Temp = DeleteNode->Next;
+            Node* Next = DeleteNode->Next;
             delete DeleteNode;
-            DeleteNode = Temp;
+            DeleteNode = Next;
         }
     }
 
@@ -74,6 +103,16 @@ public:
     iterator end()
     {
         return iterator(End);
+    }
+
+    reverse_iterator rbegin()
+    {
+        return reverse_iterator(End->Prev);
+    }
+
+    reverse_iterator rend()
+    {
+        return reverse_iterator(Start);
     }
 
     // End의 Prev에 새로운 데이터를 넣겠다.
@@ -153,16 +192,11 @@ int main()
             //NewList.push_front(i);
         }
 
-        std::list<int>::iterator iter = NewList.begin();
-        for (iter; iter != NewList.end(); ++iter)
+        std::list<int>::reverse_iterator iter = NewList.rbegin();
+        for (iter; iter != NewList.rend(); ++iter)
         {
             std::cout << *iter << std::endl;
         }
-
-        std::list<int>::iterator Erase_iter = NewList.begin();
-        
-        // 지워진 노드의 다음 노드를 리턴함
-        Erase_iter = NewList.erase(Erase_iter);
     }
 
     {
@@ -174,19 +208,10 @@ int main()
             //NewList.push_front(i);
         }
 
-        MyList::iterator iter = NewList.begin();
-        for (iter; iter != NewList.end(); ++iter)
+        MyList::reverse_iterator iter = NewList.rbegin();
+        for (iter; iter != NewList.rend(); ++iter)
         {
             std::cout << *iter << std::endl;
         }
-
-        MyList::iterator Erase_iter = NewList.begin();
-        Erase_iter = NewList.erase(Erase_iter);
-
-        std::cout << std::endl;
-        for (iter = NewList.begin(); iter != NewList.end(); ++iter)
-        {
-            std::cout << *iter << std::endl;
-        }  
     }   
 }

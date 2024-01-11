@@ -1,26 +1,27 @@
 ﻿#include <iostream>
-#include <My_ConsoleEngine/EngineDebug.h>
+#include <my_ConsoleEngine/EngineDebug.h>
 
-class CArray
+class IntArray
 {
+
 public:
 
-    CArray(int _Size)
+    IntArray(int _Size)
     {
         ReSize(_Size);
     }
 
-    CArray(const CArray& _Other)
+    IntArray(const IntArray& _Other)
     {
         Copy(_Other);
     }
 
-    ~CArray()
+    ~IntArray()
     {
         Release();
     }
 
-    void operator= (const CArray& _Other)
+    void operator= (const IntArray& _Other)
     {
         Copy(_Other);
     }
@@ -47,12 +48,10 @@ public:
         }
 
         int Size = NumValue < _Size ? NumValue : _Size;
-
         for (int i = 0; i < Size; i++)
         {
             Temp[i] = ArrPtr[i];
         }
-
         ///////////////////////////
 
 
@@ -66,7 +65,7 @@ public:
         Temp = nullptr;
     }
 
-    void Copy(const CArray& _Other)
+    void Copy(const IntArray& _Other)
     {
         ReSize(_Other.NumValue);
         for (int i = 0; i < NumValue; i++)
@@ -99,11 +98,11 @@ private:
 int main()
 {
     LeakCheck;
-    CArray NewArray = CArray(5);
+    IntArray NewArray = IntArray(5);
 
     for (int i = 0; i < NewArray.Num(); i++)
     {
-        NewArray[i] = i;
+        NewArray[i] = 1;
     }
     // [0][1][2][3][4]
 

@@ -26,6 +26,7 @@
 // vector
 // 시퀀스 컨테이너
 // - 배열기반 메모리 구조를 가짐
+// - 임의 접근 가능
 // - size 와 capacity 의 차이를 알아야한다.
 
 template<typename DataType>
