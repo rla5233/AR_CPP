@@ -35,7 +35,7 @@ queue
 			컨테이너구분       메모리
 vector         시퀸스           배열
 list           시퀸스		    노드
-map 
+map             연관			    노드
 string
 stack
 queue
