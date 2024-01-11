@@ -6,84 +6,83 @@ using namespace std;
 class Problem
 {
 public:
-	void Problem_11008(class Typing& _Typing) const;
+	void Problem_1120(class String& _Str) const;
 
 private:
 
 };
 
-class Typing
+class String
 {
 public:
-	void FindMinTime();
-
-	inline void SetCopy(string _Copy)
+	inline void SetStringA(string _Str)
 	{
-		m_Copy = _Copy;
-	}
-	inline void SetGoal(string _Goal)
-	{
-		m_Goal = _Goal;
-	}
-	inline int GetTime() const 
-	{
-		return m_Time;
+		m_StringA = _Str;
 	};
 
+	inline void SetStringB(string _Str)
+	{
+		m_StringB = _Str;
+	};
+
+	inline int GetDiff()
+	{
+		return m_Diff;
+	}
+
+	void SetMinDiff();
+
 private:
-	string m_Copy = "";
-	string m_Goal = "";
-	int m_Time = 0;
+	string m_StringA = "";
+	string m_StringB = "";
+	int m_Diff = -1;
 };
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-
 	Problem NewProblem = Problem();
-	Typing NewCopy = Typing();
+	String NewString = String();
 
-	NewProblem.Problem_11008(NewCopy);
+	NewProblem.Problem_1120(NewString);
 
 	return 0;
 }
 
-void Problem::Problem_11008(Typing& _Typing) const
+
+void Problem::Problem_1120(String& _Str) const
 {
-	int TestCase = 0;
-	cin >> TestCase;
+	string Input = "";
 
-	string str = "";
-	for (int i = 0; i < TestCase; i++)
-	{
-		cin >> str;
-		_Typing.SetGoal(str);
+	cin >> Input;
+	_Str.SetStringA(Input);
 
-		cin >> str;
-		_Typing.SetCopy(str);
+	cin >> Input;
+	_Str.SetStringB(Input);
 
-		_Typing.FindMinTime();
-		cout << _Typing.GetTime() << "\n";
-	}
+	_Str.SetMinDiff();
+	cout << _Str.GetDiff(); 
+
 }
 
-void Typing::FindMinTime()
+void String::SetMinDiff()
 {
-	m_Time = 0;
-	int i = 0;
-	while(i < m_Goal.length())
+	m_Diff = -1;
+	int Len_Diff = m_StringB.length() - m_StringA.length();
+	for (int j = 0; j <= Len_Diff; j++)
 	{
-		if (m_Goal[i] == m_Copy[0])
+		int Diff = 0;
+		for (int i = 0; i < m_StringA.length(); i++)
 		{
-			if (m_Goal.substr(i, m_Copy.length()) == m_Copy)
+			if (m_StringA[i] != m_StringB[i + j])
 			{
-				++m_Time;
-				i += m_Copy.length();
-				continue;
+				++Diff;
 			}
-		}		
-		
-		++m_Time;
-		++i;		
+		}
+
+		if (Diff < m_Diff || m_Diff == -1)
+		{
+			m_Diff = Diff;
+		}
 	}
 }
