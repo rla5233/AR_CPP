@@ -19,6 +19,7 @@ private:
     // 인벤토리 아이콘이라는 개념이 있다.
     class InventoryIcon
     {
+    public:
         Image Image;
         int Count;
 
@@ -31,11 +32,12 @@ private:
         }
     };
 
+private:
     std::vector<InventoryIcon> Icons;
 };
 
 int main()
 {
     Inventory Inventory;
-    //Inventory::InventoryIcon;
+    //Inventory::InventoryIcon Icon;
 }
