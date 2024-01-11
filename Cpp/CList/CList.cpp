@@ -19,19 +19,16 @@ private:
         Node* Prev;
     };
 
-    // iterator 부모 클래스 추가
-
-public:
-    class iterator
+    class iterator_Base
     {
         friend MyList;
     public:
-        iterator() {}
-        iterator(Node* _CurNode)
+        iterator_Base() {}
+        iterator_Base(Node* _CurNode)
             : CurNode(_CurNode)
         {}
 
-        bool operator != (const iterator & _Other)
+        bool operator != (const iterator_Base& _Other)
         {
             return CurNode != _Other.CurNode;
         }
@@ -40,42 +37,37 @@ public:
         {
             return CurNode->Data;
         }
+
+        Node* CurNode = nullptr;
+    };
+
+public:
+    class iterator : public iterator_Base
+    {
+    public:
+        iterator() {}
+        iterator(Node* _CurNode)
+            : iterator_Base(_CurNode)
+        {}
 
         void operator++()
         {
             CurNode = CurNode->Next;
         }
-
-    private:
-        Node* CurNode = nullptr;
     };
 
-    class reverse_iterator
+    class reverse_iterator : public iterator_Base
     {
-        friend MyList;
     public:
         reverse_iterator() {}
         reverse_iterator(Node* _CurNode)
-            : CurNode(_CurNode)
+            : iterator_Base(_CurNode)
         {}
-
-        bool operator != (const reverse_iterator& _Other)
-        {
-            return CurNode != _Other.CurNode;
-        }
-
-        DataType& operator*()
-        {
-            return CurNode->Data;
-        }
 
         void operator++()
         {
             CurNode = CurNode->Prev;
         }
-
-    private:
-        Node* CurNode = nullptr;
     };
 
     MyList()
