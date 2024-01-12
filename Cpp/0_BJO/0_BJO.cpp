@@ -1,5 +1,6 @@
 ﻿#include <iostream>
 #include <algorithm>
+#include <string>
 #include <vector>
 using namespace std;
 
@@ -16,7 +17,6 @@ class Name
 {
 public:
 	void SetName(string _Name);
-	void SortName();
 	void SetPalindrome();
 
 	inline string GetPalindrome() { return m_Palindrome; }
@@ -47,7 +47,6 @@ void Problem::Problem_1213(class Name& _Name) const
 	cin >> Input;
 
 	_Name.SetName(Input);
-	//_Name.SortName();
 	_Name.SetPalindrome();
 
 	if (_Name.IsPalindrome())
@@ -65,30 +64,67 @@ void Name::SetName(string _Name)
 	m_Name = _Name;
 }
 
-void Name::SortName()
-{
-	sort(m_Name.begin(), m_Name.end());
-}
-
 void Name::SetPalindrome()
 {
-	//string name = m_Name;
-	//do
-	//{
-	//	string temp = name;
-	//	reverse(temp.begin(), temp.end());
+	int odd_Count = 0;
+	
+	for (int i = 0; i < m_Name.length(); i++)
+	{
+		++m_Alpha[m_Name[i] - 'A'];
+	}
 
-	//	if (temp == name)
-	//	{
-	//		m_Palindrome = name;
-	//		m_IsPalindrome = true;
-	//		return;
-	//	}
+	for (int i = 0; i < m_Alpha.size(); i++)
+	{
+		if (m_Alpha[i] % 2 != 0)
+		{
+			++odd_Count;
+		}
+	}
 
-	//} while (next_permutation(name.begin(), name.end()));
+	if (odd_Count > 1)
+	{
+		m_IsPalindrome = false;
+	}
+	else
+	{
+		m_IsPalindrome = true;
 
-	//m_IsPalindrome = false;
+		string temp1 = "";
+		string temp2 = "";
+		char odd = ' ';
+		for (int i = 0; i < m_Alpha.size(); i++)
+		{
+			while (m_Alpha[i] > 0)
+			{
+				if (m_Alpha[i] % 2 == 0)
+				{
+					temp1 += 'A' + i;
+					temp2 += 'A' + i;
+					m_Alpha[i] -= 2;
+				}
+				else
+				{
+					odd = 'A' + i;
+					if (m_Alpha[i] != 1)
+					{
+						temp1 += 'A' + i;
+						temp2 += 'A' + i;
+						m_Alpha[i] -= 2;
+					}
+					else
+					{
+						--m_Alpha[i];
+					}
+				}
+			}
+		}
 
+		if (odd != ' ')
+		{
+			temp1 += odd;
+		}
 
-
+		reverse(temp2.begin(), temp2.end());
+		m_Palindrome = temp1 + temp2;
+	}
 }
