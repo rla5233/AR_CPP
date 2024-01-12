@@ -1,88 +1,82 @@
 ﻿#include <iostream>
-#include <string>
 #include <algorithm>
+#include <vector>
 using namespace std;
 
 class Problem
 {
 public:
-	void Problem_1120(class String& _Str) const;
+	void Problem_1213(class Name& _Name) const;
 
 private:
 
 };
 
-class String
+class Name
 {
 public:
-	inline void SetStringA(string _Str)
-	{
-		m_StringA = _Str;
-	};
+	void SetName(string _Name);
+	void SortName();
+	void SetPalindrome();
 
-	inline void SetStringB(string _Str)
-	{
-		m_StringB = _Str;
-	};
-
-	inline int GetDiff()
-	{
-		return m_Diff;
-	}
-
-	void SetMinDiff();
+	inline bool IsPalindrome() { return m_IsPalindrome; }
 
 private:
-	string m_StringA = "";
-	string m_StringB = "";
-	int m_Diff = -1;
+	string m_Name = "";
+	string m_Palindrome = "";
+	vector<int> m_Alpha = vector<int>(26, 0);
+
+	bool m_IsPalindrome = false;
 };
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	Problem NewProblem = Problem();
-	String NewString = String();
+	Name NewName = Name();
 
-	NewProblem.Problem_1120(NewString);
+	NewProblem.Problem_1213(NewName);
 
 	return 0;
 }
 
-
-void Problem::Problem_1120(String& _Str) const
+void Problem::Problem_1213(class Name& _Name) const
 {
 	string Input = "";
-
 	cin >> Input;
-	_Str.SetStringA(Input);
 
-	cin >> Input;
-	_Str.SetStringB(Input);
+	_Name.SetName(Input);
+	_Name.SortName();
+	_Name.SetPalindrome();
 
-	_Str.SetMinDiff();
-	cout << _Str.GetDiff(); 
 
 }
 
-void String::SetMinDiff()
+void Name::SetName(string _Name)
 {
-	m_Diff = -1;
-	int Len_Diff = m_StringB.length() - m_StringA.length();
-	for (int j = 0; j <= Len_Diff; j++)
+	m_Name = _Name;
+}
+
+void Name::SortName()
+{
+	sort(m_Name.begin(), m_Name.end());
+}
+
+void Name::SetPalindrome()
+{
+	string name = m_Name;
+	do
 	{
-		int Diff = 0;
-		for (int i = 0; i < m_StringA.length(); i++)
+		string temp = name;
+		reverse(name.begin(), name.end());
+
+		if (temp == name)
 		{
-			if (m_StringA[i] != m_StringB[i + j])
-			{
-				++Diff;
-			}
+			m_Palindrome = name;
+			m_IsPalindrome = true;
 		}
 
-		if (Diff < m_Diff || m_Diff == -1)
-		{
-			m_Diff = Diff;
-		}
-	}
+	} while (next_permutation(name.begin(), name.end()));
+
+	m_IsPalindrome = false;
 }
