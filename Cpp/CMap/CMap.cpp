@@ -84,6 +84,8 @@ private:
                     return RightChild->containsNode(_Key);
                 }
             }
+
+            return false;
         }
 
         Node* minnode()
@@ -184,6 +186,26 @@ private:
             return nullptr;
         }
 
+        bool IsLeaf()
+        {
+            return RightChild == nullptr && LeftChild == nullptr;
+        }
+
+        void Release()
+        {
+            if (Parent != nullptr)
+            {
+                if (Parent->LeftChild == this)
+                {
+                    Parent->LeftChild = nullptr;
+                }
+
+                if (Parent->RightChild == this)
+                {
+                    Parent->RightChild = nullptr;
+                }
+            }
+        }
 
         // 트리 전위 순회
         void FirstOrderPrint()
@@ -230,15 +252,15 @@ private:
             std::cout << Pair.first << std::endl;
         }
 
-        void Delete()
+        void ClearNode()
         {
             if (LeftChild != nullptr)
             {
-                LeftChild->Delete();
+                LeftChild->ClearNode();
             }
             if (RightChild != nullptr)
             {
-                RightChild->Delete();
+                RightChild->ClearNode();
             }
             if (this != nullptr)
             {
@@ -250,11 +272,12 @@ private:
 public:
     ~MyMap()
     {
-        Root->Delete();
+        clear();
     }
 
 	class iterator
 	{
+        friend MyMap;
 	public:
 		iterator()
 		{}
@@ -265,6 +288,11 @@ public:
 
         MyPair* operator->()
         {
+            if (CurNode == nullptr)
+            {
+                MsgBoxAssert("Map Range Error.");
+            }
+
             return &(CurNode->Pair);
         }
 
@@ -316,7 +344,7 @@ public:
             return false;
         }
 
-        return this->Root->containsNode(_Key);
+        return Root->containsNode(_Key);
     }
 
     iterator find(const KeyType& _Key)
@@ -346,7 +374,109 @@ public:
 
     iterator erase(iterator& _Iter)
     {
+        iterator Return;
 
+        if (_Iter.CurNode == nullptr)
+        {
+            MsgBoxAssert("Erase Range Error.");
+            return Return;
+        }
+
+        Node* NextNode = _Iter.CurNode->NextNode();
+        Return.CurNode = NextNode;
+
+        // 자식 노드가 없다.
+        if (_Iter.CurNode->IsLeaf())
+        {
+            Node* ParentNode = _Iter.CurNode->Parent;
+            _Iter.CurNode->Release();
+            delete _Iter.CurNode;
+            return Return;
+        }
+
+        // 자식 노드가 있다. -> 교체를 해줘야 한다.
+        Node* ChangeNode = nullptr;
+        Node* CurNode = _Iter.CurNode;
+
+        // 교체 노드 찾기
+        ChangeNode = CurNode->RightChild->minnode();
+        if (ChangeNode == nullptr)
+        {
+            ChangeNode = CurNode->LeftChild->maxnode();
+        }
+
+        if (ChangeNode == nullptr)
+        {
+            MsgBoxAssert("Change Node Error.");
+            return Return;
+        }
+
+        // 바뀔 노드의 부모에게 이사간다고 알리기
+        ChangeNode->Release();
+
+        // 자식 노드에게 삭제되는거 알리기
+        Node* LeftChild = CurNode->LeftChild;
+        Node* RightChild = CurNode->RightChild;
+
+        if (LeftChild != nullptr)
+        {
+            LeftChild->Parent = nullptr;
+        }
+
+        if (RightChild != nullptr)
+        {
+            RightChild->Parent = nullptr;
+        }
+
+        // 자식 노드에게 새 부모님 알리기
+        if (LeftChild != nullptr)
+        {
+            LeftChild->Parent = ChangeNode;
+            if (CurNode->LeftChild != ChangeNode)
+            {
+                ChangeNode->LeftChild = LeftChild;
+            }
+        }
+
+        if (RightChild != nullptr)
+        {
+            RightChild->Parent = ChangeNode;
+            if (CurNode->RightChild != ChangeNode)
+            {
+                ChangeNode->RightChild = RightChild;
+            }
+        }
+
+        // 바뀌는 노드의 새 부모 노드 알려주기
+        ChangeNode->Parent = CurNode->Parent;
+
+
+        // 새 부모에게 자기소개 하기
+        Node* Parent = ChangeNode->Parent;
+        if (Parent != nullptr && Parent->LeftChild == CurNode)
+        {
+            Parent->LeftChild = ChangeNode;
+        }
+
+        if (Parent != nullptr && Parent->RightChild == CurNode)
+        {
+            Parent->RightChild = ChangeNode;
+        }
+
+        // 내가 계급 물려주기
+        if (Root == CurNode)
+        {
+            Root = ChangeNode;
+        }
+
+        // 승천
+        delete CurNode;
+        return Return;
+    }
+
+    void clear()
+    {
+        Root->ClearNode();
     }
 
     // 트리 순회 방법
@@ -424,7 +554,7 @@ int main()
 
             }
 
-            NewMap.erase(FindIter);
+            //NewMap.erase(FindIter);
             
             // map을 순회를 돌리는건 효율적인 일이 아니다.
             // 데이터가 많아 질수록 더욱 그렇다.
@@ -460,7 +590,7 @@ int main()
         std::cout << "Key : " << FindIter->first << std::endl;
         std::cout << "Value : " << FindIter->second << std::endl;
 
-        //NewMap.erase(FindIter);
+        NewMap.erase(FindIter);
         
         std::cout << std::endl;
         MyMap::iterator it = NewMap.begin();
