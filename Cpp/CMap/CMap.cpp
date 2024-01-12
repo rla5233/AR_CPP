@@ -15,8 +15,8 @@ public:
         : first(_first), second(_second)
     {}
 
-    KeyType first = 0;
-    DataType second = 0;
+    KeyType first = KeyType();
+    DataType second = DataType();
 };
 
 class MyMap
@@ -32,15 +32,60 @@ private:
 
         void insertNode(Node* _Node)
         {
+            _Node->Parent = this;
+
             if (this->Pair.first > _Node->Pair.first)
             {
-                this->LeftChild = _Node;
+                if (this->LeftChild == nullptr)
+                {
+                    this->LeftChild = _Node;
+                    return;
+                }
+
+                this->LeftChild->insertNode(_Node);
             }
 
             if (this->Pair.first < _Node->Pair.first)
             {
-                this->RightChild = _Node;
+                if (this->RightChild == nullptr)
+                {
+                    this->RightChild = _Node;
+                    return;
+                }
+
+                this->RightChild->insertNode(_Node);
             }
+        }
+
+        // 어차피 매개변수는 8바이트씩 떨어져 있어서
+        // 참조형으로 넘기는게 성능이 더 좋다.
+        bool containsNode(const KeyType& _Key)
+        {
+            if (this->Pair.first == _Key)
+            {
+                return true;
+            }
+
+            if (this->Pair.first > _Key)
+            {
+                if (this->LeftChild != nullptr)
+                {
+                    // 리턴과 동시에 재귀를 하는것을 꼬리 재귀라고 합니다.
+                    // 컴파일러가 가능하다면 while문 형식으로 바꿔버립니다.
+                    // inline이랑 비슷하게 생각해라. 
+                    return this->LeftChild->containsNode(_Key);
+                }
+            }
+
+            if (this->Pair.first < _Key)
+            {
+                if (this->RightChild != nullptr)
+                {
+                    return this->RightChild->containsNode(_Key);
+                }
+            }
+
+            return false;
         }
     };
 
@@ -63,7 +108,9 @@ public:
         Node* NewNode = new Node();
         NewNode->Pair = _Value;
 
-        // 트리의 기본은 root 최초의 노드는 root가 된다.
+        // 트리의 기본은 root 
+        // 최초의 노드는 root가 된다.
+        // root는 부모노드가 없다.
         if (Root == nullptr)
         {
             Root = NewNode;
@@ -73,6 +120,18 @@ public:
         Root->insertNode(NewNode);
     }
 
+    bool contains(const KeyType& _Key)
+    {
+        if (Root == nullptr)
+        {
+            return false;
+        }
+
+        return this->Root->containsNode(_Key);
+    }
+
+
+private:
 	Node* Root = nullptr;
 };
 
@@ -105,6 +164,7 @@ int main()
             std::map<int, int> NewMap = std::map<int, int>();
 
             NewMap.insert(std::pair<int, int>(10, 0));
+            NewMap.insert(std::pair<int, int>(10, 2)); // 중복 key 는 무시된다.
             NewMap.insert(std::pair<int, int>(5, 0));
             NewMap.insert(std::pair<int, int>(15, 0));
             NewMap.insert(std::pair<int, int>(12, 0));
@@ -116,7 +176,7 @@ int main()
             std::map<int, int>::iterator it = NewMap.begin();
             for (it; it != NewMap.end(); ++it)
             {
-                std::cout << it->first << std::endl;
+                std::cout << "( " << it->first << ", " << it->second << " )" << std::endl;
             }   
 
             // 원소 찾기
@@ -136,6 +196,33 @@ int main()
 
     {
         std::cout << "\nMyMap" << std::endl;
+
+        //      Key   Value
+        MyMap NewMap = MyMap();
+
+        // 오름차순 작은수 => 큰수로 정렬이 됩니다.
+        NewMap.insert(MyPair(10, 0));
+        NewMap.insert(MyPair(10, 2)); // 중복 key 는 무시된다.
+        NewMap.insert(MyPair(5, 0));
+        NewMap.insert(MyPair(15, 0));
+        NewMap.insert(MyPair(12, 0));
+        NewMap.insert(MyPair(3, 0));
+        NewMap.insert(MyPair(7, 0));
+
+        if (true == NewMap.contains(1))
+        {
+            int a = 0;
+        }
+
+        //MyMap::iterator FindIter;// = NewMap.find(12);
+        //std::cout << "Key : " << FindIter->first << std::endl;
+        //std::cout << "Value : " << FindIter->second << std::endl;
+        //
+        //MyMap::iterator it = NewMap.begin();
+        //for (it; it != NewMap.end(); ++it)
+        //{
+        //    std::cout << "( " << it->first << ", " << it->second << " )" << std::endl;
+        //}
     }
     
 }
