@@ -15,8 +15,8 @@ public:
         : first(_first), second(_second)
     {}
 
-    KeyType first;
-    DataType second;
+    KeyType first = 0;
+    DataType second = 0;
 };
 
 class MyMap
@@ -26,9 +26,22 @@ private:
     {
     public:
         MyPair Pair;
-        Node* Parent;
-        Node* LeftChild;
-        Node* RightChild;
+        Node* Parent = nullptr;
+        Node* LeftChild = nullptr;
+        Node* RightChild = nullptr;
+
+        void insertNode(Node* _Node)
+        {
+            if (this->Pair.first > _Node->Pair.first)
+            {
+                this->LeftChild = _Node;
+            }
+
+            if (this->Pair.first < _Node->Pair.first)
+            {
+                this->RightChild = _Node;
+            }
+        }
     };
 
 public:
@@ -54,8 +67,10 @@ public:
         if (Root == nullptr)
         {
             Root = NewNode;
+            return;
         }
 
+        Root->insertNode(NewNode);
     }
 
 	Node* Root = nullptr;
@@ -66,7 +81,7 @@ int main()
     LeakCheck;
 
     {
-        std::cout << "\nstd Map" << std::endl;
+        std::cout << "std Map" << std::endl;
 
         {
             //      Key, Value
@@ -89,17 +104,33 @@ int main()
         {
             std::map<int, int> NewMap = std::map<int, int>();
 
-            NewMap.insert(std::pair<int, int>(5, 0));
             NewMap.insert(std::pair<int, int>(10, 0));
             NewMap.insert(std::pair<int, int>(5, 0));
-            NewMap.insert(std::pair<int, int>(5, 0));
-            NewMap.insert(std::pair<int, int>(5, 0));
+            NewMap.insert(std::pair<int, int>(15, 0));
+            NewMap.insert(std::pair<int, int>(12, 0));
+            NewMap.insert(std::pair<int, int>(3, 0));
+            NewMap.insert(std::pair<int, int>(7, 0));
             
+            // map을 순회를 돌리는건 효율적인 일이 아니다.
+            // 데이터가 많아 질수록 더욱 그렇다.
             std::map<int, int>::iterator it = NewMap.begin();
             for (it; it != NewMap.end(); ++it)
             {
                 std::cout << it->first << std::endl;
             }   
+
+            // 원소 찾기
+            // contains() C++20 에서 사용가능
+            if (NewMap.contains(15))
+            {
+
+            }
+
+            std::map<int, int>::iterator FindIter = NewMap.find(15);
+            if (FindIter != NewMap.end())
+            {
+
+            }
         }       
     }
 

@@ -13,6 +13,14 @@ void Test(int& _Data)
     Test(_Data);
 }
 
+bool Func()
+{
+    // 리턴과 동시에 재귀를 하는것을 꼬리 재귀라고 한다.
+    // 컴파일러가 가능한다면 while문 형식으로 바꿔버린다.
+    // inline이랑 비슷하게 생각하면 된다.
+    return Func();
+}
+
 int main()
 {
     int Value = 0;

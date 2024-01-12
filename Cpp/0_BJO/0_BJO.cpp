@@ -19,6 +19,7 @@ public:
 	void SortName();
 	void SetPalindrome();
 
+	inline string GetPalindrome() { return m_Palindrome; }
 	inline bool IsPalindrome() { return m_IsPalindrome; }
 
 private:
@@ -46,10 +47,17 @@ void Problem::Problem_1213(class Name& _Name) const
 	cin >> Input;
 
 	_Name.SetName(Input);
-	_Name.SortName();
+	//_Name.SortName();
 	_Name.SetPalindrome();
 
-
+	if (_Name.IsPalindrome())
+	{
+		cout << _Name.GetPalindrome();
+	}
+	else
+	{
+		cout << "I'm Sorry Hansoo";
+	}
 }
 
 void Name::SetName(string _Name)
@@ -64,19 +72,23 @@ void Name::SortName()
 
 void Name::SetPalindrome()
 {
-	string name = m_Name;
-	do
-	{
-		string temp = name;
-		reverse(name.begin(), name.end());
+	//string name = m_Name;
+	//do
+	//{
+	//	string temp = name;
+	//	reverse(temp.begin(), temp.end());
 
-		if (temp == name)
-		{
-			m_Palindrome = name;
-			m_IsPalindrome = true;
-		}
+	//	if (temp == name)
+	//	{
+	//		m_Palindrome = name;
+	//		m_IsPalindrome = true;
+	//		return;
+	//	}
 
-	} while (next_permutation(name.begin(), name.end()));
+	//} while (next_permutation(name.begin(), name.end()));
 
-	m_IsPalindrome = false;
+	//m_IsPalindrome = false;
+
+
+
 }
