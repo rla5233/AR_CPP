@@ -87,6 +87,27 @@ private:
 
             return false;
         }
+
+        Node* minnode()
+        {
+            if (this->LeftChild == nullptr)
+            {
+                return this;
+            }
+
+            return this->LeftChild->minnode();
+        }
+
+        Node* maxnode()
+        {
+            if (this->RightChild == nullptr)
+            {
+                return this;
+            }
+
+            return this->RightChild->maxnode();
+        }
+
     };
 
 public:
@@ -97,7 +118,26 @@ public:
 		{}
 
 		iterator(Node* _CurNode)
+            : CurNode(_CurNode)
 		{}
+
+        MyPair* operator->()
+        {
+            return &(CurNode->Pair);
+        }
+
+        //bool operator!=(const iterator& _Other)
+        //{
+        //    return CurNode == _Other.CurNode;
+        //}
+        //
+        //void operator++()
+        //{
+        //    this->CurNode == this->CurNode.
+        //}
+
+    private:
+        Node* CurNode = nullptr;
 	};
 
     // map은 자료가 무작위일때 효율을 발휘한다.
@@ -130,6 +170,25 @@ public:
         return this->Root->containsNode(_Key);
     }
 
+    iterator find(const KeyType& _Key)
+    {
+
+    }
+
+    iterator end()
+    {
+        return iterator(nullptr);
+    }
+
+    iterator begin()
+    {
+        if (Root == nullptr)
+        {
+            return end();
+        }
+
+        return iterator(Root->minnode());
+    }
 
 private:
 	Node* Root = nullptr;
@@ -209,20 +268,20 @@ int main()
         NewMap.insert(MyPair(3, 0));
         NewMap.insert(MyPair(7, 0));
 
-        if (true == NewMap.contains(1))
+        if (true == NewMap.contains(12))
         {
             int a = 0;
         }
 
-        //MyMap::iterator FindIter;// = NewMap.find(12);
-        //std::cout << "Key : " << FindIter->first << std::endl;
-        //std::cout << "Value : " << FindIter->second << std::endl;
-        //
-        //MyMap::iterator it = NewMap.begin();
-        //for (it; it != NewMap.end(); ++it)
-        //{
-        //    std::cout << "( " << it->first << ", " << it->second << " )" << std::endl;
-        //}
+        MyMap::iterator FindIter;// = NewMap.find(12);
+        std::cout << "Key : " << FindIter->first << std::endl;
+        std::cout << "Value : " << FindIter->second << std::endl;
+        
+        MyMap::iterator it = NewMap.begin();
+        for (it; it != NewMap.end(); ++it)
+        {
+            std::cout << "( " << it->first << ", " << it->second << " )" << std::endl;
+        }
     }
     
 }
