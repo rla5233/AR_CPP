@@ -84,8 +84,6 @@ private:
                     return RightChild->containsNode(_Key);
                 }
             }
-
-            return false;
         }
 
         Node* minnode()
@@ -185,9 +183,76 @@ private:
 
             return nullptr;
         }
+
+
+        // 트리 전위 순회
+        void FirstOrderPrint()
+        {
+            // 할일을 맨 앞에서 함.
+            std::cout << Pair.first << std::endl;
+            if (LeftChild != nullptr)
+            {
+                LeftChild->FirstOrderPrint();
+            }
+            if (RightChild != nullptr)
+            {
+                RightChild->FirstOrderPrint();
+            }
+        }
+
+        // 트리 중위 순회
+        void MidOrderPrint()
+        {
+            if (LeftChild != nullptr)
+            {
+                LeftChild->MidOrderPrint();
+            }
+            // 할일을 중간에서 함.
+            std::cout << Pair.first << std::endl;
+            if (RightChild != nullptr)
+            {
+                RightChild->MidOrderPrint();
+            }
+        }
+
+        // 트리 후위 순회
+        void LastOrderPrint()
+        {
+            if (LeftChild != nullptr)
+            {
+                LeftChild->LastOrderPrint();
+            }
+            if (RightChild != nullptr)
+            {
+                RightChild->LastOrderPrint();
+            }
+            // 할일을 맨 뒤에서 함.
+            std::cout << Pair.first << std::endl;
+        }
+
+        void Delete()
+        {
+            if (LeftChild != nullptr)
+            {
+                LeftChild->Delete();
+            }
+            if (RightChild != nullptr)
+            {
+                RightChild->Delete();
+            }
+            if (this != nullptr)
+            {
+                delete this;
+            }
+        }
     };
 
 public:
+    ~MyMap()
+    {
+        Root->Delete();
+    }
+
 	class iterator
 	{
 	public:
@@ -234,7 +299,14 @@ public:
             return;
         }
 
-        Root->insertNode(NewNode);
+        if (!contains(_Value.first))
+        {
+            Root->insertNode(NewNode);
+        }
+        else
+        {
+            delete NewNode;
+        }
     }
 
     bool contains(const KeyType& _Key)
@@ -270,6 +342,30 @@ public:
         }
 
         return iterator(Root->minnode());
+    }
+
+    iterator erase(iterator& _Iter)
+    {
+
+    }
+
+    // 트리 순회 방법
+    // 전위 순회
+    void FirstOrderPrint()
+    {
+        Root->FirstOrderPrint();
+    }
+
+    // 중위 순회
+    void MidOrderPrint()
+    {
+        Root->MidOrderPrint();
+    }
+
+    // 후위 순회
+    void LastOrderPrint()
+    {
+        Root->LastOrderPrint();
     }
 
 private:
@@ -311,14 +407,6 @@ int main()
             NewMap.insert(std::pair<int, int>(12, 0));
             NewMap.insert(std::pair<int, int>(3, 0));
             NewMap.insert(std::pair<int, int>(7, 0));
-            
-            // map을 순회를 돌리는건 효율적인 일이 아니다.
-            // 데이터가 많아 질수록 더욱 그렇다.
-            std::map<int, int>::iterator it = NewMap.begin();
-            for (it; it != NewMap.end(); ++it)
-            {
-                std::cout << "( " << it->first << ", " << it->second << " )" << std::endl;
-            }   
 
             // 원소 찾기
             // contains() C++20 에서 사용가능
@@ -327,11 +415,21 @@ int main()
 
             }
 
-            std::map<int, int>::iterator FindIter = NewMap.find(15);
+            std::map<int, int>::iterator FindIter = NewMap.find(5);
             if (FindIter != NewMap.end())
             {
 
             }
+
+            NewMap.erase(FindIter);
+            
+            // map을 순회를 돌리는건 효율적인 일이 아니다.
+            // 데이터가 많아 질수록 더욱 그렇다.
+            std::map<int, int>::iterator it = NewMap.begin();
+            for (it; it != NewMap.end(); ++it)
+            {
+                std::cout << "( " << it->first << ", " << it->second << " )" << std::endl;
+            }   
         }       
     }
 
@@ -358,6 +456,8 @@ int main()
         MyMap::iterator FindIter = NewMap.find(10);
         std::cout << "Key : " << FindIter->first << std::endl;
         std::cout << "Value : " << FindIter->second << std::endl;
+
+        //NewMap.erase(FindIter);
         
         std::cout << std::endl;
         MyMap::iterator it = NewMap.begin();
@@ -365,6 +465,14 @@ int main()
         {
             std::cout << "( " << it->first << ", " << it->second << " )" << std::endl;
         }
+
+        std::cout << std::endl;
+        std::cout << "first" << std::endl;
+        NewMap.FirstOrderPrint();
+        std::cout << "mid" << std::endl;
+        NewMap.MidOrderPrint();
+        std::cout << "last" << std::endl;
+        NewMap.LastOrderPrint();
     }
     
 }
