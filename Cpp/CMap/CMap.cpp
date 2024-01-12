@@ -395,6 +395,9 @@ int main()
             // std::map<int, int>::value_type == std::pair<int, int>
             // 4
             NewMap.insert(std::map<int, int>::value_type(7, 10));
+
+            // 5
+            NewMap.insert({ 1, 1 });
         }
 
         {

@@ -29,7 +29,7 @@ bool Func(int _Data)
     else
     {
         // 리턴과 동시에 재귀를 하는것을 꼬리 재귀라고 한다.
-        // 컴파일러가 가능한다면 while문 형식으로 바꿔버린다.
+        // 컴파일러가 가능하다면 while문 형식으로 바꿔버린다.
         // inline이랑 비슷하게 생각하면 된다.
         return Func(_Data - 1);
     }
