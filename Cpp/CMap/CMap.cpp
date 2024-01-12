@@ -34,26 +34,26 @@ private:
         {
             _Node->Parent = this;
 
-            if (this->Pair.first > _Node->Pair.first)
+            if (Pair.first > _Node->Pair.first)
             {
-                if (this->LeftChild == nullptr)
+                if (LeftChild == nullptr)
                 {
-                    this->LeftChild = _Node;
+                    LeftChild = _Node;
                     return;
                 }
 
-                this->LeftChild->insertNode(_Node);
+                LeftChild->insertNode(_Node);
             }
 
-            if (this->Pair.first < _Node->Pair.first)
+            if (Pair.first < _Node->Pair.first)
             {
-                if (this->RightChild == nullptr)
+                if (RightChild == nullptr)
                 {
-                    this->RightChild = _Node;
+                    RightChild = _Node;
                     return;
                 }
 
-                this->RightChild->insertNode(_Node);
+                RightChild->insertNode(_Node);
             }
         }
 
@@ -61,27 +61,27 @@ private:
         // 참조형으로 넘기는게 성능이 더 좋다.
         bool containsNode(const KeyType& _Key)
         {
-            if (this->Pair.first == _Key)
+            if (Pair.first == _Key)
             {
                 return true;
             }
 
-            if (this->Pair.first > _Key)
+            if (Pair.first > _Key)
             {
-                if (this->LeftChild != nullptr)
+                if (LeftChild != nullptr)
                 {
                     // 리턴과 동시에 재귀를 하는것을 꼬리 재귀라고 합니다.
                     // 컴파일러가 가능하다면 while문 형식으로 바꿔버립니다.
                     // inline이랑 비슷하게 생각해라. 
-                    return this->LeftChild->containsNode(_Key);
+                    return LeftChild->containsNode(_Key);
                 }
             }
 
-            if (this->Pair.first < _Key)
+            if (Pair.first < _Key)
             {
-                if (this->RightChild != nullptr)
+                if (RightChild != nullptr)
                 {
-                    return this->RightChild->containsNode(_Key);
+                    return RightChild->containsNode(_Key);
                 }
             }
 
@@ -90,24 +90,101 @@ private:
 
         Node* minnode()
         {
-            if (this->LeftChild == nullptr)
+            if (LeftChild == nullptr)
             {
                 return this;
             }
 
-            return this->LeftChild->minnode();
+            return LeftChild->minnode();
         }
 
         Node* maxnode()
         {
-            if (this->RightChild == nullptr)
+            if (RightChild == nullptr)
             {
                 return this;
             }
 
-            return this->RightChild->maxnode();
+            return RightChild->maxnode();
         }
 
+        Node* OverParent()
+        {
+            Node* PNode = Parent;
+            while (PNode != nullptr)
+            {
+                if (Pair.first < PNode->Pair.first)
+                {
+                    return PNode;
+                }
+
+                PNode = PNode->Parent;
+            }
+
+            return nullptr;
+        }
+
+        Node* UnderParent()
+        {
+            Node* PNode = Parent;
+            while (PNode != nullptr)
+            {
+                if (Pair.first > PNode->Pair.first)
+                {
+                    return PNode;
+                }
+
+                PNode = PNode->Parent;
+            }
+
+            return nullptr;
+        }
+
+        Node* NextNode()
+        {
+            if (RightChild != nullptr)
+            {
+                return RightChild->minnode();
+            }
+
+            return OverParent();
+        }
+
+        Node* PrevNode()
+        {
+            if (LeftChild != nullptr)
+            {
+                return LeftChild->maxnode();
+            }
+
+            return UnderParent();
+        }
+
+        Node* FindNode(const KeyType& _Key)
+        {
+            if (Pair.first == _Key)
+            {
+                return this;
+            }
+
+            if (Pair.first > _Key)
+            {
+                if (LeftChild != nullptr)
+                {
+                    return LeftChild->FindNode(_Key);
+                }
+            }
+
+            if (Pair.first < _Key)
+            {
+                if (RightChild != nullptr)
+                {
+                    return RightChild->FindNode(_Key);
+                }
+            }
+
+            return nullptr;
+        }
     };
 
 public:
@@ -126,15 +203,15 @@ public:
             return &(CurNode->Pair);
         }
 
-        //bool operator!=(const iterator& _Other)
-        //{
-        //    return CurNode == _Other.CurNode;
-        //}
-        //
-        //void operator++()
-        //{
-        //    this->CurNode == this->CurNode.
-        //}
+        bool operator!=(const iterator& _Other)
+        {
+            return CurNode != _Other.CurNode;
+        }
+        
+        void operator++()
+        {
+            CurNode = CurNode->NextNode();
+        }
 
     private:
         Node* CurNode = nullptr;
@@ -172,7 +249,12 @@ public:
 
     iterator find(const KeyType& _Key)
     {
+        if (Root == nullptr)
+        {
+            return end();
+        }
 
+        return iterator(Root->FindNode(_Key));
     }
 
     iterator end()
@@ -273,10 +355,11 @@ int main()
             int a = 0;
         }
 
-        MyMap::iterator FindIter;// = NewMap.find(12);
+        MyMap::iterator FindIter = NewMap.find(10);
         std::cout << "Key : " << FindIter->first << std::endl;
         std::cout << "Value : " << FindIter->second << std::endl;
         
+        std::cout << std::endl;
         MyMap::iterator it = NewMap.begin();
         for (it; it != NewMap.end(); ++it)
         {
