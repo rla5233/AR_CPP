@@ -1,130 +1,110 @@
 ﻿#include <iostream>
 #include <algorithm>
-#include <string>
 #include <vector>
 using namespace std;
 
 class Problem
 {
 public:
-	void Problem_1213(class Name& _Name) const;
+	void Problem_12788(class IUPC& _IUPC) const;
 
 private:
 
 };
 
-class Name
+class IUPC
 {
 public:
-	void SetName(string _Name);
-	void SetPalindrome();
+	void SortCTPPen();
+	void BorrowPen();
+	
+	void SetCTPPen();
+	void SetCTP(int _Num);
+	void SetParticipent(int _Num);
 
-	inline string GetPalindrome() { return m_Palindrome; }
-	inline bool IsPalindrome() { return m_IsPalindrome; }
+	inline bool CanBorrow() const { return m_CanBorrow; }
+	inline int GetBorrowCTP() const { return m_BorrowCTP; }
 
 private:
-	string m_Name = "";
-	string m_Palindrome = "";
-	vector<int> m_Alpha = vector<int>(26, 0);
-
-	bool m_IsPalindrome = false;
+	int m_CTP = 0;
+	int m_Participent = 0;
+	int m_BorrowCTP = 0;
+	bool m_CanBorrow = false;
+	vector<int> m_CTPPen = vector<int>();
 };
+
 
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
 	Problem NewProblem = Problem();
-	Name NewName = Name();
-
-	NewProblem.Problem_1213(NewName);
+	IUPC NewIUPC = IUPC();
+	NewProblem.Problem_12788(NewIUPC);
 
 	return 0;
 }
 
-void Problem::Problem_1213(class Name& _Name) const
+void Problem::Problem_12788(IUPC& _IUPC) const
 {
-	string Input = "";
-	cin >> Input;
+	int N = 0;
+	cin >> N;
+	_IUPC.SetCTP(N);
 
-	_Name.SetName(Input);
-	_Name.SetPalindrome();
+	int M = 0, K = 0;
+	cin >> M >> K;
+	_IUPC.SetParticipent(M * K);
 
-	if (_Name.IsPalindrome())
+	_IUPC.SetCTPPen();
+	_IUPC.SortCTPPen();
+
+	_IUPC.BorrowPen();
+
+	if (_IUPC.CanBorrow())
 	{
-		cout << _Name.GetPalindrome();
+		cout << _IUPC.GetBorrowCTP();
 	}
 	else
 	{
-		cout << "I'm Sorry Hansoo";
+		cout << "STRESS";
 	}
 }
 
-void Name::SetName(string _Name)
+void IUPC::SetCTP(int _Num)
 {
-	m_Name = _Name;
+	m_CTP = _Num;
 }
 
-void Name::SetPalindrome()
+void IUPC::SetParticipent(int _Num)
 {
-	int odd_Count = 0;
-	
-	for (int i = 0; i < m_Name.length(); i++)
+	m_Participent = _Num;
+}
+
+void IUPC::SetCTPPen()
+{
+	m_CTPPen.assign(m_CTP, 0);
+	for (int i = 0; i < m_CTP; i++)
 	{
-		++m_Alpha[m_Name[i] - 'A'];
+		cin >> m_CTPPen[i];
 	}
+}
 
-	for (int i = 0; i < m_Alpha.size(); i++)
+void IUPC::SortCTPPen()
+{
+	sort(m_CTPPen.rbegin(), m_CTPPen.rend());
+}
+
+void IUPC::BorrowPen()
+{
+	int count = 0;
+	m_CanBorrow = false;
+	for (int i = 0; i < m_CTPPen.size(); i++)
 	{
-		if (m_Alpha[i] % 2 != 0)
+		count += m_CTPPen[i];
+		if (count >= m_Participent)
 		{
-			++odd_Count;
+			m_BorrowCTP = i + 1;
+			m_CanBorrow = true;
+			return;
 		}
-	}
-
-	if (odd_Count > 1)
-	{
-		m_IsPalindrome = false;
-	}
-	else
-	{
-		m_IsPalindrome = true;
-
-		string temp1 = "";
-		string temp2 = "";
-		char odd = ' ';
-		for (int i = 0; i < m_Alpha.size(); i++)
-		{
-			while (m_Alpha[i] > 0)
-			{
-				if (m_Alpha[i] % 2 == 0)
-				{
-					temp1 += 'A' + i;
-					temp2 += 'A' + i;
-					m_Alpha[i] -= 2;
-				}
-				else
-				{
-					odd = 'A' + i;
-					if (m_Alpha[i] != 1)
-					{
-						temp1 += 'A' + i;
-						temp2 += 'A' + i;
-						m_Alpha[i] -= 2;
-					}
-					else
-					{
-						--m_Alpha[i];
-					}
-				}
-			}
-		}
-
-		if (odd != ' ')
-		{
-			temp1 += odd;
-		}
-
-		reverse(temp2.begin(), temp2.end());
-		m_Palindrome = temp1 + temp2;
 	}
 }
