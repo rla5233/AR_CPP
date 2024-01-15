@@ -3,10 +3,14 @@
 
 class ConsoleObject
 {
+	friend class Enginecore;
+
 public:
 	ConsoleObject();
 	ConsoleObject(const int2& _StartPos, char _RenderChar);
-	~ConsoleObject();
+	
+	// ¼Ò¸êÀÚ virtual
+	virtual ~ConsoleObject();
 
 	inline int2 GetPos() const 
 	{ 
@@ -48,10 +52,21 @@ public:
 		return m_DestroyValue;
 	}
 
+	class EngineCore* GetCore()
+	{
+		return Core;
+	}
+
 private:
+	bool m_DestroyValue = false;
+
 	int2 m_Pos = { 0,0 };
 	char m_RenderChar = 'A';
 
-	bool m_DestroyValue = false;
+	class EngineCore* Core = nullptr;
+	void SetCore(EngineCore* _Core)
+	{
+		Core = _Core;
+	}
 };
 
