@@ -31,9 +31,10 @@ void Player::Update()
 		break;
 	case ' ':
 	{
-		Bullet * NewBullet = new Bullet();
-		NewBullet->SetPos({ GetPos().X, GetPos().Y });
-		m_AllObjectPtr->push_back(NewBullet);
+		Bullet* NewBullet = new Bullet();
+		NewBullet->SetPos(GetPos());
+		//m_AllObjectPtr->push_back(NewBullet);
+		(*m_AllObjectPtr)[ContentsObjectType::Bullet].push_back(NewBullet);
 		break;
 	}
 	case '0':

@@ -1,6 +1,9 @@
 #pragma once
 #include <My_ConsoleEngine/ConsoleObject.h>
-#include <vector>
+#include <list>
+#include <map>
+
+#include "ContentsEnum.h"
 
 class Player : public ConsoleObject
 {
@@ -10,7 +13,7 @@ public:
 		return m_IsEnd; 
 	}
 
-	void SetAllObject(std::vector<ConsoleObject*>* _AllObjectPtr)
+	void SetAllObject(std::map<ContentsObjectType, std::list<ConsoleObject*>>* _AllObjectPtr)
 	{
 		m_AllObjectPtr = _AllObjectPtr;
 	}
@@ -21,6 +24,6 @@ protected:
 private:
 	bool m_IsEnd = false;
 
-	std::vector<ConsoleObject*>* m_AllObjectPtr = nullptr;
+	std::map<ContentsObjectType, std::list<ConsoleObject*>>* m_AllObjectPtr = nullptr;
 };
 

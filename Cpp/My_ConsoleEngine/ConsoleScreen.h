@@ -2,6 +2,7 @@
 #include "EngineDebug.h"
 #include "ConsoleMath.h"
 #include <vector>
+#include <list>
 
 // 기존에는 화면의 크기를 정적바인딩으로 설정하였다.
 // 
