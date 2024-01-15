@@ -3,7 +3,7 @@
 
 class ConsoleObject
 {
-	friend class Enginecore;
+	friend class EngineCore;
 
 public:
 	ConsoleObject();

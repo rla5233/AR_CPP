@@ -58,6 +58,7 @@ public:
 protected:
 
 private:
+	// 렌더링과 업데이트를 나눔
 	std::map<int, std::list<ConsoleObject*>> m_AllUpdateObject;
 	std::map<int, std::list<ConsoleObject*>> m_AllRenderObject;
 	bool m_EngineUpdate = true;
