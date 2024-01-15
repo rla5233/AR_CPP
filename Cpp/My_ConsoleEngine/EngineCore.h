@@ -21,7 +21,7 @@ public:
 	ObjectType* CreateObject(EnumType _Order)
 	{
 		return CreateObject<ObjectType>(_Order, _Order);
-	}
+	}	 
 
 	// 오브젝트를 만들고 반환하는 템플릿 함수 (오버로딩) (업데이트와 렌더순서를 enum class 로 지정)
 	template<typename ObjectType, typename UpdateEnumType, typename RenderEnumType>
@@ -35,7 +35,8 @@ public:
 	{
 		ObjectType* NewObject = new ObjectType();
 
-		// 코어세팅(엔진의 기능을 사용하기 위해)
+		// 코어세팅(엔진의 제공하는 인터페이스를 사용하기 위해)
+		// 그러나 Core 세팅을 외부에 공개하면 안되기 때문에 EngineCore에서 해준다.
 		NewObject->ConsoleObject::SetCore(this);
 		m_AllUpdateObject[_UpdateOrder].push_back(NewObject);
 		m_AllRenderObject[_RenderOrder].push_back(NewObject);
