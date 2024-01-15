@@ -1,8 +1,15 @@
 #pragma once
 
-enum class ContentsObjectType
+enum class GalagaUpdateType
 {
-    Player,
-    Bullet,
+    Player, // = 0
+    Bullet, // = 1
     Monster,
+};
+
+enum class GalagaRenderType
+{
+    Monster,
+    Bullet,
+    Player,
 };

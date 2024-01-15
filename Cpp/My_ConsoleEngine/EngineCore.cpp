@@ -12,148 +12,142 @@ void EngineCore::Start()
 {
     while (m_EngineUpdate)
     {
-        // 밀리세컨드 단위
         Sleep(100);
 
-        // 업데이트
+        // map 과 enum class 를 이용해 ordering이 가능하다 player = 0, bullet = 1, monster = 2
         {
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderStartIter = m_AllUpdateObject.begin();
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderEndIter = m_AllUpdateObject.end();
+            std::map<int, std::list<ConsoleObject*>>::iterator Order_iter
+                = std::map<int, std::list<ConsoleObject*>>::iterator();
 
-            for (; OrderStartIter != OrderEndIter; ++OrderStartIter)
+            // 업데이트 구조
+            for (Order_iter = m_AllUpdateObject.begin(); Order_iter != m_AllUpdateObject.end(); ++Order_iter)
             {
-                std::list<ConsoleObject*>& ObjectList = OrderStartIter->second;
-
-                std::list<ConsoleObject*>::iterator StartIter = ObjectList.begin();
-                std::list<ConsoleObject*>::iterator EndIter = ObjectList.end();
-                for (; StartIter != EndIter; ++StartIter)
+                std::list<ConsoleObject*>& Object_List = Order_iter->second;
+                std::list<ConsoleObject*>::iterator Object_iter = std::list<ConsoleObject*>::iterator();
+                for (Object_iter = Object_List.begin(); Object_iter != Object_List.end(); ++Object_iter)
                 {
-                    ConsoleObject* Object = *StartIter;
+                    ConsoleObject* Object = *Object_iter;
 
-                    if (nullptr == Object)
+                    // list의 경우 nullptr 안해줘도 된다 그럼에도 nullptr
+                    // 문제가 발생한경우 매우 심각한 문제이므로 체크해준다.
+                    if (Object == nullptr)
                     {
-                        MsgBoxAssert("오브젝트가 nullptr인 경우가 존재합니다.");
+                        MsgBoxAssert("Update Object NULL Error.");
                     }
 
                     Object->Update();
                 }
             }
+
         }
 
-        // 랜더링
         {
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderStartIter = m_AllRenderObject.begin();
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderEndIter = m_AllRenderObject.end();
+            std::map<int, std::list<ConsoleObject*>>::iterator Order_iter
+                = std::map<int, std::list<ConsoleObject*>>::iterator();
 
-            for (; OrderStartIter != OrderEndIter; ++OrderStartIter)
+            // 렌더링 구조
+            for (Order_iter = m_AllRenderObject.begin(); Order_iter != m_AllRenderObject.end(); ++Order_iter)
             {
-                std::list<ConsoleObject*>& ObjectList = OrderStartIter->second;
-
-                std::list<ConsoleObject*>::iterator StartIter = ObjectList.begin();
-                std::list<ConsoleObject*>::iterator EndIter = ObjectList.end();
-                for (; StartIter != EndIter; ++StartIter)
+                std::list<ConsoleObject*>& Object_List = Order_iter->second;
+                std::list<ConsoleObject*>::iterator Object_iter = std::list<ConsoleObject*>::iterator();
+                for (Object_iter = Object_List.begin(); Object_iter != Object_List.end(); ++Object_iter)
                 {
-                    ConsoleObject* Object = *StartIter;
+                    ConsoleObject* Object = *Object_iter;
 
-                    if (nullptr == Object)
+                    if (Object == nullptr)
                     {
-                        MsgBoxAssert("오브젝트가 nullptr인 경우가 존재합니다.");
+                        MsgBoxAssert("Object NULL Error.");
                     }
 
                     m_Screen.SetChar(Object);
                 }
             }
+
+            m_Screen.PrintScreen();
         }
 
-        m_Screen.PrintScreen();
-
-
-        //// 랜더 릴리즈 구조
+        // 렌더 릴리즈 구조
         {
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderStartIter = m_AllRenderObject.begin();
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderEndIter = m_AllRenderObject.end();
+            std::map<int, std::list<ConsoleObject*>>::iterator Order_iter
+                = std::map<int, std::list<ConsoleObject*>>::iterator();
 
-            for (; OrderStartIter != OrderEndIter; ++OrderStartIter)
+            for (Order_iter = m_AllRenderObject.begin(); Order_iter != m_AllRenderObject.end(); ++Order_iter)
             {
-                std::list<ConsoleObject*>& ObjectList = OrderStartIter->second;
-
-                std::list<ConsoleObject*>::iterator StartIter = ObjectList.begin();
-                std::list<ConsoleObject*>::iterator EndIter = ObjectList.end();
-                // 리스트의 삭제 방식을 배우셔야 합니다.
-                for (; StartIter != EndIter; )
+                std::list<ConsoleObject*>& Object_List = Order_iter->second;
+                std::list<ConsoleObject*>::iterator Object_iter = std::list<ConsoleObject*>::iterator();
+               
+                for (Object_iter = Object_List.begin(); Object_iter != Object_List.end(); )
                 {
-                    ConsoleObject* Object = *StartIter;
-
-                    if (false == Object->IsPendingKill())
-                    {
-                        ++StartIter;
-                        continue;
-                    }
+                    ConsoleObject* Object = *Object_iter;
 
                     if (nullptr == Object)
                     {
-                        MsgBoxAssert("오브젝트가 nullptr인 경우가 존재합니다.");
+                        MsgBoxAssert("Render Release Nullptr Error.");
                     }
 
-                    // 노드를 지운것.
-                    StartIter = ObjectList.erase(StartIter);
+                    if (Object->IsPendingKill())
+                    {
+                        Object_iter = Object_List.erase(Object_iter);
+                    }
+                    else
+                    {
+                        ++Object_iter;
+                    }
                 }
             }
-        }
+        }        
 
-        //// 업데이트 릴리즈 구조
+        // 업데이트 릴리즈 구조
         {
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderStartIter = m_AllUpdateObject.begin();
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderEndIter = m_AllUpdateObject.end();
+            std::map<int, std::list<ConsoleObject*>>::iterator Order_iter
+                = std::map<int, std::list<ConsoleObject*>>::iterator();
 
-            for (; OrderStartIter != OrderEndIter; ++OrderStartIter)
+            for (Order_iter = m_AllUpdateObject.begin(); Order_iter != m_AllUpdateObject.end(); ++Order_iter)
             {
-                std::list<ConsoleObject*>& ObjectList = OrderStartIter->second;
-
-                std::list<ConsoleObject*>::iterator StartIter = ObjectList.begin();
-                std::list<ConsoleObject*>::iterator EndIter = ObjectList.end();
+                std::list<ConsoleObject*>& Object_List = Order_iter->second;
+                std::list<ConsoleObject*>::iterator Object_iter = std::list<ConsoleObject*>::iterator();
+               
                 // 리스트의 삭제 방식을 배우셔야 합니다.
-                for (; StartIter != EndIter; )
+                for (Object_iter = Object_List.begin(); Object_iter != Object_List.end(); )
                 {
-                    ConsoleObject* Object = *StartIter;
-
-                    if (false == Object->IsPendingKill())
-                    {
-                        ++StartIter;
-                        continue;
-                    }
+                    ConsoleObject* Object = *Object_iter;
 
                     if (nullptr == Object)
                     {
-                        MsgBoxAssert("오브젝트가 nullptr인 경우가 존재합니다.");
+                        MsgBoxAssert("U Release Nullptr Error.");
                     }
 
-                    delete Object;
-                    Object = nullptr;
+                    if (Object->IsPendingKill())
+                    {
+                        delete Object;
+                        Object = nullptr;
 
-                    // 노드를 지운것.
-                    StartIter = ObjectList.erase(StartIter);
+                        Object_iter = Object_List.erase(Object_iter);
+                    }
+                    else
+                    {
+                        ++Object_iter;
+                    }
                 }
             }
         }
     }
 
+    // 동적 할당 메모리 해제
     {
         {
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderStartIter = m_AllUpdateObject.begin();
-            std::map<int, std::list<ConsoleObject*>>::iterator OrderEndIter = m_AllUpdateObject.end();
+            std::map<int, std::list<ConsoleObject*>>::iterator Order_iter
+                = std::map<int, std::list<ConsoleObject*>>::iterator();
 
-            for (; OrderStartIter != OrderEndIter; ++OrderStartIter)
+            for (Order_iter = m_AllUpdateObject.begin(); Order_iter != m_AllUpdateObject.end(); ++Order_iter)
             {
-                std::list<ConsoleObject*>& ObjectList = OrderStartIter->second;
-
-                std::list<ConsoleObject*>::iterator StartIter = ObjectList.begin();
-                std::list<ConsoleObject*>::iterator EndIter = ObjectList.end();
-                // 리스트의 삭제 방식을 배우셔야 합니다.
-                for (; StartIter != EndIter; ++StartIter)
+                std::list<ConsoleObject*>& Object_List = Order_iter->second;
+                std::list<ConsoleObject*>::iterator Object_iter = std::list<ConsoleObject*>::iterator();
+                for (Object_iter = Object_List.begin(); Object_iter != Object_List.end(); ++Object_iter)
                 {
-                    ConsoleObject* Object = *StartIter;
-                    if (nullptr != Object)
+                    ConsoleObject* Object = *Object_iter;
+
+                    if (Object != nullptr)
                     {
                         delete Object;
                         Object = nullptr;
@@ -161,6 +155,7 @@ void EngineCore::Start()
                 }
             }
         }
+
         m_AllUpdateObject.clear();
     }
 }

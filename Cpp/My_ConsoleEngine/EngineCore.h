@@ -35,7 +35,7 @@ public:
 	{
 		ObjectType* NewObject = new ObjectType();
 
-		// 코어세팅(충돌 확인을 위해 ConsoleObject 클래스에서 m_AllUpdateObject 확인하기 위해)
+		// 코어세팅(엔진의 기능을 사용하기 위해)
 		NewObject->ConsoleObject::SetCore(this);
 		m_AllUpdateObject[_UpdateOrder].push_back(NewObject);
 		m_AllRenderObject[_RenderOrder].push_back(NewObject);
