@@ -57,6 +57,15 @@ public:
 		return Core;
 	}
 
+	template<typename EnumType>
+	ConsoleObject* Collision(EnumType _UpdateOrder)
+	{
+		return Collision(static_cast<int>(_UpdateOrder));
+	}
+
+	// 나랑 충돌한 오브젝트
+	ConsoleObject* Collision(int _UpdateOrder);
+
 private:
 	bool m_DestroyValue = false;
 

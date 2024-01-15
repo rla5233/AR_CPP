@@ -54,6 +54,8 @@ public:
 	{
 		return m_AllUpdateObject[_Order];
 	}
+	
+protected:
 
 private:
 	std::map<int, std::list<ConsoleObject*>> m_AllUpdateObject;

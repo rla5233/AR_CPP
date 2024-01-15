@@ -3,12 +3,10 @@
 #include <My_ConsoleEngine/EngineDebug.h>
 #include <My_ConsoleEngine/EngineCore.h>
 
+#include "ContentsEnum.h"
 #include "Player.h"
 #include "Bullet.h"
 #include "Monster.h"
-
-#include "ContentsEnum.h"
-#include "map"
 
 
 int main()  

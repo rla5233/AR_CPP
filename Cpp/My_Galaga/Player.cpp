@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "Bullet.h"
+#include "ContentsEnum.h"
 
+#include <My_ConsoleEngine/EngineCore.h>
 #include <conio.h>
 
 void Player::Update()
@@ -31,14 +33,12 @@ void Player::Update()
 		break;
 	case ' ':
 	{
-		Bullet* NewBullet = new Bullet();
+		Bullet* NewBullet = GetCore()->CreateObject<Bullet>(GalagaUpdateType::Bullet, GalagaRenderType::Bullet);
 		NewBullet->SetPos(GetPos());
-		//m_AllObjectPtr->push_back(NewBullet);
-		(*m_AllObjectPtr)[ContentsObjectType::Bullet].push_back(NewBullet);
 		break;
 	}
 	case '0':
-		m_IsEnd = true;
+		GetCore()->EngineEnd();
 		break;
 	default:
 		break;

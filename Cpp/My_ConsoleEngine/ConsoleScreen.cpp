@@ -51,30 +51,11 @@ void ConsoleScreen::CreateScreen(int _ScreenX, int _ScreenY)
 	}
 
 	ClearScreen();
-
-	// 함수가 실행되면 스택에 그 함수 이름의 메모리를 그리면
-	// 맴버함수는 실행되면 내부에 this가 있다는것을 기억해야 한다.
 }
 
 void ConsoleScreen::ReleaseScreen()
 {
-	// 지울 때는 역순으로 지운다.
 	m_ScreenData.clear();
-
-	//for (int y = 0; y < m_ScreenY; y++)
-	//{
-	//	if (m_ScreenData[y] != nullptr)
-	//	{
-	//		delete[] m_ScreenData[y];
-	//		m_ScreenData[y] = nullptr;
-	//	}
-	//}
-	//
-	//if (m_ScreenData != nullptr)
-	//{
-	//	delete m_ScreenData;
-	//	m_ScreenData = nullptr;
-	//}
 }
 
 void ConsoleScreen::SetChar(const ConsoleObject& _Object)
