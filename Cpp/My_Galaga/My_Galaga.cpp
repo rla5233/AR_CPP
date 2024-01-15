@@ -23,12 +23,13 @@ int main()
 
     // 몬스터 설정
     {
-        const int MonsterCount = Engine.m_Screen.GetScreenX() / 2;
+        const int MonsterCount = 5;
         for (int i = 0; i < MonsterCount; i++)
         {
             Monster* NewObject = Engine.CreateObject<Monster>(GalagaUpdateType::Monster, GalagaRenderType::Monster);
             NewObject->SetPos({ i, 0 });
             NewObject->SetRenderChar('@');
+            NewObject->SetXGroupSize(MonsterCount);
         }
     }
 
