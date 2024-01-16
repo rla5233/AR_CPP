@@ -7,6 +7,11 @@
 
 void Player::Update()
 {
+	// 몬스터 확인
+	// 엔진에서 값으로 가져오기 (깊은 복사) 가장 느린 방법이지만 직관적이다.
+	std::list<ConsoleObject*> MonsterList = GetCore()->GetUpdateGroup(GalagaUpdateType::Monster);
+
+
 	if (!_kbhit())
 	{
 		return;

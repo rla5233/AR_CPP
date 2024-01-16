@@ -48,12 +48,19 @@ public:
 		m_EngineUpdate = false;
 	}
 
-	// UpdateGroup 리스트를 가져오는 기능
-	// 함수 friend 이용하거나 값을 반환하는 함수를 사용해야함 -> 클라에서는 원본에 접근할 수 없게 하기 위해
+	// UpdateGroup 리스트를 가져오는(깊은 복사) 기능
+	// 엔진내부에서는 friend 이용하거나 
+	// 클라에서 사용하려면 값을 반환하는 함수를 사용해야함 -> 원본에 접근할 수 없게 하기 위해
 	// 보통 엄청 무거운 함수가 된다.
 	std::list<ConsoleObject*> GetUpdateGroup(int _Order)
 	{
 		return m_AllUpdateObject[_Order];
+	}
+
+	template<typename EnumType>
+	std::list<ConsoleObject*> GetUpdateGroup(EnumType _Order)
+	{
+		return GetUpdateGroup(static_cast<int>(_Order));
 	}
 	
 protected:
