@@ -18,9 +18,9 @@ private:
 	int m_MoveCount = 0;
 	int m_XGroupSize = 0;
 
-	int m_MoveDelay = 1;
+	int m_MoveDelay = 2;
 	int m_MoveTime = 0;
 
-	int2 m_MoveDir = { 0, 0 };
+	int2 m_MoveDir = Right;
 };
 
