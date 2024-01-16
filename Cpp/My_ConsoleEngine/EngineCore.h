@@ -66,6 +66,9 @@ public:
 protected:
 
 private:
+	// 관리감독 기능들
+	std::map<int, ConsoleUpdater*> m_AllManger;
+
 	// 렌더링과 업데이트를 나눔
 	std::map<int, std::list<ConsoleObject*>> m_AllUpdateObject;
 	std::map<int, std::list<ConsoleObject*>> m_AllRenderObject;

@@ -140,6 +140,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Body.cpp" />
+    <ClCompile Include="BodyManager.cpp" />
     <ClCompile Include="Head.cpp" />
     <ClCompile Include="My_SnakeGame.cpp" />
     <ClCompile Include="Part.cpp" />
@@ -151,6 +152,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Body.h" />
+    <ClInclude Include="BodyManager.h" />
     <ClInclude Include="Head.h" />
     <ClInclude Include="Part.h" />
   </ItemGroup>

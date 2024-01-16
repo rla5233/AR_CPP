@@ -1,7 +1,8 @@
 #pragma once
 #include "ConsoleMath.h"
+#include "ConsoleUpdater.h"
 
-class ConsoleObject
+class ConsoleObject : public ConsoleUpdater
 {
 	friend class EngineCore;
 

@@ -12,12 +12,12 @@ public:
 		Y = _Other.Y;
 	}
 
-	bool operator==(const int2& _Other)
+	bool operator==(const int2& _Other) const
 	{
 		return X == _Other.X && Y ==_Other.Y;
 	}
 
-	bool operator!=(const int2& _Other)
+	bool operator!=(const int2& _Other) const 
 	{
 		return X != _Other.X || Y != _Other.Y;
 	}
