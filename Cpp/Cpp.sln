@@ -223,6 +223,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "My_SnakeGame", "My_SnakeGam
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "081_DefaultParameter", "081_DefaultParameter\081_DefaultParameter.vcxproj", "{F93FD438-7577-44DB-A2F7-3CF3301E78AE}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "082_StaticMember", "082_StaticMember\082_StaticMember.vcxproj", "{AF087738-A18E-4FA7-B80E-BA3AC3663421}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -1015,6 +1017,14 @@ Global
 		{F93FD438-7577-44DB-A2F7-3CF3301E78AE}.Release|x64.Build.0 = Release|x64
 		{F93FD438-7577-44DB-A2F7-3CF3301E78AE}.Release|x86.ActiveCfg = Release|Win32
 		{F93FD438-7577-44DB-A2F7-3CF3301E78AE}.Release|x86.Build.0 = Release|Win32
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Debug|x64.ActiveCfg = Debug|x64
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Debug|x64.Build.0 = Debug|x64
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Debug|x86.ActiveCfg = Debug|Win32
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Debug|x86.Build.0 = Debug|Win32
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Release|x64.ActiveCfg = Release|x64
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Release|x64.Build.0 = Release|x64
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Release|x86.ActiveCfg = Release|Win32
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -1118,6 +1128,7 @@ Global
 		{8FA215BB-980B-4D24-98F4-FD7EAE2B0D83} = {DCF3AAFB-0876-494E-B804-AE5610B9B4B0}
 		{BD51550B-D7C3-42BF-85E9-536ED6BCAC69} = {E447D7D5-5BE9-4856-BA2B-02E5CDF563DE}
 		{F93FD438-7577-44DB-A2F7-3CF3301E78AE} = {DCF3AAFB-0876-494E-B804-AE5610B9B4B0}
+		{AF087738-A18E-4FA7-B80E-BA3AC3663421} = {DCF3AAFB-0876-494E-B804-AE5610B9B4B0}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {363FF8B0-F0BA-49C2-9185-6B26B67E97FE}
