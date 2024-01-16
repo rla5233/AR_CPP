@@ -1,28 +1,26 @@
 ﻿#include <iostream>
 #include <algorithm>
 #include <string>
-using namespace std;
 
-// 1543
+// 5988
 int main()
 {
 	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
-	string doc = "", find = "";
-	getline(cin, doc);
-	getline(cin, find);
+	int N = 0;
+	std::cin >> N;
 
-	int count = 0, idx = 0;
-	while (true)
+	for (int i = 0; i < N; i++)
 	{
-		if (doc.find(find, idx) != string::npos)
+		std::string Num = "";
+		std::cin >> Num;
+
+		if ((Num[Num.length() - 1] - '0') % 2 == 0)
 		{
-			idx = static_cast<int>(doc.find(find, idx) + find.length());
-			++count;
+			std::cout << "even\n";
 		}
 		else
 		{
-			cout << count;
-			break;
+			std::cout << "odd\n";
 		}
 	}
 
