@@ -1,27 +1,28 @@
 ﻿#include <iostream>
-#include <algorithm>
-#include <string>
+#include <vector>
 
-// 5988
+// 11441
 int main()
 {
-	//ios_base::sync_with_stdio(false); cin.tie(NULL); cout.tie(NULL);
+	std::ios_base::sync_with_stdio(false); std::cin.tie(NULL); std::cout.tie(NULL);
 	int N = 0;
 	std::cin >> N;
 
+	int num = 0;
+	std::vector<int> PSum(N + 1, 0);
 	for (int i = 0; i < N; i++)
 	{
-		std::string Num = "";
-		std::cin >> Num;
+		std::cin >> num;
+		PSum[i + 1] = PSum[i] + num;
+	}
 
-		if ((Num[Num.length() - 1] - '0') % 2 == 0)
-		{
-			std::cout << "even\n";
-		}
-		else
-		{
-			std::cout << "odd\n";
-		}
+	int M = 0;
+	std::cin >> M;
+	for (int i = 0; i < M; i++)
+	{
+		int begin = 0, end = 0;
+		std::cin >> begin >> end;
+		std::cout << PSum[end] - PSum[begin - 1] << "\n";
 	}
 
 	return 0;
