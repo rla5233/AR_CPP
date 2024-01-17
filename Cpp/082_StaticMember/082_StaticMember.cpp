@@ -26,6 +26,7 @@ public:
 private:
 	// 다른 객체가 접근 못하게 private
 	static int Static_MonsterCount; // 선언
+
 };
 
 int Monster::Static_MonsterCount = 0; // 구현
