@@ -12,15 +12,34 @@ public:
 		Y = _Other.Y;
 	}
 
-	bool operator==(const int2& _Other)
+	bool operator==(const int2& _Other) const
 	{
 		return X == _Other.X && Y ==_Other.Y;
+	}
+
+	bool operator!=(const int2& _Other) const 
+	{
+		return X != _Other.X || Y != _Other.Y;
 	}
 
 	int2 operator+(const int2& _Other)
 	{
 		return { X + _Other.X, Y + _Other.Y };
 	}
+
+	///
+	int2 operator*(const int _Value)
+	{
+		return int2{ X * _Value, Y * _Value };
+	}
+
+	int2& operator*=(const int _Value)
+	{
+		X *= _Value;
+		Y *= _Value;
+		return (*this);
+	}
+	///
 
 	void operator+=(const int2& _Other)
 	{

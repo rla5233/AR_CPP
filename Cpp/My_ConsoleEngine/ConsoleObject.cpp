@@ -19,7 +19,9 @@ ConsoleObject::~ConsoleObject()
 
 ConsoleObject* ConsoleObject::Collision(int _UpdateOrder)
 {
+	// 엔진 내부이므로 속도를 위해 참조를 이용
 	std::list<ConsoleObject*>& Object_List = GetCore()->m_AllUpdateObject[_UpdateOrder];
+
 	std::list<ConsoleObject*>::iterator Object_iter = std::list<ConsoleObject*>::iterator();
 	for (Object_iter = Object_List.begin(); Object_iter != Object_List.end(); ++Object_iter)
 	{

@@ -11,26 +11,20 @@ void Monster::Move()
 
 	if (m_MoveCount < MoveX)
 	{
-		m_MoveDir = Right;
+		AddPos(m_MoveDir);
+		++m_MoveCount;
 	}
-
-	if (m_MoveCount > MoveX)
+	else
 	{
-		m_MoveDir = Left;
-	}
-
-	if (m_MoveCount == MoveX || m_MoveCount == 2 * MoveX + 1)
-	{
-		m_MoveDir = Down;
+		AddPos(Down);
+		m_MoveDir.X *= -1;
+		m_MoveCount = 0;
 	}
 
 	if (GetPos().Y >= MoveY)
 	{
 		GetCore()->EngineEnd();
 	}
-
-	AddPos(m_MoveDir);
-	m_MoveCount = (m_MoveCount + 1) % (MoveX * 2 + 2);
 }
 
 void Monster::Update()
