@@ -15,6 +15,11 @@ public:
 	// static 멤버함수 -> 객체를 만들필요 없이 호출가능
 	static int /*Monster::*/GetMonsterCount()
 	{
+		// static 멤버함수는 객체없이 호출이 가능하다.
+		// 따라서 this 가 없다.
+		// -> 일반적인 멤버변수를 사용할 수 없다.
+		//Hp = 100;
+
 		return Static_MonsterCount;
 	}
 
@@ -26,7 +31,7 @@ public:
 private:
 	// 다른 객체가 접근 못하게 private
 	static int Static_MonsterCount; // 선언
-
+	int Hp = 100;
 };
 
 int Monster::Static_MonsterCount = 0; // 구현
