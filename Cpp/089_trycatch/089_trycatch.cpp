@@ -3,12 +3,12 @@
 
 #include <iostream>
 
-// throw : trycatch 문으로 던져버린다.
+// throw : catch 문으로 던져버린다.
 void Function2() throw(int) // 생략 가능
 {
 	int* Ptr = nullptr;
 	
-	if (nullptr == Ptr)
+	if (nullptr != Ptr)
 	{
 		throw 0;
 	}
@@ -25,6 +25,9 @@ void Function1() noexcept // 예외를 바깥으로 넘기지 않는다.
 
 void Function() 
 {
+	// 최신 문법
+	
+	// trycatch
 	// 심각한 오류가 나도 일단 넘겨라.
 	// 예외처리할 구문을 받아 줘야한다.
 	// 수업에선 잘 사용하지 않을것이나
@@ -33,8 +36,6 @@ void Function()
 	{
 		// 예외처리할 코드를 넣는다.
 		Function1();
-
-
 	}
 	catch (int Exp)
 	{
