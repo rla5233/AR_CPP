@@ -4,13 +4,24 @@
 #include <iostream>
 
 // throw : catch 문으로 던져버린다.
-void Function2() throw(int) // 생략 가능
+void Function2() throw(int, bool, const char*) // 생략 가능
 {
 	int* Ptr = nullptr;
 	
 	if (nullptr != Ptr)
 	{
-		throw 0;
+		throw 10;
+	}
+
+	if (nullptr != Ptr)
+	{
+		throw true;
+	}
+
+	if (nullptr == Ptr)
+	{
+		// 바깥쪽에서 받아주지 않으면 아래의 코드가 실행된다.
+		throw "nullptr";
 	}
 
 	*Ptr = 100;
@@ -18,7 +29,7 @@ void Function2() throw(int) // 생략 가능
 	throw true;
 }
 
-void Function1() noexcept // 예외를 바깥으로 넘기지 않는다.
+void Function1() throw(int, bool) // noexcept // 예외를 바깥으로 넘기지 않는다.
 {
 	Function2();
 }
@@ -45,6 +56,10 @@ void Function()
 	{
 		std::cout << "bool 예외" << std::endl;
 	}
+	//catch (const char* Exp)
+	//{
+	//    std::cout << Exp << std::endl;
+	//}
 }
 
 
